@@ -1,0 +1,8 @@
+@import '../../variable.scss';
+
+.navbar-container{
+  margin-bottom: -10px;
+  @media only screen and (max-width: $xl) {
+    margin-bottom: 0;
+  }
+}

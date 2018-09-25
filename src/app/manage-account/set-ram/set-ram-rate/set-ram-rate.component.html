@@ -1,0 +1,35 @@
+<h3 class="header" [ngClass]="{'top-padding': !loginService.loggedIn()}">{{'set-ram-rate.ram-rate-title' | translate}}</h3>
+  <form (ngSubmit)="t.form.valid && onSubmit()" #t="ngForm">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-12 item-form last-item">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="{{'set-ram-rate.rate-placeholder' | translate}}"
+                  type="number" class="font-weight-bold" id="ramSize" required
+                  min="0" step="1024"
+                  [(ngModel)]="model.ramSize" name="ramSize"
+                  [disabled]="!loginService.loggedIn()"
+                  #ramSizeInput="ngModel">
+          <mat-error *ngIf="ramSizeInput.errors?.required">{{'set-ram-rate.ram-rate' | translate}} {{'error.is-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    <div class="col-lg-4 col-md-4 col-12 item-form last-item">
+      <mat-form-field class="mw-100 w-100">
+        <mat-select class="font-weight-bold" [(ngModel)]="model.ramSizeUnit"
+                    name="ramSizeUnit" required #ramSizeUnitSelect="ngModel"
+                    [disabled]="!loginService.loggedIn()">
+          <mat-option *ngFor="let unitRam of modelUnitRam" [value]="unitRam">
+            {{Unit[unitRam]}}
+          </mat-option>
+        <mat-error *ngIf="ramSizeUnitSelect.errors?.required">{{'set-ram-rate.ram-rate-unit'}} {{'error.is-required'}}</mat-error>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="button-container">
+    <button
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      id="submit" class="submit" type="submit"
+      mat-raised-button color="primary" on>{{'buttons.ram-rate'}}</button>
+  </div>
+</form>

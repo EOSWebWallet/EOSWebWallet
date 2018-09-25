@@ -1,0 +1,9 @@
+<div [ngClass]="{'main-container': true, 'page-container': loginService.loggedIn(), 'one-container': !loginService.loggedIn()}">
+  <div [ngClass]="{'window-container shadow-container': true, 'one-container': !loginService.loggedIn()}">
+    <app-contracts-navbar></app-contracts-navbar>
+    <div class="top-padding">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <app-side-bar class="side-bar" *ngIf="loginService.loggedIn()"></app-side-bar>
+</div>

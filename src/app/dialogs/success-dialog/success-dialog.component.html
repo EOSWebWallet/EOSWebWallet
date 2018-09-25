@@ -1,0 +1,14 @@
+    <div mat-dialog-content class="dialog-content">
+      <img src="../assets/images/success.png" />
+      <br />
+      <h3 id="success-title">{{'dialogs.success' | translate}}</h3>
+      <p>{{data.message}}</p>
+    </div>
+
+    <div mat-dialog-actions class="dialog-actions mt-3">
+        <button mat-button mat-dialog-close color="primary" (click)="close()" class="go-back mx-auto">
+          {{'dialogs.go-back' | translate}}
+        </button>  
+    </div> 
+
+

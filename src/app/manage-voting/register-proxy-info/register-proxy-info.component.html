@@ -1,0 +1,107 @@
+<div class="register-proxy-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">
+  <div class="title">
+    <div>
+      <h3 class="header">{{'manage-voting.register-proxy-info' | translate}}</h3>
+    </div>
+  </div>
+
+  <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+    <div class="row">
+      <div class="form-group col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="proxyAccount"
+            placeholder="{{'manage-voting.proxy-account' | translate}}" maxlength="12"
+            [disabled]="!loginService.loggedIn()" required
+            [(ngModel)]="model.proxy" name="proxy" #proxy="ngModel">
+            <mat-error *ngIf="proxy.errors?.required">{{'manage-voting.proxy-is-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" maxlength="12"
+            id="proxyName" placeholder="{{'manage-voting.proxy-name' | translate}}"
+            [disabled]="!loginService.loggedIn()" required
+            [(ngModel)]="model.name" name="proxyName" #proxyName="ngModel">
+            <mat-error *ngIf="proxyName.errors?.required">{{'manage-voting.proxy-name-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="loginService.loggedIn()" class="form-group">
+      <mat-form-field class="full-width item-form last-item">
+        <input matInput type="text" id="slogan"
+          placeholder="{{'manage-voting.slogan' | translate}}"
+          [(ngModel)]="model.slogan" name="slogan">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="full-width text-area item-form unpading-item">
+        <textarea matInput placeholder="{{'manage-voting.philosophy' | translate}}"
+          [disabled]="!loginService.loggedIn()"
+          [(ngModel)]="model.philosophy" name="philosophy"
+          [ngClass]="{'textarea-height-200': loginService.loggedIn()}"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="full-width text-area item-form last-item">
+        <textarea matInput type="text" placeholder="{{'manage-voting.background' | translate}}"
+          [disabled]="!loginService.loggedIn()"
+          [(ngModel)]="model.background" name="background"
+          [ngClass]="{'textarea-height-200': loginService.loggedIn()}"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="loginService.loggedIn()" class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="logo_256" placeholder="{{'manage-voting.logo' | translate}}"
+            [(ngModel)]="model.logo_256" name="logo_256">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="telegram" placeholder="{{'manage-voting.telegram' | translate}}"
+            [(ngModel)]="model.telegram" name="telegram">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="loginService.loggedIn()" class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="twitter" placeholder="{{'manage-voting.twitter' | translate}}"
+            [(ngModel)]="model.twitter" name="twitter">
+          </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="steemit" placeholder="{{'manage-voting.steemit' | translate}}"
+            [(ngModel)]="model.steemit" name="steemit">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="loginService.loggedIn()" class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="website" placeholder="{{'manage-voting.website' | translate}}"
+            [(ngModel)]="model.website" name="website">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="wechat" placeholder="{{'manage-voting.weChat' | translate}}"
+            [(ngModel)]="model.wechat" name="wechat">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit"
+              class="submit" id="submit"
+              [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.register' | translate}}</button>
+    </div>
+  </form>
+</div>

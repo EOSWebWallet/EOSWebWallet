@@ -1,0 +1,208 @@
+{
+    "typeInput": ["string", "number", "bool"],
+	"types": [
+        {
+            "name": "exampleString",
+            "type": "string",
+            "minlength": 12,
+            "maxlength": 12
+        },
+        {
+            "name": "exampleNumber",
+            "type": "number",
+            "min": 0,
+            "max": 12,
+            "step": 0.1
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "maxlength": 12
+        },
+        {
+            "name": "asset",
+            "type": "string"
+        },
+        {
+            "name": "checksum160",
+            "type": "string"
+        },
+        {
+            "name": "checksum256",
+            "type": "string"
+        },
+        {
+            "name": "checksum512",
+            "type": "string"
+        },
+        {
+            "name": "signature",
+            "type": "string"
+        },
+        {
+            "name": "public_key",
+            "type": "string",
+            "maxlength": 53,
+            "minLength": 53
+        },
+        {
+            "name": "message_type",
+            "type": "string"
+        },
+        {
+            "name": "symbol",
+            "type": "string"
+        },
+        {
+            "name": "symbol_code",
+            "type": "string"
+        },
+        {
+            "name": "field_name",
+            "type": "string"
+        },
+        {
+            "name": "account_name",
+            "type": "string"
+        },
+        {
+            "name": "permission_name",
+            "type": "string"
+        },
+        {
+            "name": "type_name",
+            "type": "string"
+        },
+        {
+            "name": "token_name",
+            "type": "string"
+        },
+        {
+            "name": "table_name",
+            "type": "string"
+        },
+        {
+            "name": "scope_name",
+            "type": "string"
+        },
+        {
+            "name": "action_name",
+            "type": "string"
+        },
+        {
+            "name": "time_point",
+            "type": "number"
+        },
+        {
+            "name": "time_point_sec",
+            "type": "number"
+        },
+        {
+            "name": "timestamp",
+            "type": "number",
+            "min": 0
+        },
+        {
+            "name": "block_timestamp_type",
+            "type": "number",
+            "min": 0
+        },
+        {
+            "name": "block_id",
+            "type": "string"
+        },
+        {
+            "name": "checksum_type",
+            "type": "string"
+        },
+        {
+            "name": "checksum256_type",
+            "type": "string"
+        },
+        {
+            "name": "checksum512_type",
+            "type": "string"
+        },
+        {
+            "name": "checksum160_type",
+            "type": "string"
+        },
+        {
+            "name": "sha256",
+            "type": "string"
+        },
+        {
+            "name": "sha512",
+            "type": "string"
+        },
+        {
+            "name": "sha512",
+            "type": "string"
+        },
+        {
+            "name": "sha160",
+            "type": "string"
+        },
+        {
+            "name": "weight_type",
+            "type": "number"
+        },
+        {
+            "name": "block_num_type",
+            "type": "number"
+        },
+        {
+            "name": "share_type",
+            "type": "number"
+        },
+        {
+            "name": "digest_type",
+            "type": "number"
+        },
+        {
+            "name": "context_free_type",
+            "type": "number"
+        },
+        {
+            "name": "unsigned_int",
+            "type": "number"
+        },
+        {
+            "name": "bytes",
+            "type": "number"
+        },
+        {
+            "name": "uint16",
+            "type": "number",
+            "min": 0
+        },
+        {
+            "name": "uint32",
+            "type": "number",
+            "min": 0
+        },
+        {
+            "name": "uint64",
+            "type": "number",
+            "min": 0            
+        },
+
+
+
+        {
+            "name": "bool",
+            "type": "bool"
+        },
+        {
+            "name": "number",
+            "type": "number"
+        },
+        {
+            "name": "string",
+            "type": "string"
+        }
+    ],
+    "defaultType": {
+        "type": "string"
+    }
+}

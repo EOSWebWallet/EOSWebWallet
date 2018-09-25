@@ -1,0 +1,20 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.set-global-limits' | translate}}</h3>
+  </div>
+</div>
+
+<form (ngSubmit)="f.form.valid && setGlobalLimits()" #f="ngForm">
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput type="number" name="cpu_usec_per_period" required
+      [(ngModel)]="cpu" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.cpu-usage' | translate}}  {{'other.per-period' | translate}}" #cpufield="ngModel">
+      <mat-error *ngIf="cpufield.errors?.required">{{'other.cpu-usage-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked() ">{{'buttons.set' | translate}}</button>
+  </div>
+</form>

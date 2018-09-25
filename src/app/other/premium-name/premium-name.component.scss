@@ -1,0 +1,17 @@
+@import '../../../variable.scss';
+
+.text-link{
+    padding-top: $block_m_h;
+}
+
+@media screen and (max-width: $xl){
+    .text-link{
+        padding-top: $block_m_h_lg;
+    }
+}
+
+@media screen and (max-width: $lg){
+    .text-link{
+        padding-top: $block_m_h_md;
+    }
+}

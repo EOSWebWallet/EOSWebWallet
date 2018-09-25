@@ -1,0 +1,15 @@
+@import '../dialog.styles.scss';
+
+$grey-color: #9cbdba;
+
+.go-back {
+    background-color: $grey-color;
+}
+
+#sending-title {
+    color:$grey-color;
+}
+
+button:focus {
+    outline: 5px $grey-color;
+}

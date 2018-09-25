@@ -1,0 +1,29 @@
+@import '../../variable.scss';
+
+$button-text-color: $white;
+
+.go-back {
+    color: $button-text-color;
+}
+
+.dialog-content {
+    min-width: 200px;
+    text-align: center;
+}
+
+.dialog-actions {
+    max-height: 85vh;
+    min-width: 200px;
+    text-align: center;
+}
+
+#text-title {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: $sm + 1){
+    .dialog-content{
+        max-width: 50vw;
+    }
+}

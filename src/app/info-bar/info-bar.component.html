@@ -1,0 +1,67 @@
+<div class="page-container">
+  <div class="info-bar shadow-container">
+    <h4 class="info-bar-title">{{info.accountInfo?.account_name?.toUpperCase()}}</h4>
+    <div class="info-line">
+      <div class="info-item-wrapp">
+        <div class="info-item">
+          <span class="info-title">{{'info-bar.total-balance'| translate}}:</span>
+          {{info.accountInfo?.total_balance}} {{'info-bar.eos'| translate}} / <font style="color: #8e8e8e"> {{info.exUsdTotal| number}} USD </font>
+        </div>
+        <div class="info-item">
+          <span class="info-title">{{'info-bar.unstaked'| translate}}:</span>
+          {{info.accountInfo?.core_liquid_balance}}
+        </div>
+        <div class="info-item">
+          <span class="info-title">{{'info-bar.staked'| translate}}:</span>
+          {{info.accountInfo?.voter_info?.staked}} {{'info-bar.eos'| translate}}
+        </div>
+      </div>
+      <div class="parametr-item-wrapp">
+        <div class="parametr-item">
+          <div class="row mb-2">
+            <div class="col-1 text-left">
+              {{'info-bar.cpu'| translate}}
+            </div>
+            <div class="col-10 text-right">
+              <b>{{info.accountInfo?.cpu_used_sec}}</b> / {{info.accountInfo?.cpu_max_sec}} <b> {{'info-bar.sec'| translate}}</b>
+            </div>
+          </div>
+          <div class="row pl-3 pr-3">
+            <mat-progress-bar class="CPU" mode="determinate" value={{info.cpuPercent}}></mat-progress-bar>
+          </div>
+        </div>
+        <div class="parametr-item">
+          <div class="row mb-2">
+            <div class="col-1 text-left">
+              {{'info-bar.net'| translate}}
+            </div>
+            <div class="col-10 text-right">
+              <b>{{info.accountInfo?.net_used_kb}}</b> / {{info.accountInfo?.net_max_kb}} <b> {{'info-bar.kb'| translate}}</b>
+            </div>
+          </div>
+          <div class="row pl-3 pr-3">
+            <mat-progress-bar class="NET" mode="determinate" value={{info.netPercent}}></mat-progress-bar>
+          </div>
+        </div>
+        <div class="parametr-item">
+          <div class="row mb-2">
+            <div class="col-1 text-left">
+              {{'info-bar.ram'| translate}}
+            </div>
+            <div class="col-10 text-right">
+              <b>{{info.accountInfo?.ram_used_kb}}</b> / {{info.accountInfo?.ram_max_kb}} <b> {{'info-bar.kb'| translate}}</b>
+            </div>
+          </div>
+          <div class="row pl-3 pr-3">
+            <mat-progress-bar class="RAM" mode="determinate" [value]="info.ramPercent"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row ml-0 mr-0 info-line tokens">
+      <span class="info-title">{{'info-bar.tokens'| translate}}: </span><span class="value">{{info.tokenString}}</span>
+    </div>
+  </div>
+</div>

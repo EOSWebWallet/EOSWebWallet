@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="title">
+    <div>
+      <h3 class="header">{{'buy-sell-ram.buy-ram' | translate}}</h3>
+    </div>
+  </div>
+  <form (ngSubmit)="y.form.valid && onSubmitBuy()" #y="ngForm">
+    <div class="form-group">
+      <div class="row d-block item-form card-item">
+        <app-unchanged-field childMessage="{{'common.payer' | translate}}"> </app-unchanged-field>
+      </div>
+      <div class="row item-form">
+        <mat-form-field class="full-width">
+          <input md-no-asterisk  matInput placeholder="{{'buy-sell-ram.receiver-account-name' | translate}}"
+                 type="text" class="font-weight-bold text-color-blue" id="recipient" name="recipient"
+                 [(ngModel)]="modelBuy.recipient"
+                  minlength="12" maxlength="12" required
+                 [disabled]="!loginService.loggedIn()"
+                 #recipient="ngModel">
+          <mat-error *ngIf="recipient.errors?.required">{{'buy-sell-ram.receiver-is-required' | translate}}</mat-error>
+          <mat-error *ngIf="recipient.errors?.minlength">{{'errors.length-warning' | translate}}</mat-error>
+          <mat-error *ngIf="recipient.errors?.maxlength">{{'errors.length-warning' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row item-form last-item">
+        <div class="col-lg-8 col-md-8 col-xl-8 pl-0">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="{{'buy-sell-ram.ram-purchase' | translate}}"
+                   type="number" class="font-weight-bold" id="ramBuy" name="ram"
+                   [(ngModel)]="modelBuy.ram" required
+                   [disabled]="!loginService.loggedIn()"
+                   #ram="ngModel">
+            <mat-error *ngIf="ram.errors?.required">{{'buy-sell-ram.ram-is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12">
+          <mat-form-field class="mw-100 w-100">
+            <mat-select [(ngModel)]="modelBuy.unit" name="ramSizeUnit"
+                        class="font-weight-bold" required #ramSizeUnitSelect="ngModel"
+                        [disabled]="!loginService.loggedIn()">
+              <mat-option *ngFor="let unitRam of modelUnitRam" [value]="unitRam">
+                {{Unit[unitRam]}}
+              </mat-option>
+            <mat-error *ngIf="ramSizeUnitSelect.errors?.required">{{'buy-sell-ram.ram-unit' | translate }}</mat-error>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!--div class="col-xl-3">
+          <mat-button-toggle-group
+            [(ngModel)]="modelBuy.unit"
+            class="mr-3 mt-2"  name="units" [(ngModel)]="modelBuy.unit"
+            [disabled]="!loginService.loggedIn()"  >
+            <mat-button-toggle [value]="Unit.eos" (click)="onChangeEos()">{{'buy-sell-ram.eos' | translate}}</mat-button-toggle>
+            <mat-button-toggle [value]="Unit.bytes" (click)="onChangeBytes()">{{'buy-sell-ram.bytes' | translate}}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div-->
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+      id="submitBuy" class="submit" type="submit" mat-raised-button color="primary" on>{{'buttons.buy' | translate}}</button>
+    </div>
+  </form>
+</div>

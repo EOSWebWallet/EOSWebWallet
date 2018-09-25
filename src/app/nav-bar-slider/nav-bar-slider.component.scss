@@ -1,0 +1,12 @@
+@import '../../variable.scss';
+.slider-wrapp{
+    margin: (- $block_p_h) (- $block_p_w) 0;
+
+    @media only screen and (max-width: $xl) {
+        margin: (- $block_p_h_lg) (- $block_p_w_lg) 0;
+    }
+
+    @media only screen and (max-width: $lg) {
+        margin: (- $block_p_h_md) (- $block_p_w_md) 0;
+    }
+}

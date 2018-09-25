@@ -1,0 +1,20 @@
+.header {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  #submitBuy{
+    margin-bottom: 1.5rem;
+  }
+  #submitSell {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.submit {
+  width: 150px;
+}

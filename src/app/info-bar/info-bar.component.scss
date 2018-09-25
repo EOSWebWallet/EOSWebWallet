@@ -1,0 +1,122 @@
+@import "../../variable.scss";
+
+.info-bar{
+  width: 100%;
+  padding: ($block_p_h / 2) ($block_p_w);
+  background: $white;
+  &.shadow-container{
+    z-index: $block_z_index + 2;
+  }
+  .info-bar-title{
+    margin-bottom: 0;
+    font-size: $fz;
+    font-weight: $fw_semi;
+    color: $tc;
+    text-transform: uppercase;
+  }
+  .info-line{
+    display: flex;
+    font-size: $fz_small;
+    .info-item-wrapp{
+      display: flex;
+      justify-content: space-between;
+      width: 55%;
+      padding-right: 15px;
+      .info-item{
+        margin-top: 16px;
+        margin-right: 10px;
+        padding-left: 0;
+      }
+    }
+    .parametr-item-wrapp{
+      display: flex;
+      justify-content: space-between;
+      width: 45%;
+      .parametr-item{
+        width: 31%;
+        white-space: nowrap;
+      }
+    }
+    .info-title{
+      font-family: $ff_title;
+      color: $blue;
+      font-weight: $fw_bold;
+      margin-right: 9px;
+    }
+    &.tokens{
+      margin-top: 15px;
+      .info-title{
+        margin-right: 50px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $xl) {
+  .info-bar{
+    padding: ($block_p_h_lg / 2) ($block_p_w_lg);
+    &.shadow-container{
+    }
+    .info-bar-title{
+    }
+    .info-line{
+      display: block;
+      .info-item-wrapp{
+        width: 100%;
+        padding-right: 0;
+        justify-content: flex-start;
+        .info-item{
+          margin-top: 16px;
+          margin-right: 50px;
+          padding-left: 0;
+        }
+      }
+      .parametr-item-wrapp{
+        margin-top: 16px;
+        width: 100%;
+        .parametr-item{
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $lg) {
+  .info-bar{
+    padding: $block_p_h_md $block_p_w_md;
+    &.shadow-container{
+    }
+    .info-bar-title{
+    }
+  }
+}
+
+@media only screen and (max-width: $md) {
+  .info-bar{
+    padding: $block_p_h_md $block_p_w_md;
+    &.shadow-container{
+    }
+    .info-bar-title{
+    }
+    .info-line{
+      .info-item-wrapp{
+        display: block;
+        .info-item{
+          margin-right: 0;
+        }
+      }
+      .parametr-item-wrapp{
+        display: block;
+        max-width: 280px;
+        .parametr-item{
+          width: 100%;
+        }
+      }
+      &.tokens{
+        .info-title{
+          margin-right: 9px;
+        }
+      }
+    }
+  }
+}

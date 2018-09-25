@@ -1,0 +1,31 @@
+<div class="window-container shadow-container">
+
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'permission.get-permission-header' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="t.form.valid && getPermissions()" #t="ngForm">
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput type="text" name="account" class="font-weight-bold text-color-blue"
+      [(ngModel)]="accountName " maxlength="12" minlength="12"
+      placeholder="{{'permission.from' | translate}}" required #account="ngModel"
+      [disabled]="!loginService.loggedIn()"/>
+      <mat-error *ngIf="account.errors?.required">{{'errors.account-name-is-required' | translate}}</mat-error>
+      <mat-error *ngIf="account.errors?.maxlength">{{'errors.length-warning' | translate}}</mat-error>
+      <mat-error *ngIf="account.errors?.minlength">{{'errors.length-warning' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+    [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'permission.get' | translate}}</button>
+  </div>
+</form>
+
+<div class="list-container">
+  <div class="full-width permission" *ngFor="let permission of permissions">
+      {{permission}}
+  </div>
+</div>
+</div>

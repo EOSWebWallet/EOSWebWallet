@@ -1,0 +1,75 @@
+@import "../../variable.scss";
+
+.window-container.result-conainer{
+  margin-right: 0;
+}
+
+.account-title{
+  margin-bottom: $block_m_h;
+  font-size: 1.6rem;
+  font-weight: $fw_semi;
+  color: $tc;
+  text-transform: uppercase;
+
+  @media screen and (max-width: $sm){
+    margin-bottom: $block_m_h_md;
+    font-size: 1.1rem;
+  }
+}
+
+.info-item{
+  margin-bottom: $block_m_h / 2;
+  .info-title{
+    color:  $blue;
+    font-weight: $fw_bold;
+  }
+  .info{
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .progress-bar-wrapp{
+    position: relative;
+    .info-block{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+      .block-title{
+        font-weight: $fw_bold;
+      }
+      .parametrs{
+
+      }
+    }
+    
+    
+  }
+
+  @media screen and (max-width: $sm){
+    font-size: $fz_small;
+  }
+}
+
+.custom-row{
+  padding-right: 6%;
+  margin-bottom: 2%;
+}
+
+.custom-col-first{
+  color:  #567EC3;
+  font-weight: bold;
+}
+
+.mat-list-item{
+  max-height: 2rem !important;
+}
+
+.tokens-col{
+  margin-top: 1.5%!important;
+}

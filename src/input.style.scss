@@ -1,0 +1,159 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'variable.scss';
+
+::ng-deep .mat-card {
+  padding: 13px !important;
+  font-family: $ff_title;
+  color: $tc;
+  font-size: $fz;
+  background-color: $white;
+  box-shadow: none !important;
+  border: 0;
+
+  overflow: hidden;
+  word-wrap: break-word;
+
+  .info-text{
+    font-family: $ff;
+    color: $blue;
+    font-weight: $fw_bold;
+    &.regular{
+      font-weight: $fw;
+    }
+  }
+
+  &.card-blue{
+    background-color: $light_blue_bg;
+  }
+
+  &.disabled{
+    background: $card_disabled_bg;
+    .info-text{
+      color: $card_disabled_color;
+    }
+  }
+  &.card-info{
+    .info-text{
+      font-family: $ff_title;
+    }
+  }
+}
+
+::ng-deep .mat-form-field{
+  font-family: $ff !important;
+  .mat-form-field-underline{
+    background: $input_border;
+  }
+  &.dark{
+    .mat-form-field-label {
+      color: $tc !important;
+    }
+  }
+  .mat-form-field-wrapper{
+    .mat-form-field-flex{
+      padding-left: 15px;
+    }
+  }
+  &.no-padding{
+    .mat-form-field-wrapper{
+      .mat-form-field-flex{
+        padding-left: 0;
+      }
+    }
+  }
+  &.text-area{
+    padding-top: 5px;
+    border: 1px solid $border_input;
+    .mat-form-field-flex{
+      padding-right: 10px;
+    }
+    .mat-form-field-wrapper{
+      padding-bottom: 0;
+    }
+    .mat-form-field-underline{
+      bottom: 0;
+      height: 0;
+    }
+    .mat-input-element{
+      font-family: $ff_consolas;
+    }
+  }
+
+  .mat-form-field-subscript-wrapper{
+    margin-top: 3px;
+  }
+
+  &.mat-form-field-disabled{
+    .mat-form-field-label-wrapper .mat-form-field-label{
+      color: $brown_lite;
+    }
+  }
+}
+
+::ng-deep .mat-form-field .mat-form-field-label {
+  color: $blue;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: $blue;
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: $red;
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-ripple {
+  background-color: $red;
+}
+
+::ng-deep .mat-form-field-required-marker {
+  display: none;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color:  $blue !important;
+    -webkit-box-shadow: inset 0 0 0px 9999px $white;
+}
+
+::ng-deep input.black-text-color + .mat-form-field-label-wrapper .mat-form-field-label {
+  color: $black;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: $brown;
+}
+
+.text-color-blue {
+  color: $blue !important;
+}
+
+.file-label {
+  position: relative;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: $file_label_bg;
+    z-index: -1
+  }
+
+  .help-icon{
+    position: absolute;
+    top: 0;
+    right: -20px;
+  }
+}
+
+.file-label-grey {
+  &::before {
+    background: $input_file_disabled_color !important;
+  }
+}
+
+.file-input {
+  display: none;
+}

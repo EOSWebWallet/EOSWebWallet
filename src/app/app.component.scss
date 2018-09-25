@@ -1,0 +1,32 @@
+@import "../variable.scss";
+
+#container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+@media only screen and (max-width: $lg) {
+    .item-page-login{
+        &.outlet{
+            padding-right: 0;
+        }
+    }
+}
+
+@media only screen and (max-width: $md) {
+    .item-page-login{
+        &.outlet{
+            padding: 0;
+        }
+    }
+}
+
+@media only screen and (max-width: $sm) {
+    .item-page-login{
+        &.outlet{
+            display: none;
+        }
+    }
+}

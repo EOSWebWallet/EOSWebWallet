@@ -1,0 +1,29 @@
+<div class="window-container shadow-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">
+  <!-- <div class="title" *ngIf="!loginService.loggedIn()">
+    <div>
+      <h3 class="header">{{'set-ram-rate.ram-rate-header' | translate}}</h3>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 unlogin-w-100">
+      <app-set-ram-form
+        ramTitle="SET RAM"
+        ramPlaceholder="Max RAM size"
+        ramError="Ram size is required"
+        ramUnitError="Ram size unit is required"
+        ramBtn="Set RAM">
+      </app-set-ram-form>
+    </div>
+
+    <!-- <div class="col-xl-6 col-lg-12 mt-lg-3 unlogin-w-100">
+      <app-set-ram-rate
+        ramTitle="SET RAM RATE"
+        ramPlaceholder="Bytes Per Block"
+        ramError="Ram rate is required"
+        ramUnitError="Ram rate unit is required"
+        ramBtn="Set RAM Rate">
+      </app-set-ram-rate>
+    </div> -->
+  </div>
+</div>

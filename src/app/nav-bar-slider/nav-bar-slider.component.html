@@ -1,0 +1,7 @@
+<div class="slider-wrapp" [ngClass]="{'disabled': !loginService.loggedIn()}" (window:resize)="init()" #sliderWrapp>
+  <div class="navigation-links" [style.left.px]="posLeftsliderWrapp" #linksWrapp>
+    <ng-content></ng-content>
+  </div>
+  <button class="arrow left" [hidden]="!showLeftArrowNav" (click)="moveNav('left')"></button>
+  <button class="arrow right" [hidden]="!showRightArrowNav" (click)="moveNav('right')"></button>
+</div>

@@ -1,0 +1,11 @@
+<div [ngClass]="{'page-container': loginService.loggedIn(), 'one-container': !loginService.loggedIn()}">
+ <div class="content-wrapper">
+  <div [ngClass]="{'window-clear-container': true, 'one-container': !loginService.loggedIn()}">
+    <div class="window-container pb-0 shadow-container shadow-top navbar-container">
+        <app-manage-account-navbar></app-manage-account-navbar>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+ </div>
+ <app-side-bar class="side-bar" [hidden]="!loginService.loggedIn()"></app-side-bar>
+</div>

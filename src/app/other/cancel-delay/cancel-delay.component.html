@@ -1,0 +1,34 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.cancel-delay' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <mat-form-field class="full-width item-form">
+    <input matInput type="text" name="accountName" id="accountName" required
+      [(ngModel)]="model.accountName" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.account-name' | translate}}" #accountName="ngModel">
+      <mat-error *ngIf="accountName.errors?.required">{{'other.account-name-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width item-form">
+    <input matInput type="text" name="permission" required
+      [(ngModel)]="model.permission" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.permission' | translate}}" #permission="ngModel">
+      <mat-error *ngIf="permission.errors?.required">{{'other.permission-name-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput type="text" name="trxId" required
+      [(ngModel)]="model.trxId" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.transaction-id' | translate}}" #trxId="ngModel">
+      <mat-error *ngIf="trxId.errors?.required">{{'other.transaction-id-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+    [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.cancel' | translate}}</button>
+  </div>
+  <app-failure-dialog *ngIf="error"></app-failure-dialog>
+</form>

@@ -1,0 +1,62 @@
+<div class="transactions-container shadow-container" [hidden]="result?.actions.length === 0">
+  <h4 class="section-title">{{'transaction-bar.last' | translate}}</h4>
+  <div class="table-responsive" *ngIf="innerWidth >= 960; else width">
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th scope="col" class="">{{'transaction-bar.time' | translate}}</th>
+          <th scope="col" class="text-center">{{'transaction-bar.direction' | translate}}</th>
+          <th scope="col" class="">{{'transaction-bar.from' | translate}}</th>
+          <th scope="col" class="">{{'transaction-bar.to' | translate}}</th>
+          <th scope="col" class="mw-300">{{'transaction-bar.memo' | translate}}</th>
+          <th scope="col" class="">{{'transaction-bar.quantity' | translate}}</th>
+          <th scope="col" class="">{{'transaction-bar.tx-id' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of result?.actions; let i = index">
+          <td class="text-nowrap">{{item.block_time | date:'MMMM d y, h:mm:ss a'}}</td>
+          <td class="text-center direction-out"
+              [ngClass]="{'direction-out': item.direction === 'Out', 'direction-in': item.direction !== 'Out'}">{{item.direction}}</td>
+          <td class="">{{item.action_trace.act.data.from}}</td>
+          <td class="">{{item.action_trace.act.data.to}}</td>
+          <td class="">{{item.action_trace.act.data.memo}}</td>
+          <td class="text-nowrap">{{item.action_trace.act.data.quantity}}</td>
+          <td class="">{{item.action_trace.trx_id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #width>
+    <div class="container-mobile">
+      <div class="transaction-item" *ngFor="let item of result?.actions; let i = index">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.time' | translate}}:</span> <span>{{item.block_time |
+              date:'MMMM d y, h:mm:ss a'}}</span>
+          </div>
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.direction' | translate}}:</span>
+            <span [ngClass]="{'direction-out': item.direction === 'Out', 'direction-in': item.direction !== 'Out'}">{{item.direction}}</span>
+          </div>
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.from' | translate}}:</span> <span>{{item.action_trace.act.data.from}}</span>
+          </div>
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.to' | translate}}:</span> <span>{{item.action_trace.act.data.to}}</span>
+          </div>
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.memo' | translate}}:</span> <span>{{item.action_trace.act.data.memo}}</span>
+          </div>
+          <div class="col-sm-6 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.quantity' | translate}}:</span> <span>{{item.action_trace.act.data.quantity}}</span>
+          </div>
+          <div class="col-sm-12 col-xs-12 item">
+            <span class="thead-title">{{'transaction-bar.tx-id' | translate}}:</span> <span>{{item.action_trace.trx_id}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

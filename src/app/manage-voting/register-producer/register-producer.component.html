@@ -1,0 +1,68 @@
+<div class="window-container shadow-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">
+
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'manage-voting.register-producer' | translate}}</h3>
+  </div>
+</div>
+<div class="register-producer-container">
+  <form (ngSubmit)="f.form.valid && registerProducer()" #f="ngForm">
+    <div class="row">
+      <div class="form-group input-wrapp col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="producer"
+            placeholder="{{'manage-voting.producer' | translate}}"
+            [disabled]="!loginService.loggedIn()"
+            required [(ngModel)]="model.producer" name="producer"
+            #producer="ngModel">
+            <mat-error *ngIf="producer.errors?.required">{{'manage-voting.producer-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group input-wrapp col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text"
+            id="publicKey" placeholder="{{'manage-voting.producer-public-key' | translate}}"
+            [disabled]="!loginService.loggedIn()"
+            required [(ngModel)]="model.publicKey" name="publicKey"
+            #publicKey="ngModel">
+            <mat-error *ngIf="publicKey.errors?.required">{{'manage-voting.public-key-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group input-wrapp col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="url"
+            placeholder="{{'manage-voting.url' | translate}}"
+            [disabled]="!loginService.loggedIn()"
+            required [(ngModel)]="model.url" name="url"
+            #url="ngModel">
+            <mat-error *ngIf="url.errors?.required">{{'manage-voting.url-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group input-wrapp col-md-6 unlogin-w-100">
+        <mat-form-field class="full-width item-form last-item">
+          <mat-select [(ngModel)]="model.location" name="location"
+          placeholder="{{'manage-voting.location' | translate}}"
+          [disabled]="!loginService.loggedIn()"
+          required #location="ngModel">
+            <mat-option *ngFor="let a of locations" [value]="a">
+              {{a}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="location.errors?.required">{{'manage-voting.location-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit"
+        class="submit" id="submit"
+        [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+        [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.register' | translate}}</button>
+    </div>
+  </form>
+</div>
+</div>

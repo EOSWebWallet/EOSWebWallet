@@ -1,0 +1,36 @@
+@import '../../variable.scss';
+
+.text-block{
+    margin-bottom: $block_p_h;
+}
+.card-block{
+    margin-bottom: $block_p_h;
+    .mat-card{
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: $xl) {
+    .text-block{
+        margin-bottom: $block_p_h_lg;
+    }
+    .card-block{
+        margin-bottom: $block_p_h_lg;
+        .mat-card{
+            margin-bottom: 15px;
+        }
+    }
+}
+
+
+@media only screen and (max-width: $lg) {
+    .text-block{
+        margin-bottom: $block_p_h_md;
+    }
+    .card-block{
+        margin-bottom: $block_p_h_md;
+        .mat-card{
+            margin-bottom: 10px;
+        }
+    }
+}

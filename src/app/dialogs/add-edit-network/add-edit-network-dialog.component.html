@@ -1,0 +1,69 @@
+<div mat-dialog-content class="dialog-content">
+
+  <h3 class="header" translate *ngIf="!data.network">{{'dialog-add-network.header' | translate}}</h3>
+  <h3 class="header" translate *ngIf="data.network">{{'dialog-add-network.header-edit' | translate}}</h3>
+
+  <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field class="full-width">
+        <input matInput type="text" id="viewValue" placeholder="{{'dialog-add-network.network' | translate}}" name="viewValue"
+          formControlName="viewValue">
+        <mat-error *ngIf="myForm.controls['viewValue'].invalid && myForm.controls['viewValue'].touched">{{'dialog-add-network.network-req'
+          | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="text" id="host" placeholder="{{'dialog-add-network.host' | translate}}" name="host"
+          formControlName="host">
+        <mat-error *ngIf="myForm.controls['host'].invalid && myForm.controls['host'].touched && !networkExists">{{'dialog-add-network.host-req'
+          | translate}}</mat-error>
+        <mat-error *ngIf="networkExists">{{'dialog-add-network.network-exists' | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <input matInput [matAutocomplete]="networkChaindId" type="text" id="currentChainId" placeholder="{{'dialog-add-network.current-chain-id' | translate}}"
+          name="currentChainId" formControlName="currentChainId">
+
+        <mat-autocomplete #networkChaindId="matAutocomplete">
+          <mat-option *ngFor="let networkChaindId of getNetworkChaindId()" [value]="networkChaindId">
+            {{networkChaindId}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="myForm.controls['currentChainId'].invalid && myForm.controls['currentChainId'].touched">{{'dialog-add-network.current-chain-id-req'
+          | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput type="number" id="port" placeholder="{{'dialog-add-network.port' | translate}}" name="port"
+          formControlName="port">
+        <mat-error *ngIf="myForm.controls['port'].invalid && myForm.controls['port'].touched && !networkExists">{{'dialog-add-network.port-req'
+          | translate}}</mat-error>
+        <mat-error *ngIf="networkExists">{{'dialog-add-network.network-exists' | translate}}</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="mw-100 w-100">
+        <mat-select name="protocol" id="protocol" required placeholder="{{'dialog-add-network.protocol' | translate}}" formControlName="protocol">
+          <mat-option *ngFor="let protocol of getProtocols()" [value]="protocol">
+            {{protocol}}
+          </mat-option>
+          <mat-error *ngIf="myForm.controls['protocol'].invalid && myForm.controls['protocol'].touched">{{'dialog-add-network.protocol-req'
+            | translate}}</mat-error>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-group btns">
+      <button id="submit" class="submit" type="submit" mat-raised-button color="primary" on *ngIf="!data.network">{{'dialog-add-network.btn-add'
+        | translate}}</button>
+      <button id="submit" class="submit" type="submit" mat-raised-button color="primary" on *ngIf="data.network">{{'dialog-add-network.btn-edit'
+        | translate}}</button>
+      <button id="submit" class="submit" type="button" mat-raised-button color="primary" (click)="deleteNetwork()" *ngIf="data.network">{{'dialog-add-network.btn-delete'
+        | translate}}</button>
+      <button id="submit" class="submit" type="button" mat-raised-button color="primary" (click)="closeForm()">{{'dialog-add-network.btn-cancel'
+        | translate}}</button>
+    </div>
+  </form>
+
+</div>

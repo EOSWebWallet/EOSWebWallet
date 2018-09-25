@@ -1,0 +1,27 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.set-privilege' | translate}}</h3>
+  </div>
+</div>
+<div class="item-form card-item">
+  <app-unchanged-field childMessage="{{'common.account' | translate}}"> </app-unchanged-field>
+</div>
+<div class="row mb-4">
+  <div class="col-1">
+    {{'other.priviliged' | translate}}:
+  </div>
+  <div class="col-1">
+  </div>
+  <div class="col-4">
+    <mat-radio-group class="item-form last-item" id="privileged" name="privileged"
+      [(ngModel)]="isPriv" #privileged [disabled]="!loginService.loggedIn()">
+      <mat-radio-button class="custom pl-4" value="1">{{'common.true' | translate}}</mat-radio-button>
+      <mat-radio-button class="custom pl-4" value="0">{{'common.false' | translate}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+<div class="text-center">
+  <button [ngClass]="{'grey-button': !loginService.loggedIn()}" (click)="setPriv()"
+    [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    id="submit" class="submit" type="submit" mat-raised-button color="primary" on>{{'buttons.set' | translate}}</button>
+</div>

@@ -1,0 +1,15 @@
+<div mat-dialog-content class="dialog-content" (keypress)="keypress($event)">
+  <br />
+  <h3 id="select-account-title">{{'dialogs.select-account' | translate}}</h3>
+  <p> {{'dialogs.select-account-text' | translate}} </p>
+  <form (ngSubmit)="t.form.valid && onSubmit()" class="form" #t="ngForm">
+    <div class="account" *ngFor="let account of data.accounts; let i = index">
+      <label>
+        <input required tabindex="0" type="radio" [(ngModel)]="model" [ngModelOptions]="{standalone: true}" value="{{account}}" (click)="selectAccount(i)">
+         <span class="account-name">{{account[0]}}@{{account[1]}}</span>
+        </label>
+    </div>
+      <button type="submit" class="submit mat-raised-button btn-select-account"
+      mat-raised-button color="primary" on>{{'dialogs.use-selected-account' | translate}}</button>
+    </form>
+</div>

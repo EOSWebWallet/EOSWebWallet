@@ -1,0 +1,21 @@
+<form #f="ngForm" (ngSubmit)="f.form.valid && removeDetails()">
+  <div class="title">
+    <div>
+      <h3 class="header">{{'manage-voting.unregister-proxy-info' | translate}}</h3>
+    </div>
+  </div>
+
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput type="text" name="proxy" #proxyAccount="ngModel" [(ngModel)]="proxy"
+      placeholder="{{'manage-voting.proxy-account-name' | translate}}" maxlength="12"
+      [disabled]="!loginService.loggedIn()" required/>
+      <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+    [ngClass]="{'grey-button': !loginService.loggedIn()}"
+    [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    on >{{'buttons.unregister' | translate}}</button>
+  </div>
+</form>

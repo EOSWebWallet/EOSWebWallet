@@ -1,0 +1,17 @@
+<div mat-dialog-content class="dialog-content">
+  <img src="../assets/images/sending.png" />
+  <br />
+  <h3 id="sending-title" (click)="showMore=!showMore">{{'dialogs.info' | translate}}</h3>
+  <p class="mb-0" id="text-title" (click)="showMore=!showMore">{{data.title != undefined  ? data.title : 'dialogs.open-info' | translate}}
+    <img src="../assets/images/more_green.png" class="ml-1 my-auto"  /> </p>
+  <div *ngIf="showMore">
+    <p>{{data.message}}</p>
+    <div *ngIf="data.content" [innerHtml]="data.content"></div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="dialog-actions mt-3">
+  <button mat-button mat-dialog-close color="primary" (click)="close()" class="go-back mx-auto">
+    {{'dialogs.go-back' | translate}}
+  </button>
+</div>

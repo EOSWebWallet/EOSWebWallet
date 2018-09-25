@@ -1,0 +1,45 @@
+@import '../../variable.scss';
+
+$footer_m_h: 13px;
+
+.footer{
+  margin: 0;
+  .page-container{
+    width: 100%;
+    margin: 0;
+  }
+  .footer-wrapp{
+    padding: $footer_m_h 0;
+    font-family: $ff_title;
+    .head-footer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .copyright{
+        margin: 0 0.5rem 0 0;
+        font-weight: $fw_bold;
+      }
+      .soc-wrapp{
+        flex-shrink: 0;
+      }
+      .link{
+        display: inline-block;
+      }
+
+      .mat-icon, .copyright{
+        color: $blue;
+      }
+    }
+
+    .body-footer{
+      color: $blue;
+      font-size: $fz_small;
+      text-align: justify;
+      .info-text{
+        margin: $footer_m_h 0 0;
+      }
+    }
+  }
+
+}

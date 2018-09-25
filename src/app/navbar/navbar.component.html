@@ -1,0 +1,92 @@
+<nav class="navbar navbar-dark shadow-container" [ngClass]="{'open': toggleNav}">
+  <div class="top-line offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+    <div class="navbar-brand-wrapp">
+      <img src="../assets/images/logo.png" class="logo" />
+      <a class="navbar-brand" href="/">{{'main-navbar.title' | translate}}</a>
+    </div>
+    <div class="info-block">
+      <div class="dropdown-wrapp my-auto">
+        <mat-form-field class="dropdown white no-padding">
+          <mat-select [(ngModel)]="selectedNetwork" name="network">
+            <mat-option *ngFor="let network of networks; let i = index"
+                        [value]="network.host"
+                        [ngClass]="{'edit-option': network.isCustome}">
+              <i class="text-option" (click)="networkChanged(i)">{{network.viewValue}}</i>
+              <a class="edit" *ngIf="network.isCustome" (click)="editNetwork(i)"></a>
+            </mat-option>
+            <mat-option (click)="addNetwork()">Add network</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="dropdown-wrapp my-auto">
+        <mat-form-field class="dropdown white no-padding">
+          <mat-select [(ngModel)]="selectedLanguage" name="lang" (selectionChange)="langChanged()">
+            <mat-option *ngFor="let lang of languages" [value]="lang.value">
+              {{lang.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="displayLogOut()" class="logo-wrapp dropdown" [ngSwitch]="loginIcon" data-toggle="dropdown">
+
+        <img *ngSwitchCase="'scatter'" src="../assets/images/scatter_ochre.png" class="logo scatter" />
+        <img *ngSwitchCase="'publicKey'" src="../assets/images/key2_ochre.png" class="logo key" />
+        <ng-template ngSwitchDefault>
+          <img src="../assets/images/logo.png" class="logo" />
+        </ng-template>
+
+        <div class="dropdown-menu">
+          <div class="row dropdown-item ml-0 mr-0" *ngIf="displayLogOut()">
+            <a (click)="logout()">{{'main-navbar.sign-out' | translate}}
+              <mat-icon svgIcon="sign-out-icon" class="ml-1"></mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <button class="navbar-toggler" (click)="toggleNav = !toggleNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="bottom-line">
+    <div class="link-wrapp offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+      <a routerLink="transferTokens" [ngClass]="{'active-link': rootActive.isActive || transferTokensActive.isActive }" class="link text-center-v" (click)="toggleNav=false">
+      <a routerLink="" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-link" #rootActive="routerLinkActive" class="d-none"></a>
+      <a routerLink="transferTokens" routerLinkActive="active-link" #transferTokensActive="routerLinkActive" class="d-none"></a>
+        <p>{{'main-navbar.send-eos' | translate}}</p>
+      </a>
+
+      <a routerLink="generateKeyPairs" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.gen-key-pair' | translate}}</p>
+      </a>
+
+      <a routerLink="manageAccount" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.manage-acc' | translate}}</p>
+      </a>
+
+      <a routerLink="contracts" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.contracts' | translate}}</p>
+      </a>
+
+      <a routerLink="findAccount" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p class="align-middle">{{'main-navbar.find-acc' | translate}}</p>
+      </a>
+
+      <a routerLink="createAccount" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.create-acc' | translate}}</p>
+      </a>
+
+      <a routerLink="manageVoting" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.manage-voit' | translate}}</p>
+      </a>
+
+      <a routerLink="other" routerLinkActive="active-link" class="link text-center-v" (click)="toggleNav=false">
+        <p>{{'main-navbar.other' | translate}}</p>
+      </a>
+    </div>
+  </div>
+</nav>

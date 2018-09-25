@@ -1,0 +1,19 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.refund-stake' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput type="text" name="own" required  id="own"
+      [(ngModel)]="owner" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.owner' | translate}}" #own="ngModel">
+      <mat-error *ngIf="own.errors?.required">{{'other.owner-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.refund' | translate}}</button>
+  </div>
+</form>

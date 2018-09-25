@@ -1,0 +1,27 @@
+@import '../../variable.scss';
+
+.side-bar-container {
+  height: 100%;
+  min-height: 150px;
+  width: $side_bar_w;
+  font-family: $ff;
+  background-color: $white;
+  .side-bar-wrapper{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: $block_p_h / 2;
+    overflow-y: auto;
+    .info{
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  }
+
+  @media only screen and (max-width: $md) {
+    margin-top: $block_m_h_md;
+    width: 100%;
+  }
+}

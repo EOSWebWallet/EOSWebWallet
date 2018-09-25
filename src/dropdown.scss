@@ -1,0 +1,62 @@
+@import 'variable.scss';
+
+:host /deep/ .dropdown {
+  font-family: $ff;
+
+  .mat-select {
+    font-family: $ff;
+  }
+
+  &.white {
+    .mat-select-value, .mat-form-field-label, .mat-select-arrow {
+      color: $white;
+      padding-bottom: 1px;
+    }
+    
+    .mat-form-field-underline {
+      background-color: $white;
+    }
+  }
+  
+  &.mat-focused {
+    .mat-form-field-underline {
+      height: 1px;
+      background-color: $white;
+    }
+    .mat-form-field-ripple{
+      display: none;
+    }
+  }
+}
+
+
+.cdk-overlay-container .mat-option{
+  font-family: $ff !important;
+  .mat-option-text{
+    .text-option{
+      display: block;
+      margin: 0 -16px;
+      padding: 0 16px;
+      font-style: normal;
+    }
+  }
+  &.edit-option {
+    padding-right: 0;
+    .mat-option-text{
+      padding-right: 50px;
+      position: relative;
+      .edit{
+        display: inline-block;
+        padding: auto;
+        width: 48px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: url('assets/svg/edit.svg') no-repeat center;
+        background-size: 20px;
+        z-index: 2;
+      }
+    }
+  }
+}

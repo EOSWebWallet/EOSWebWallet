@@ -1,0 +1,95 @@
+<div class="window-container shadow-container">
+    <div class="title" *ngIf="!loginService.loggedIn()">
+      <div>
+        <h3 class="header">{{'permission.advanced-permission' | translate}}</h3>
+      </div>
+    </div>
+
+    <form (ngSubmit)="t.form.valid && onSubmit()" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #t="ngForm">
+      <div class="row">
+        <div class="col-xl-6 col-lg-12 unlogin-w-100 item-form card-item">
+          <app-unchanged-field childMessage="{{'permission.account' | translate}}"> </app-unchanged-field>
+        </div>
+
+        <div class="col-xl-6 col-lg-12 unlogin-w-100">
+          <mat-form-field class="full-width item-form">
+            <input id="threshold" class="font-weight-bold text-color-blue" type="number" name="threshold"
+                   matInput
+                   placeholder="{{'permission.threshold' | translate}}"
+                   [(ngModel)]="model.threshold"
+                   [disabled]="!loginService.loggedIn()"
+                   required
+                   #threshold="ngModel">
+            <mat-error *ngIf="threshold.errors?.required">{{'permission.threshold' | translate}} {{'errors.is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-6 col-lg-12 unlogin-w-100">
+          <mat-form-field class="full-width item-form">
+            <input matInput placeholder="{{'permission.permission' | translate}}"
+                   type="text"  id="permission" required
+                   [(ngModel)]="model.permission" name="permission"
+                   [disabled]="!loginService.loggedIn()"
+                   #permission="ngModel">
+            <mat-error *ngIf="permission.errors?.required">{{'permission.permission-is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-xl-6 col-lg-12 unlogin-w-100">
+          <mat-form-field class="full-width item-form">
+            <input matInput placeholder="{{'permission.parent' | translate}}"
+                   type="text"  id="parent" required
+                   [(ngModel)]="model.parent" name="parent"
+                   [disabled]="!loginService.loggedIn()"
+                   #parent="ngModel">
+            <mat-error *ngIf="parent.errors?.required">{{'permission.parent-is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngFor="let item of authority; let i = index" class="form-group row item-form" [ngClass]="{'last-item': !loginService.loggedIn()}">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 unlogin-w-100">
+          <mat-form-field class="full-width">
+            <input matInput type="text" id="authority" placeholder="Authority"
+                   required
+                   [(ngModel)]="item.authority"
+                   name="authority{{i}}"
+                   [disabled]="!loginService.loggedIn()"
+                   #authority="ngModel">
+            <mat-error *ngIf="authority.errors?.required">{{'permission.authority-is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col w-100 unlogin-w-100 item-form">
+          <mat-form-field class="full-width">
+              <input matInput type="text" id="weight" placeholder="Weight"
+                     required
+                     [(ngModel)]="item.weight"
+                     name="weight{{i}}"
+                     [disabled]="!loginService.loggedIn()"
+                     #weight="ngModel">
+              <mat-error *ngIf="weight.errors?.required">{{'permission.weight' | translate}} {{'errors.is-required' | translate}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-xl-{{i > 0 ? 2 : 1}} col-lg-{{i > 0 ? 2 : 1}} col-md-{{i > 0 ? 2 : 1}} col-5 btn-group unlogin-hide">
+          <div class="d-flex p-0">
+            <button mat-button mat-raised-button class="addRow" type="button" color="primary" (click)="addRow()" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+              [disabled]="!loginService.loggedIn()" on>
+              <span class="caption">+</span>
+            </button>
+
+            <button mat-button mat-raised-button *ngIf="i>0" type="button" color="primary" (click)="removeRow(i)" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+              class="removeRow ml-3" [disabled]="!loginService.loggedIn()" on>
+              <span class="caption">–</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button [ngClass]="{'grey-button': !loginService.loggedIn()}" [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked() "
+          id="submit" class="submit mt-4" type="submit" mat-raised-button color="primary" on>{{'buttons.update' | translate}}</button>
+      </div>
+    </form>
+  </div>

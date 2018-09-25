@@ -1,0 +1,9 @@
+.mt-lg-3{
+    margin-top: 1.5rem!important;
+}
+
+@media screen and (min-width: 1200px) {
+    .mt-lg-3{
+        margin-top: 0rem!important;
+    }
+}

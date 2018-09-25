@@ -1,0 +1,99 @@
+<div [ngClass]="{'page-container': loginService.loggedIn(), 'one-container': !loginService.loggedIn()}">
+  <div [ngClass]="{'window-container shadow-container': true, 'one-container unlogin-row-wrapp': !loginService.loggedIn()}">
+    <h3 class="header" translate>{{'transfer-tokens.title-text' | translate}}</h3>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="row form-group">
+        <div class="col-12 item-form card-item">
+          <app-unchanged-field childMessage="{{'transfer-tokens.sender' | translate}}"></app-unchanged-field>
+        </div>
+        <div class="container-fluid">
+          <div *ngFor="let item of model; let i = index" class="row">
+            <div class="col-xl-5 col-lg-12 col-md-5 col-sm-12 unlogin-w-100 item-form">
+              <mat-form-field class="full-width">
+                <input class="font-weight-bold" matInput type="text" id="recipient" placeholder="{{'transfer-tokens.recipient' | translate}}"
+                  required pattern="[a-zA-Z1-5]*" maxlength="12" [(ngModel)]="item.recipient" name="recipient{{i}}"
+                  [disabled]="!loginService.loggedIn()" #recipient="ngModel">
+                <mat-error *ngIf="recipient.errors?.required">{{'transfer-tokens.recipient-required' | translate}}</mat-error>
+                <mat-error *ngIf="recipient.errors?.pattern">{{'transfer-tokens.wrong-symbols' | translate}}</mat-error>
+                <mat-error *ngIf="recipient.errors?.maxlength">{{'transfer-tokens.length-max-symbols' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-3 col-sm-12 unlogin-w-100 item-form">
+              <mat-form-field class="full-width" floatPlaceholder="always">
+                <input class="font-weight-bold" matInput type="number" step="0.001" id="quantity" required [(ngModel)]="item.quantity"
+                  name="quantity{{i}}" placeholder="{{'transfer-tokens.quantity' | translate}}" [disabled]="!loginService.loggedIn()"
+                  #quantity="ngModel">
+                <mat-error *ngIf="quantity.errors?.required">{{'transfer-tokens.quantity-required' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-xl-{{i > 0 ? 2 : 3}} col-lg-5 col-md-{{i > 0 ? 2 : 3}} col-sm-12 unlogin-w-100 item-form">
+
+              <mat-form-field class="w-100">
+                <input class="font-weight-bold" matInput [matAutocomplete]="symbol" type="text" id="symbol"
+                  required [(ngModel)]="item.symbol"
+                  name="symbol{{i}}"
+                  placeholder="{{'transfer-tokens.symbol' | translate}}"
+                  [disabled]="!loginService.loggedIn()"
+                  #symbol="ngModel">
+              
+                <mat-autocomplete #symbol="matAutocomplete">
+                  <mat-option *ngFor="let symbol of doFilterSymbols(item.symbol)" [value]="symbol">
+                      {{symbol}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="symbol.errors?.required">{{'transfer-tokens.symbol-required' | translate}}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="btn-group col-xl-{{i > 0 ? 2 : 1}} col-lg-{{i > 0 ? 2 : 1}} col-md-{{i > 0 ? 2 : 1}} col-sm-12 p-0 unlogin-hide item-form"
+              [ngClass]="{'btn-group-lower': i > 0}">
+              <div class="p-0">
+                <button mat-button mat-raised-button class="addRow" type="button" color="primary" (click)="addRow()"
+                  [ngClass]="{'grey-button': !loginService.loggedIn()}" [disabled]="!loginService.loggedIn()" on>
+                  <span class="caption">+</span>
+                </button>
+
+                <button mat-button mat-raised-button *ngIf="i>0" type="button" color="primary" (click)="removeRow(i)"
+                  [ngClass]="{'grey-button': !loginService.loggedIn()}" class="removeRow ml-2" [disabled]="!loginService.loggedIn()"
+                  on>
+                  <span class="caption">–</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-xl-{{i > 0 ? 10 : 11}} col-lg-{{i > 0 ? 10 : 11}} col-md-{{i > 0 ? 10 : 11}} col-sm-12 item-form last-item"
+              [ngClass]="{'col-xl-12 col-lg-12 col-md-12': !loginService.loggedIn()}">
+              <mat-form-field class="full-width">
+                <input class="font-weight-normal" matInput type="text" id="memo" placeholder="{{'transfer-tokens.memo' | translate}}"
+                  [(ngModel)]="item.memo" name="memo{{i}}" [disabled]="!loginService.loggedIn()" #memo="ngModel">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-width-file pl-4 pr-4">
+        <div [hidden]="!loginService.loggedIn()" matTooltip="Example csv: Recipient;Memo;Quantity;Symbol">
+          <label for="csv-file" class="file-label font-weight-bold mb-0">
+            {{'contracts.attach-csv-file' | translate}}
+            <fa-icon class="help-icon" [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
+          </label>
+          <input id="csv-file" class="file-input" type="file" accept=".csv" (change)="attachFile($event, file)" #file />
+        </div>
+
+        <div class="button-container">
+          <button id="submit" class="submit" type="submit" mat-raised-button color="primary" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+            [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" on>{{'transfer-tokens.send' | translate}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <app-side-bar [hidden]="!loginService.loggedIn()"></app-side-bar>
+  </div>
+</div>
+<div [ngClass]="{'transaction-bar page-container d-block': loginService.loggedIn(), 'd-none': !loginService.loggedIn()}">
+  <app-transaction-bar></app-transaction-bar>
+</div>

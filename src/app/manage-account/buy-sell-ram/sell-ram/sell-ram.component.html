@@ -1,0 +1,28 @@
+<div class="title">
+  <div>
+    <h3 class="header">{{'buy-sell-ram.sell-ram' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="t.form.valid && onSubmitSell()" #t="ngForm">
+  <div class="form-group">
+    <div class="item-form card-item">
+      <app-unchanged-field childMessage="{{'common.payer' | translate}}"> </app-unchanged-field>
+    </div>
+    <mat-form-field class="full-width item-form last-item">
+      <input matInput placeholder="{{'buy-sell-ram.ram-sell' | translate}}" id="ramSell"
+              type="number"  step="1024" required
+               class="font-weight-bold"
+              [(ngModel)]="modelSell.ram" name="recipient"
+              [disabled]="!loginService.loggedIn()"
+              #ram="ngModel">
+      <mat-error *ngIf="ram.errors?.required">{{'buy-sell-ram.ram-is-required' | translate}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <button
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+      id="submitSell" class="submit btn-submit" type="submit"
+      mat-raised-button color="primary" on>{{'buttons.sell' | translate}}</button>
+  </div>
+</form>

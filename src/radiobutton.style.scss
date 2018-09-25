@@ -1,0 +1,22 @@
+@import 'variable.scss';
+
+.custom ::ng-deep .mat-radio-container .mat-radio-inner-circle {
+  background-color: $brown !important;
+  border-color: $brown !important ;
+}
+
+.custom ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  background-color: $brown !important;
+}
+
+.custom ::ng-deep .mat-radio-container .mat-radio-outer-circle {
+  border-color: $brown !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-disabled .mat-radio-outer-circle {
+  border-color: $dark_input !important ;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-disabled .mat-radio-inner-circle {
+  background-color: $dark_input !important;
+}

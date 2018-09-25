@@ -1,0 +1,37 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'contracts.deploy-abi' | translate}}</h3>
+  </div>
+</div>
+
+<form (ngSubmit)="f.form.valid && deployAbi()" #f="ngForm">
+  <mat-form-field class="full-width  item-form last-item">
+    <input matInput placeholder="{{'contracts.contract-account' | translate}}" id="account"
+            type="text" required
+            [(ngModel)]="account" name="proxy"
+            [disabled]="!loginService.loggedIn()"
+            #accountName="ngModel">
+    <mat-error *ngIf="accountName.errors?.required">{{'contracts.account-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="text-area full-width item-form last-item unpading-item">
+    <textarea matInput type="text" name="abi-textarea" class="abi-textarea"
+      id="abi" placeholder="{{'contracts.abi' | translate}}" #abiTextarea
+        [(ngModel)]="abi" required
+        [disabled]="!loginService.loggedIn()"></textarea>
+        <mat-error *ngIf="!abiTextarea.value">{{'contracts.abi-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="btn-width-file">
+      <label for="abi-file" class="file-label font-weight-bold mb-0" [ngClass]="{'file-label-grey': !loginService.loggedIn()}">
+        {{'contracts.attach-abi-file' | translate}}
+      </label>        
+      <input id="abi-file" class="file-input" type="file" (change)="attachFile($event, file.value)"
+        [disabled]="!loginService.loggedIn()" #file/>
+      <div class="button-container">
+          <button mat-raised-button type="submit" id="submit" class="submit"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.deploy' | translate}}</button>
+      </div>
+    </div>
+</form>

@@ -1,0 +1,8 @@
+
+<div *ngIf="isBold;else regular">
+  <mat-card [ngClass]="class">{{messageTitle}}: <span class="info-text">{{messageValue}}</span></mat-card>
+</div>
+
+<ng-template #regular>
+  <mat-card [ngClass]="class">{{messageTitle}}: <span class="info-text regular">{{messageValue}}</span></mat-card>
+</ng-template>

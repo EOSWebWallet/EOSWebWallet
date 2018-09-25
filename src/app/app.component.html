@@ -1,0 +1,41 @@
+<div id="container">
+  
+  <div class="main-page-content">
+    <app-navbar></app-navbar>
+    <div *ngIf="displayInfoBar() && !state">
+      <app-info-bar></app-info-bar>
+    </div>
+    <div *ngIf="displayOneContent();then loggedContent else outContent">
+    </div>
+    <ng-template #loggedContent>
+      <div class="content light-blue-background">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
+    <ng-template #outContent>
+      <div *ngIf="hideLogin(); then pageWithoutLog else pageWithLog">
+      </div>
+      <ng-template #pageWithLog>
+        <div class="content ml-0 mr-0">
+          <div class="page-container">
+            <div class="col-lg-6 col-md-12 col-sm-12 item-page-login">
+              <app-login></app-login>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 item-page-login outlet">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #pageWithoutLog>
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+
+  <footer class="footer middle-blue-background">
+    <app-footer></app-footer>
+  </footer>
+</div>

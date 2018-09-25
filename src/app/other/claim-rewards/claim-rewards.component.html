@@ -1,0 +1,22 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.claim-rewards' | translate}}</h3>
+  </div>
+</div>
+
+<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <mat-form-field class="full-width item-form last-item" floatPlaceholder="always">
+      <input matInput type="text" name="own" required  id="own"
+      [(ngModel)]="owner" [disabled]="!loginService.loggedIn()"
+      placeholder="{{'other.owner' | translate }}" #own="ngModel">
+      <mat-error *ngIf="own.errors?.required">{{'other.owner-is-required' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div clas="bottom-container">
+    <div class="button-container">
+      <button type="submit" class="submit" mat-raised-button id="submit"
+        [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+        [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.claim' | translate}}</button>
+    </div>
+  </div>
+</form>

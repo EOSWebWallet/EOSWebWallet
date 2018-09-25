@@ -1,0 +1,23 @@
+@import '../dialog.styles.scss';
+
+$grey-color: #9cbdba;
+
+.go-back {
+    background-color: $grey-color;
+    color: $button-text-color;
+}
+
+#sending-title {
+    color:$grey-color;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 5px $grey-color;
+}
+
+@media only screen and (min-width: $sm + 1){
+    .dialog-content{
+        max-width: 50vw;
+    }
+}

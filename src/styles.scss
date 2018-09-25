@@ -1,0 +1,157 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'variable.scss';
+@import 'dropdown.scss';
+
+@font-face {
+  font-family: "Consolas";
+  src: url("assets/font/consola.ttf");
+ }
+
+$middle-blue-background: #e4f0ff;
+
+
+html {
+  height: 100%;
+  position: relative;
+  min-height: 100%;
+  background-color: $light_blue_bg;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $ff;
+  font-size: $fz;
+  background-color: $light_blue_bg;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: $ff_title;
+  font-weight: $fw;
+}
+
+.navbar {
+  margin-bottom: 0px !important;
+}
+
+h3{
+  font-size: 2.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  margin-bottom: $block_m_h;
+  @media screen and (max-width: $xl){
+    margin-bottom: $block_m_h_lg;
+  }
+  @media screen and (max-width: $lg){
+    margin-bottom: $block_m_h_md;
+  }
+}
+
+.main-content{
+  background-color: $white;
+}
+
+.fill-height {
+  height:100% !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.checkbox-md {
+  width: 20px; height: 20px;
+  vertical-align: middle;
+}
+
+.middle-blue-background {
+  background-color: $middle-blue-background;
+}
+
+.light-blue-background {
+  background-color: $light_blue_bg;
+}
+
+#submit {
+  padding: 8px 16px;
+  min-width: 150px;
+  font-size: $fz;
+  font-weight: $fw_bold;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.blue-line {
+  padding-top: 50px;
+  background-color: $light_blue_bg;
+}
+
+
+.cdk-overlay-container .mat-option, .mat-card, .mat-input-element, .mat-checkbox-label {
+  font-family: $ff;
+}
+
+.mat-input-element {
+  color: $dark!important;
+}
+
+
+.mat-checkbox-label {
+  font-size: 1rem;
+}
+
+.perfect-scrollbar {
+  .ps, .ps.ps--scrolling-y, .ps.ps--scrolling-x{
+    .ps__rail-y, .ps__rail-x{
+      background-color: transparent !important;
+      &:hover{
+        background-color: transparent !important;
+      }
+    }
+    .ps__rail-y{
+      .ps__thumb-y{
+        border-radius: 0;
+        background: $blue !important;
+      }
+    }
+    .ps__rail-x{
+      .ps__thumb-x{
+        border-radius: 0;
+        background: $blue !important;
+      }
+    }
+  }
+}
+
+.btn-width-file {
+  display: flex;
+  align-items: center;
+
+  .file-label {
+    margin-right: -120px !important;
+    white-space: nowrap;
+  }
+
+  .button-container {
+    width: 100%;
+  }
+
+  @media screen and (max-width: $sm) {
+    justify-content: center;
+    flex-direction: column;
+
+    .file-label {
+      margin-right: 0 !important;
+    }
+    
+    .button-container {
+      margin-top: $block_m_h_md;
+      width: 100%;
+    }
+  }
+}

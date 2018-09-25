@@ -1,0 +1,95 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'contracts.interact-with-contract' | translate}}</h3>
+  </div>
+</div>
+
+<div class="deploy-contract-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">
+  <form (ngSubmit)="t.form.valid && interact()" #t="ngForm">
+    <div class="row">
+      <div class="form-group col-md-12 unlogin-w-100">
+        <mat-form-field class="full-width item-form">
+          <input matInput placeholder="{{'contracts.contract-account' | translate}}" id="account"
+                 type="text" required
+                 [(ngModel)]="model.account" name="account"
+                 [disabled]="!loginService.loggedIn()" #account="ngModel">
+          <mat-error *ngIf="account.errors?.required">{{'contracts.account-is-required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-form-field class="text-area full-width item-form last-item unpading-item">
+      <textarea matInput type="text" name="interface" class="abi-textarea"
+        id="abi-json" placeholder="{{'contracts.abi-json-interface' | translate}}"
+        #byteCode [disabled]="!loginService.loggedIn()"
+        [(ngModel)]="model.interface"></textarea>
+    </mat-form-field>
+
+    <div class="btn-width-file">
+      <div class="button-container">
+        <button mat-raised-button type="submit" id="submit" class="submit"
+          [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+          [ngClass]="{'grey-button': !loginService.loggedIn()}">  {{'contracts.interact' | translate}}</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="deploy-contract-container full-width" *ngIf="loginService.loggedIn()">
+    <div class="form-group col-12 p-0" *ngIf="model?.actions?.length>0">
+      <mat-form-field class="w-100 item-form">
+        <mat-select [(ngModel)]="model.action" name="actionsSelect" placeholder="{{'contracts.action' | translate}}"
+        required #actionsSelect="ngModel" (selectionChange)="onChange()">
+          <mat-option *ngFor="let a of model.actions" [value]="a">
+            {{a}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <form (ngSubmit)="f.form.valid && action()" #f="ngForm">
+      <div class="item-form" *ngFor="let field of fields; let i = index">
+          <div [ngSwitch]="field.typeEos.type">
+              <div *ngSwitchCase="'bool'">
+
+                <div class="row mb-4">
+                  <div class="col-1">
+                      {{field.name}}:
+                  </div>
+                  <div class="col">
+                      <mat-radio-group class="" name="field{{i}}" [(ngModel)]="field.value">
+                          <mat-radio-button class="custom pl-4" value="1">{{'common.true'| translate}}</mat-radio-button>
+                          <mat-radio-button class="custom pl-4" value="0">{{'common.false'| translate}}</mat-radio-button>
+                        </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div *ngSwitchCase="'number'">
+                  <mat-form-field class="w-100">
+                    <input matInput type="number" [(ngModel)]="field.value"
+                            name="field{{i}}" placeholder="{{field.name}}"
+                            max="{{field.typeEos.max}}"
+                            min="{{field.typeEos.min}}"
+                            step="{{field.typeEos.step}}"
+                    >
+                  </mat-form-field>
+                </div>
+              <ng-template ngSwitchDefault>
+                <mat-form-field  class="w-100">
+                  <input matInput placeholder="{{field.name}}" name="field{{i}}"
+                          type="text" [(ngModel)]="field.value"
+                          maxlength="{{field.typeEos.maxlength}}"
+                          minlength="{{field.typeEos.minlength}}"
+                          >
+                </mat-form-field>
+              </ng-template>
+          </div>
+      </div>
+
+      <div class="button-container mt-3" *ngIf="fields?.length>0">
+          <button mat-raised-button type="submit" id="submit" class="submit"
+           [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+           [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.submit-action' | translate}}</button>
+        </div>
+    </form>
+</div>

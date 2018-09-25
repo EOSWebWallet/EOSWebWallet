@@ -1,0 +1,30 @@
+<div class="window-container shadow-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">
+  <div class="row">
+    <form class="col-lg-5 col-md-12 unlogin-w-100" #f="ngForm" (ngSubmit)="f.form.valid && resign()">
+      <div class="title">
+        <div>
+          <h3 class="header">{{'manage-voting.resign-proxy' | translate}}</h3>
+        </div>
+      </div>
+
+      <mat-form-field class="full-width item-form last-item">
+        <input matInput type="text" name="proxy"
+               #proxyAccount="ngModel" required
+               [(ngModel)]="proxy"
+               maxlength="12"
+               [disabled]="!loginService.loggedIn()"
+               placeholder="{{'manage-voting.proxy-account-name' | translate}}" />
+               <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-raised-button type="submit" id="submit" class="submit"
+                [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+                [ngClass]="{'grey-button': !loginService.loggedIn()}" on>{{'buttons.resign' | translate}}</button>
+      </div>
+    </form>
+    <div class="col-lg-7 col-md-12 unlogin-w-100" [ngClass]="{'top-padding': !loginService.loggedIn()}">
+      <app-unregister-proxy-info></app-unregister-proxy-info>
+    </div>
+  </div>
+</div>

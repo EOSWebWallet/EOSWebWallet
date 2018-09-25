@@ -1,0 +1,78 @@
+.mat-card.weight {
+  background: #eff6fe;
+  box-shadow: none;
+  position: relative;
+  bottom: 4px;
+}
+
+.disabled {
+  background-color: #F4F4F4 !important;
+}
+
+.btn-group {
+  position: relative;
+  bottom: 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px;
+}
+
+.addRow, .removeRow {
+  min-width: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+
+  .caption {
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 34px;
+    font-weight: lighter;
+  }
+}
+
+.addRow {
+  background-color: #a4bbe1 !important;
+
+  .caption {
+    bottom: 5px;
+  }
+}
+
+.removeRow {
+  color: #ffffff;
+  background-color: #d8cec5 !important;
+
+  .caption {
+    bottom: 7px;
+  }
+}
+
+.weight-card {
+  position: relative;
+  bottom: 10px;
+}
+
+@media screen and (max-width: 1199px) {
+  .account-wrapp {
+    padding-left: 1.5rem !important;
+  }
+  .input-wrapp {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .account-wrapp {
+    padding-bottom: 1.5rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .input-wrapp {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

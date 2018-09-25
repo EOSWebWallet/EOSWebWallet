@@ -1,0 +1,59 @@
+@import '../../../variable.scss';
+
+$green-color: #9dd298;
+$button-text-color: $white;
+$accaut_name: #212529;
+$accaut_name_selected: #7097d6;
+
+.form{
+    padding: 1rem 0;
+    text-align: center;
+    .account{
+        margin-bottom: 1rem;
+        label{
+            display: block;
+            margin-bottom: 1rem;
+            input[type="radio"]{
+                opacity: 0;            
+                &+.account-name{
+                    color: $accaut_name;
+                    cursor: pointer;
+                    transition: color 0.2s;
+                }
+                &:checked{
+                    &+.account-name{
+                        color: $accaut_name_selected;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        
+    }
+    .btn-select-account{
+        margin-top: 1.5rem;
+        text-transform: uppercase;
+    }
+}
+
+.dialog-content {
+    padding-bottom: 1rem;
+    max-height: 85vh;
+    min-width: 200px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.dialog-actions {
+    min-width: 200px;
+    max-width: 400px;
+    text-align: center;
+}
+
+#select-account-title {
+    color:$black;
+}
+
+button:focus {
+    outline: 5px $green-color;
+}

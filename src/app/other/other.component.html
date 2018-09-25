@@ -1,0 +1,9 @@
+<div [ngClass]="{'main-container': true, 'page-container': loginService.loggedIn(), 'one-container': !loginService.loggedIn()}">
+  <div [ngClass]="{'window-container content-window-container full-width shadow-block': true, 'one-container': !loginService.loggedIn()}">
+    <app-other-navbar></app-other-navbar>
+    <div class="top-padding">
+      <router-outlet></router-outlet>
+      </div>
+  </div>
+  <app-side-bar *ngIf="loginService.loggedIn()"></app-side-bar>
+</div>

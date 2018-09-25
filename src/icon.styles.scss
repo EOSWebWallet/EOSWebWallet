@@ -1,0 +1,8 @@
+@import 'variable.scss';
+
+::ng-deep fa-icon {
+  color: #C0A387 !important;
+  &.grey-icon {
+    color: gray !important;
+  }
+}

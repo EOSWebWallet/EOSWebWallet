@@ -1,0 +1,25 @@
+<div class="window-container shadow-container container1">
+  <form id="createProxy" #f="ngForm" (ngSubmit)="f.form.valid && createProxy()">
+    <mat-form-field class="full-width item-form last-item">
+      <input matInput type="text" name="proxy" #proxyName="ngModel"
+        [(ngModel)]="proxy" maxlength="12"
+        placeholder="{{'manage-voting.proxy-account-name-create' | translate}}"
+        [disabled]="!loginService.loggedIn()"
+        required />
+        <mat-error *ngIf="proxyName.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit"
+              class="submit"  id="submit"
+              [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}"
+              on>{{'buttons.set' | translate}}</button>
+    </div>
+  </form>
+</div>
+
+<div class="window-container shadow-container container2">
+  <app-register-proxy-info></app-register-proxy-info>
+</div>
+

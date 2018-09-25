@@ -1,0 +1,10 @@
+<div class="window-container shadow-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}">  
+  <div class="row">
+    <div class="col-md-12 col-lg-6 unlogin-w-100">
+      <app-buy-ram></app-buy-ram>
+    </div>
+    <div class="col-lg-6 col-md-12 unlogin-w-100"  [ngClass]="{'top-padding': !loginService.loggedIn()}">
+      <app-sell-ram></app-sell-ram>
+    </div>
+  </div>
+</div>

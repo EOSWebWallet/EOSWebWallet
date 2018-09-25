@@ -1,0 +1,26 @@
+<div class= "page-container">
+  <div [ngClass]="{'window-container shadow-container': true, 'one-container': !loggedIn()}">
+  <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <h3 class="text-center header">{{'generate-key-pair.title' | translate}}</h3>
+      <div class="text-block">
+        <p>{{'generate-key-pair.upper-block' | translate}}</p>
+      </div>
+
+      <div class="card-block">
+        <mat-card class="card-blue">{{'common.public-key' | translate}}: <span class="info-text">{{pubKey}}</span></mat-card>
+        <mat-card class="card-blue">{{'common.private-key' | translate}}: <span class="info-text">{{pubKey}}</span> </mat-card>
+      </div>
+
+      <div class="text-block">
+        <p>{{'generate-key-pair.lower-block' | translate}}</p>
+      </div>
+
+      <div class="text-center">
+        <button id="submit" class="submit" type="submit" mat-raised-button color="primary" on>{{'buttons.generate' | translate}}</button>
+      </div>
+  </form>
+  </div>
+  <div class="side-bar" [hidden]="!loggedIn()">
+    <app-side-bar></app-side-bar>
+  </div>
+</div>

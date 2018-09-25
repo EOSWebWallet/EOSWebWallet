@@ -1,0 +1,44 @@
+@import '../../variable.scss';
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px !important;
+}
+
+.btn-group-lower {
+  position: relative;
+  top: 82px;
+}
+
+.addRow, .removeRow {
+  min-width: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  margin-top: 15px;
+
+  .caption {
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 34px;
+    font-weight: lighter;
+  }
+}
+
+.addRow {
+  background-color: #a4bbe1 !important;
+
+  .caption {
+    bottom: 5px;
+  }
+}
+
+.removeRow {
+  color: #ffffff;
+  background-color: #d8cec5 !important;
+
+  .caption {
+    bottom: 7px;
+  }
+}

@@ -1,0 +1,21 @@
+.header {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.set-proxy-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.parent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+}

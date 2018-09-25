@@ -1,0 +1,32 @@
+<div class="window-container shadow-container">
+  <div class="title" *ngIf="!loginService.loggedIn()">
+    <div>
+      <h3 class="header">{{'manage-voting.set-proxy' | translate}}</h3>
+    </div>
+  </div>
+  <form class="set-proxy-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #f="ngForm" (ngSubmit)="f.form.valid && setProxy()">
+    <div class="row">
+      <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form">
+        <input matInput type="text" name="proxy" maxlength="12"
+               required [(ngModel)]="proxy" maxlength="12"
+               [disabled]="!loginService.loggedIn()"
+               placeholder="{{'manage-voting.proxy-account-name' | translate}}" #proxyAccount="ngModel"/>
+               <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form last-item">
+        <input matInput type="text" name="voter" maxlength="12"
+               [disabled]="!loginService.loggedIn()" maxlength="12"
+               #voterAccount="ngModel" required [(ngModel)]="voter"
+               placeholder="{{'manage-voting.proxied-account-name' | translate}}"/>
+               <mat-error *ngIf="voterAccount.errors?.required">{{'manage-voting.proxied-account-name-required' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit" class="submit"  id="submit"
+              [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}"
+              on>{{'buttons.set' | translate}}</button>
+    </div>
+  </form>
+</div>

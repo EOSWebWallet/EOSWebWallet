@@ -1,0 +1,25 @@
+<div class="window-container shadow-container">
+  <div class="title" *ngIf="!loginService.loggedIn()">
+    <div>
+      <h3 class="header">{{'manage-voting.unregister-producer' | translate}}</h3>
+    </div>
+  </div>
+
+  <form class="unregister-producer-container" (ngSubmit)="f.form.valid && unregisterProducer()" #f="ngForm">
+    <mat-form-field class="full-width item-form last-item">
+        <input matInput type="text" id="producer"
+          placeholder="{{'manage-voting.producer' | translate}}"
+          [disabled]="!loginService.loggedIn()"
+          required [(ngModel)]="producer" name="producer"
+          #producerinput="ngModel">
+        <mat-error *ngIf="producerinput.errors?.required">{{'manage-voting.producer-required' | translate}}</mat-error>   
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit" id="submit" class="submit"
+              [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}"
+              on>{{'buttons.unregister-producer' | translate}}</button>
+    </div>
+  </form>
+</div>

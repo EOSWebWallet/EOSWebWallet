@@ -1,0 +1,15 @@
+<div class="window-container shadow-container">
+  <form class="remove-producer-container" #f="ngForm" (ngSubmit)="f.form.valid && removeProducer()">
+    <mat-form-field class="full-width item-form last-item">
+      <input matInput type="text" name="name" maxlength="12" [(ngModel)]="name" [disabled]="!loginService.loggedIn()"
+        placeholder="{{'manage-voting.producer-name' | translate}}" required #nameProducer="ngModel"/>
+        <mat-error *ngIf="nameProducer.errors?.required">{{'manage-voting.producer-required' | translate}}</mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button type="submit" id="submit" class="submit"
+              [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}" on>{{'buttons.remove' | translate}}</button>
+    </div>
+  </form>
+</div>

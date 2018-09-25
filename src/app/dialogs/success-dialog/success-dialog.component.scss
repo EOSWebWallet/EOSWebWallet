@@ -1,0 +1,15 @@
+@import '../dialog.styles.scss';
+
+$green-color: #9dd298;
+
+.go-back {
+    background-color: $green-color;
+}
+
+#success-title {
+    color:$green-color;
+}
+
+button:focus {
+    outline: 5px $green-color;
+}

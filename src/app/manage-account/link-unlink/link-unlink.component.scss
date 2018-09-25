@@ -1,0 +1,9 @@
+@import '../../../variable.scss';
+
+.container1{
+    z-index: 2;
+}
+.container2{
+    margin-top: $block_m_h;
+    z-index: 3;
+}

@@ -1,0 +1,37 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'permission.unlink-permisson' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="t.form.valid && unlink()" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #t="ngForm">
+<div class="row">
+  <div class="col-xl-6 col-lg-12 unlogin-w-100 item-form card-item">
+    <app-unchanged-field childMessage="{{'common.account' | translate}}"> </app-unchanged-field>
+  </div>
+  <div class="col-xl-6 col-lg-12 unlogin-w-100">
+    <mat-form-field class="full-width item-form">
+      <input matInput placeholder="{{'permission.code' | translate}}"
+              type="text" class="font-weight-bold text-color-blue" id="code" required
+              [(ngModel)]="model.code" name="code"
+              [disabled]="!loginService.loggedIn()"
+              #code="ngModel">
+      <mat-error *ngIf="code.errors?.required">{{'permission.code-is-req' | translate}}</mat-error>
+    </mat-form-field>
+  </div>
+</div>
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput placeholder="{{'permission.type' | translate}}" id="type"
+            type="text" id="type" required
+            [(ngModel)]="model.type" name="type"
+            [disabled]="!loginService.loggedIn()"
+            #type="ngModel">
+    <mat-error *ngIf="type.errors?.required">{{'permission.type-is-req' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+    [ngClass]="{'grey-button': !loginService.loggedIn()}"
+    id="submit" class="submit" type="submit"
+    mat-raised-button color="primary" on>{{'buttons.unlink' | translate}}</button>
+  </div>
+</form>

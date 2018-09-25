@@ -1,0 +1,77 @@
+<div [ngClass]="{'page-container': loginService.loggedIn(), 'one-container': !loginService.loggedIn()}">
+  <div [ngClass]="{'window-container shadow-container': true, 'one-container': !loginService.loggedIn()}">
+    <h3 class="header">{{'create-account.create-account' | translate}}</h3>
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <div class="form-group">
+        <mat-form-field class="full-width item-form">
+          <input md-no-asterisk matInput placeholder="{{'create-account.account-name' | translate}}" type="text" id="name"
+            required pattern="[a-zA-Z1-5]*" minlength="12" maxlength="12" [(ngModel)]="model.name" name="name"
+            [disabled]="!loginService.loggedIn()" #name="ngModel">
+          <mat-error *ngIf="name.errors?.required">{{'create-account.name-is-required' | translate}}</mat-error>
+          <mat-error *ngIf="name.errors?.pattern">{{'create-account.name-may-include' | translate}}</mat-error>
+          <mat-error *ngIf="name.errors?.minlength">{{'create-account.length-must-be' | translate}}</mat-error>
+          <mat-error *ngIf="name.errors?.maxlength">{{'create-account.length-must-be' | translate}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width item-form">
+          <input md-no-asterisk ng-disabled matInput type="text" id="owner" required minlength="12" maxlength="12"
+            [(ngModel)]="model.owner" name="owner" [disabled]="!loginService.loggedIn()" placeholder="{{'create-account.owner-name' | translate}}"
+            #owner="ngModel">
+
+          <mat-error *ngIf="owner.errors?.required">{{'create-account.owner-name-is-required' | translate}}</mat-error>
+          <mat-error *ngIf="owner.errors?.minlength">{{'create-account.length-must-be' | translate}}</mat-error>
+          <mat-error *ngIf="owner.errors?.maxlength">{{'create-account.length-must-be' | translate}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="ownerKey" required placeholder="{{'create-account.owner-key' | translate}}"
+            [(ngModel)]="model.ownerKey" name="ownerKey" [disabled]="!loginService.loggedIn()" #ownerKey="ngModel">
+          <mat-error *ngIf="name.errors?.required">{{'create-account.owner-key-is-required' | translate}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width item-form">
+          <input matInput type="text" id="activeKey" required placeholder="{{'create-account.active-key' | translate}}"
+            [(ngModel)]="model.activeKey" name="activeKey" [disabled]="!loginService.loggedIn()" #activeKey="ngModel">
+          <mat-error *ngIf="name.errors?.required">{{'create-account.active-key-is-required' | translate}}</mat-error>
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field class="full-width col-md-4 item-form" floatPlaceholder="always">
+            <input matInput type="number" step="0.1" id="CPUStake" required placeholder="{{'create-account.cpu-stake' | translate}}"
+              [(ngModel)]="model.cpuStake" name="CPUStake" [disabled]="!loginService.loggedIn()" #cpu="ngModel">
+            <mat-error *ngIf="name.errors?.required">{{'create-account.cpu-stake-is-required' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width col-md-4 item-form" floatPlaceholder="always">
+            <input matInput type="number" step="0.1" id="netStake" required placeholder="{{'create-account.net-stake' | translate}}"
+              [(ngModel)]="model.netStake" name="NetStake" [disabled]="!loginService.loggedIn()" #net="ngModel">
+            <mat-error *ngIf="name.errors?.required">{{'create-account.net-stake-is-required' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width col-md-4 item-form last-item" floatPlaceholder="always">
+            <input matInput type="number" step=1024 id="ram" required placeholder="{{'create-account.ram-purchase' | translate}}"
+              [(ngModel)]="model.bytes" name="bytes" [disabled]="!loginService.loggedIn()" #ram="ngModel">
+            <mat-error *ngIf="name.errors?.required">{{'create-account.ram-is-required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div class="d-inline-flex item-form unpading-item" matTooltip="{{'delegate.tooltip' | translate}}">
+          <mat-button-toggle-group [disabled]="!loginService.loggedIn()" [(ngModel)]="model.transfer" name="transfer"
+            id="transfer" class="mr-3">
+            <mat-button-toggle [value]="true">{{'common.on' | translate}}</mat-button-toggle>
+            <mat-button-toggle [value]="false">{{'common.off' | translate}}</mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <label for="transfer" class="mt-1 mr-5">{{'common.transfer' | translate}} <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}"
+              [icon]="faQuestionCircle"></fa-icon></label>
+        </div>
+      </div>
+      <div class="button-container">
+        <button [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" id="submit" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+          class="submit" type="submit" mat-raised-button color="primary" on>{{'buttons.create' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <app-side-bar class="side-bar" *ngIf="loginService.loggedIn()"></app-side-bar>
+</div>

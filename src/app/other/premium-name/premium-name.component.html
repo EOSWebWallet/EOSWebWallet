@@ -1,0 +1,37 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.bid-on-name' | translate}}</h3>
+  </div>
+</div>
+
+<form (ngSubmit)="f.form.valid && onSubmitPrices()" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #f="ngForm">
+  <div class="item-form card-item">
+    <app-unchanged-field childMessage="{{'other.bidder' | translate}}"></app-unchanged-field>
+  </div>
+  <div class="form-group row mt-3">
+    <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form">
+      <input matInput type="text" id="premiumName" placeholder="{{'other.new-name' | translate}}"
+            required pattern=".[a-zA-Z1-5]*" required
+            [(ngModel)]="model.premiumName" name="premiumName"
+            [disabled]="!loginService.loggedIn()"
+            #premiumName="ngModel">
+            <mat-error *ngIf="premiumName.errors?.required">{{'other.new-name-is-required' | translate}}</mat-error>
+            <mat-error *ngIf="premiumName.errors?.pattern">{{'other.name-settings' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form last-item">
+      <input matInput type="number" step="0.001" id="bid" required
+      [(ngModel)]="model.bid" name="bid" placeholder="{{'other.bid-in-eos' | translate}}"
+      [disabled]="!loginService.loggedIn()"
+      #bid="ngModel">
+      <mat-error *ngIf="bid.errors?.required">{{'other.bid-is-required' | translate}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="text-center mx-auto button-container">
+    <button [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" class="submit"
+            mat-raised-button type="submit" on id="submit"
+            [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.bid' | translate}}</button>
+  </div>
+</form>
+

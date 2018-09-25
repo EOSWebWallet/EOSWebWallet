@@ -1,0 +1,40 @@
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'other.set-account-limits' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="f.form.valid && setAccountLimits()" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #f="ngForm">
+    <app-unchanged-field childMessage="{{'common.account' | translate}}"></app-unchanged-field>
+  <div class="item-form card-item">
+  </div>
+  <div class="row">
+    <div class="form-group col-md-4 unlogin-w-100 item-form">
+      <mat-form-field class="full-width">
+        <input matInput type="number" name="ram" required [(ngModel)]="model.ram" [disabled]="!loginService.loggedIn()"
+          placeholder="{{'find-account.ram' | translate}} {{'other.bytes' | translate}}" #ram="ngModel">
+        <mat-error *ngIf="ram.errors?.required">{{'find-account.ram' | translate}} {{'errors.is-required' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-md-4 unlogin-w-100 item-form">
+      <mat-form-field class="full-width">
+        <input matInput type="number" name="net" required [(ngModel)]="model.net" [disabled]="!loginService.loggedIn()"
+          placeholder="{{'find-account.net' | translate}} {{'other.weight' | translate}}" #net="ngModel">
+        <mat-error *ngIf="net.errors?.required">{{'find-account.net' | translate}} {{'errors.is-required' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group col-md-4 unlogin-w-100 item-form last-item">
+      <mat-form-field class="full-width">
+        <input matInput type="number" name="cpu" required [(ngModel)]="model.cpu" [disabled]="!loginService.loggedIn()"
+          placeholder="{{'find-account.cpu' | translate}} {{'other.weight' | translate}}" #cpu="ngModel">
+        <mat-error *ngIf="cpu.errors?.required">{{'find-account.cpu' | translate}} {{'errors.is-required' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="button-container">
+    <button mat-raised-button type="submit" id="submit" class="submit"
+      [disabled]="!loginService.loggedIn()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.set' | translate}}</button>
+  </div>
+</form>

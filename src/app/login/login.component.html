@@ -1,0 +1,84 @@
+<div class="login-page-wrapp">
+	<h3 id="page-title" class="text-center">{{'login.connect-account' | translate}}</h3>
+
+	<div class="login-wrapp">
+		<div class="login-div-button shadow-container" (click)="login()"
+			(mouseover)="hover_scatter=true" (mouseleave)="hover_scatter=false"  >
+			<div class="align-self-center mx-auto text-center">
+				<img [src]="hover_scatter ? '../../assets/images/scatter_ochre.png' : '../../assets/images/scatter_blue.png'" class="login-image" />
+				<p>{{'login.scatter-plugin' | translate}}</p>
+			</div>
+		</div>
+
+		<div class="login-div-button shadow-container" (click)="showKeyLogin = !showKeyLogin"
+			(mouseover)="hover_key=true" (mouseleave)="hover_key=false" >
+			<div class="align-self-center mx-auto text-center">
+				<img [src]="hover_key ? '../../assets/images/key_ochre.png' : '../../assets/images/key_blue.png'" class="login-image" />
+			  <p>{{'login.private-key'| translate}}</p>
+		  </div>
+		</div>
+	</div>
+
+  <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="!showEnterPassword()">
+		<div class="row form-items">
+			<div class="item d-flex" matTooltip="{{'login.data' | translate}}">
+				<mat-form-field class="full-width">
+					<input matInput type="password" id="privateKey" placeholder="{{'common.private-key' | translate}}"
+						[(ngModel)]="model.privateKey" name="privateKey" required
+						#privateKey="ngModel" (input)="onPrivatePass($event)">
+					<mat-error *ngIf="privateKey.errors?.required">{{'login.private-key' | translate}} {{'errors.is-required' | translate}}</mat-error>
+				</mat-form-field>
+				<label for="privateKey" class="mt-1"><fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon></label>
+      </div>
+
+      <div class="item label-wrapp">
+				<app-unchanged-field-login messageTitle="{{'login.public-key' | translate}}" messageValue="{{model.publicKey}}"></app-unchanged-field-login>
+			</div>
+
+			<div class="item label-wrapp">
+				<app-unchanged-field-login class="card-info" messageTitle="{{'login.account-name' | translate}}" messageValue="{{model.accountName ? model.accountName+'@'+model.permission : ''}}" bold="true"></app-unchanged-field-login>
+			</div>
+
+			<div class="item user-password">
+				<mat-checkbox title="Remember me" class="remembe-check" [(ngModel)]="model.remember" name="remember"
+				  #remember="ngModel" [checked]="model.remember" >
+					{{'login.remember-me' | translate}}
+				</mat-checkbox>
+
+				<mat-form-field class="dark input-field" [hidden]="!model.remember">
+					<input matInput type="password" id="pass" placeholder="{{'login.enter-password' | translate}}"
+						[(ngModel)]="model.pass" name="pass" [required]="model.remember"
+						#pass="ngModel" class="black-text-color">
+					<mat-error *ngIf="pass.errors?.required">{{'common.password' | translate}} {{'errors.is-required' | translate}}</mat-error>
+				</mat-form-field>
+			</div>
+
+			<div class="item btn">
+				<button type="submit" class="submit mt-2" mat-raised-button>{{'buttons.connect' | translate}}</button>
+			</div>
+		</div>
+	</form>
+
+	<form (ngSubmit)="passForm.form.valid && loginPublicKeyPassword()" #passForm="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="showEnterPassword()">
+		<div class="row">
+		  <div class="col-md-12 my-auto">
+				<mat-form-field class="full-width dark">
+					<input matInput type="password" id="password" placeholder="{{'login.enter-password' | translate}}"
+								 [(ngModel)]="model.pass" name="password" required (click.Enter)="onSubmitPassword()"
+								 #password="ngModel" class="black-text-color">
+					<mat-error *ngIf="password.errors?.required">{{'common.password' | translate}} {{'errors.is-required' | translate}}</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row login-save-wrapp">
+				<div class="col-sm-4 offset-sm-2 text-right mx-auto btn-wrapp">
+					<button type="submit" class="submit login-save" mat-raised-button>{{'buttons.login' | translate}}</button>
+				</div>
+				<div class="col-sm-6 text-left mx-auto btn-wrapp">
+					<button type="button" (click)="loginService.removePasswordData()"
+			        		class="submit remove-button" mat-raised-button>{{'login.remove-data' | translate}}</button>
+			</div>
+		</div>
+	</form>
+</div>

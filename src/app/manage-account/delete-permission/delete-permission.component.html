@@ -1,0 +1,30 @@
+<div class="window-container shadow-container">
+
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'permission.delete-permission' | translate}}</h3>
+  </div>
+</div>
+
+<form (ngSubmit)="t.form.valid && delete()" #t="ngForm">
+  <div class="item-form card-item">
+    <app-unchanged-field childMessage="{{'common.account' | translate}}"> </app-unchanged-field>
+  </div>
+  <mat-form-field class="full-width item-form last-item">
+    <input matInput placeholder="{{'permission.permission' | translate}}"
+            type="text"  id="permissionName" required
+            [(ngModel)]="permission" name="permissionName"
+            [disabled]="!loginService.loggedIn()"
+            #permissionName="ngModel">
+    <mat-error *ngIf="permissionName.errors?.required">{{'permission.permisson-is-req' | translate}}</mat-error>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      id="submit" class="submit" type="submit"
+      mat-raised-button color="primary" on>{{'buttons.delete' | translate}}</button>
+  </div>
+</form>
+</div>

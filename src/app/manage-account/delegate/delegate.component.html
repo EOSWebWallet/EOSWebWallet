@@ -1,0 +1,66 @@
+<div class="window-container shadow-container">
+
+<div class="title" *ngIf="!loginService.loggedIn()">
+  <div>
+    <h3 class="header">{{'delegate.header' | translate}}</h3>
+  </div>
+</div>
+<form (ngSubmit)="t.form.valid && onSubmit()" #t="ngForm">
+  <div class="item-form card-item">
+    <app-unchanged-field childMessage="{{'common.stake-owner-name' | translate}}"> </app-unchanged-field>
+  </div>
+
+    <div class="form-group">
+      <mat-form-field class="full-width item-form">
+        <input class="font-weight-bold text-color-blue" matInput placeholder="{{'delegate.recipient-name' | translate}}" id="recipient"
+               type="text"  id="name" minlength="12" maxlength="12" required
+               [(ngModel)]="model.recipient" name="recipient"
+               [disabled]="!loginService.loggedIn()"
+               #recipient="ngModel">
+        <mat-error *ngIf="recipient.errors?.required">{{'delegate.account-name-required' | translate}}</mat-error>
+        <mat-error *ngIf="recipient.errors?.minlength">{{'delegate.length-required' | translate}}</mat-error>
+        <mat-error *ngIf="recipient.errors?.maxlength">{{'delegate.length-required' | translate}}</mat-error>
+      </mat-form-field>
+
+        <mat-form-field class="full-width item-form">
+          <input class="font-weight-bold" matInput  id="CPUStake" placeholder="{{'delegate.cpu' | translate}}"
+                 type="number" step="0.1" required
+                 [(ngModel)]="model.cpu" name="CPUStake"
+                 [disabled]="!loginService.loggedIn()"
+                 #cpu="ngModel">
+          <mat-error *ngIf="(t.submitted && cpu.invalid) && recipient.errors?.required">{{'delegate.cpu-required' | translate}}</mat-error>
+        </mat-form-field>
+
+      <mat-form-field class="full-width item-form last-item">
+        <input class="font-weight-bold" matInput id="netStake" placeholder="{{'delegate.net' | translate}}"
+               type="number" step="0.1" required
+               [(ngModel)]="model.net" name="NetStake"
+               [disabled]="!loginService.loggedIn()"
+               #net="ngModel">
+        <mat-error *ngIf="(t.submitted && net.invalid) && recipient.errors?.required">{{'delegate.net-required' | translate}}</mat-error>
+      </mat-form-field>
+
+    <div class="item-form button-toggle last-item d-inline-flex" matTooltip="{{'delegate.tooltip' | translate}}">
+      <mat-button-toggle-group
+        [disabled]="!loginService.loggedIn()"
+        [(ngModel)]="model.transfer" name="transfer"
+        id="transfer" class="mr-3" [value]="0">
+        <mat-button-toggle [value]="true">{{'common.on' | translate}}</mat-button-toggle>
+        <mat-button-toggle [value]="false">{{'common.off' | translate}}</mat-button-toggle>
+      </mat-button-toggle-group>
+      <label for="transfer" class="mt-1">{{'common.transfer' | translate}} <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon></label>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button aria-label="Button that displays a tooltip in various positions"
+      [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}"
+        id="submit" class="submit" type="submit" mat-raised-button color="primary" on>{{'buttons.delegate' | translate}}</button>
+  </div>
+
+  <div *ngIf="accountMissing" class="alert alert-danger">
+    <div>{{'common.invalid-account' | translate}}</div>
+  </div>
+</form>
+</div>

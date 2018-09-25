@@ -1,0 +1,250 @@
+@import '../../variable.scss';
+
+.login-page-wrapp{
+    position: relative;
+    margin: 1rem 0 0 0;
+    padding: 1rem 2.7rem 0 0;
+    z-index: $block_z_index + 2;
+}
+
+#page-title {
+    margin-bottom: $block_p_h;
+    color:$blue;
+}
+
+.login-wrapp{
+    display: flex;
+    justify-content: center;
+    .login-div-button {
+        display: flex;
+        margin: 0 5% ($block_p_h / 2);
+        width: 165.7px;
+        min-width: 165.7px;
+        height: 165.7px;
+        font-family: $ff_title;
+        font-size: $fz_small;
+        font-weight: $fw_semi;
+        background-color: $white;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 640px){
+        .login-div-button {
+            width: calc(37vw);
+            min-width: calc(37vw);
+            height: calc(37vw);
+        }
+    }
+}
+
+.login-div-button{
+    .login-image{
+        margin-bottom: 15px;
+        width: 30px;
+    }
+    p{
+        margin: 0;
+        color: $blue;
+        transition: color $tt;
+    }
+    &:hover{
+        p{
+            color: $brown;
+        } 
+    }
+}
+
+::ng-deep .form-items{
+    display: block;
+    .item{
+        &.label-wrapp{
+            margin-bottom: 20px;
+        }
+        &.user-password{
+            display: flex;
+            align-items: center;
+            height: 65px;
+            .remembe-check{
+                margin: 0 50px 0 15px;
+                .mat-checkbox-label{
+                    white-space: nowrap !important;
+                }
+
+            }
+            .input-field{
+                width: 100%;
+            }
+        }
+        &.btn{
+            display: flex;
+            justify-content: center;
+            padding-top: 15px;
+            padding-bottom: 0;
+        }
+
+    }
+}
+
+::ng-deep .mat-form-field{
+    input{
+        color: $tc;
+    }
+}
+
+::ng-deep .mat-checkbox-label {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+  }
+
+.login-save-wrapp{
+    .btn-wrapp{
+        padding-top: $block_m_h / 2;
+        .submit{
+            font-weight: $fw_bold;
+            &.login-save{
+            }
+            &.remove-button {
+                background-color: $blue!important;
+                color: $white!important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $xl){
+    .login-page-wrapp{
+        margin: 0;
+        padding: 1rem 1.6rem 0 0;
+    }
+    
+    #page-title {
+        margin-bottom: $block_p_h_lg;
+    }
+    
+    .login-wrapp{
+        .login-div-button {
+            margin: 0 5% ($block_p_h_lg / 2);
+            width: 160px;
+            min-width: 160px;
+            height: 160px;
+        }
+    }
+    
+    :host ::ng-deep .form-items{
+        .item{
+            &.user-password{
+                height: 58px;
+                .remembe-check{
+                    margin: 0 40px 0 12px;
+    
+                }
+            }
+            &.btn{
+                padding-top: 12px;
+                padding-bottom: 0;
+            }
+    
+        }
+    }
+
+}
+
+@media screen and (min-width: $sm + 1){
+    .hide-form{
+        display: none;
+    }
+}
+@media screen and (max-width: $lg){
+    .login-page-wrapp{
+        padding: 0 .6rem 0 0;
+    }
+    
+    #page-title {
+        margin-bottom: $block_p_h_md;
+    }
+    
+    .login-wrapp{
+        .login-div-button {
+            margin: 0 5% ($block_p_h_md / 2);
+        }
+    }
+    
+    :host ::ng-deep .form-items{
+        .item{
+            &.user-password{
+                height: 40px;
+                .remembe-check{
+                    margin: 0 20px 0 0;    
+                }
+            }
+            &.btn{
+                padding: 0;
+            }
+    
+        }
+    }
+
+}
+
+@media screen and (max-width: $md){
+    .login-page-wrapp{
+        padding: 0 0 $block_m_h_md 0;
+    }
+}
+
+@media screen and (max-width: $sm){
+    .login-page-wrapp{
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: $xs){
+    .login-wrapp{
+        .login-div-button {
+            margin: 0 3.5% ($block_p_h_md / 2);
+            width: 130px;
+            min-width: 130px;
+            height: 130px;
+        }
+    }
+
+    .form-items{
+        .item{
+            &.label-wrapp{
+            }
+            &.user-password{
+                height: auto;
+                flex-wrap: wrap;
+                .remembe-check{
+                    width: 100%;
+                    margin: 0;    
+                }
+                .input-field{
+                }
+            }
+            &.btn{
+            }
+    
+        }
+    }
+
+    .login-save-wrapp{
+        .btn-wrapp{
+            width: auto;
+            padding-top: $block_m_h_md / 2;
+            .submit{
+                font-weight: $fw_bold;
+                &.login-save{
+                }
+                &.remove-button {
+                    background-color: $blue!important;
+                    color: $white!important;
+                }
+            }
+        }
+    }
+}
+
+
+
+
