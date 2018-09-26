@@ -130,28 +130,50 @@ h3{
 
 .btn-width-file {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin-right: 10px;
 
-  .file-label {
-    margin-right: -120px !important;
-    white-space: nowrap;
+  .label-wrapp{
+    display: flex;
+      align-items: center;
+    margin-bottom: -30px;
+    .file-label {
+      margin-right: 6px;
+      white-space: nowrap;
+    }  
+    .mat-tooltip-btn{
+      top: -3px;
+    }
   }
 
   .button-container {
-    width: 100%;
+    padding-left: 180px;
+    #submit {
+      margin-left: -180px;
+    }
   }
 
   @media screen and (max-width: $sm) {
     justify-content: center;
     flex-direction: column;
 
-    .file-label {
-      margin-right: 0 !important;
+    .label-wrapp{
+      align-self: center;
+      margin-bottom: 0;
+      .file-label {
+        margin-bottom: 0;
+      }
     }
     
     .button-container {
       margin-top: $block_m_h_md;
       width: 100%;
     }
+  }
+}
+
+@media screen and (max-width: $md) {
+  *{
+    cursor: pointer; // for Safary tap
   }
 }

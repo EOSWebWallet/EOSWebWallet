@@ -31,16 +31,13 @@
             <div class="col-xl-{{i > 0 ? 2 : 3}} col-lg-5 col-md-{{i > 0 ? 2 : 3}} col-sm-12 unlogin-w-100 item-form">
 
               <mat-form-field class="w-100">
-                <input class="font-weight-bold" matInput [matAutocomplete]="symbol" type="text" id="symbol"
-                  required [(ngModel)]="item.symbol"
-                  name="symbol{{i}}"
-                  placeholder="{{'transfer-tokens.symbol' | translate}}"
-                  [disabled]="!loginService.loggedIn()"
-                  #symbol="ngModel">
-              
+                <input class="font-weight-bold" matInput [matAutocomplete]="symbol" type="text" id="symbol" required
+                  [(ngModel)]="item.symbol" name="symbol{{i}}" placeholder="{{'transfer-tokens.symbol' | translate}}"
+                  [disabled]="!loginService.loggedIn()" #symbol="ngModel">
+
                 <mat-autocomplete #symbol="matAutocomplete">
                   <mat-option *ngFor="let symbol of doFilterSymbols(item.symbol)" [value]="symbol">
-                      {{symbol}}
+                    {{symbol}}
                   </mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="symbol.errors?.required">{{'transfer-tokens.symbol-required' | translate}}</mat-error>
@@ -75,17 +72,21 @@
       </div>
 
       <div class="btn-width-file pl-4 pr-4">
-        <div [hidden]="!loginService.loggedIn()" matTooltip="Example csv: Recipient;Memo;Quantity;Symbol">
-          <label for="csv-file" class="file-label font-weight-bold mb-0">
-            {{'contracts.attach-csv-file' | translate}}
-            <fa-icon class="help-icon" [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
+        <div [hidden]="!loginService.loggedIn()" class="label-wrapp">
+          <label for="csv-file" class="file-label font-weight-bold mb-0" #tooltip="matTooltip" matTooltip="Example csv: Recipient;Memo;Quantity;Symbol">
+            <div>{{'contracts.attach-csv-file' | translate}}</div>
           </label>
           <input id="csv-file" class="file-input" type="file" accept=".csv" (change)="attachFile($event, file)" #file />
+          <button type="button" class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
+            (click)="tooltip.show()" (tap)="tooltip.show()">
+            <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
+          </button>
         </div>
 
         <div class="button-container">
-          <button id="submit" class="submit" type="submit" mat-raised-button color="primary" [ngClass]="{'grey-button': !loginService.loggedIn()}"
-            [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" on>{{'transfer-tokens.send' | translate}}</button>
+          <button id="submit" class="submit" type="button" mat-raised-button color="primary" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+            [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" on>{{'transfer-tokens.send' |
+            translate}}</button>
         </div>
       </div>
     </form>

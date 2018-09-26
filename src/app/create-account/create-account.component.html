@@ -55,17 +55,19 @@
           </mat-form-field>
         </div>
 
-
-        <div class="d-inline-flex item-form unpading-item" matTooltip="{{'delegate.tooltip' | translate}}">
-          <mat-button-toggle-group [disabled]="!loginService.loggedIn()" [(ngModel)]="model.transfer" name="transfer"
-            id="transfer" class="mr-3">
-            <mat-button-toggle [value]="true">{{'common.on' | translate}}</mat-button-toggle>
-            <mat-button-toggle [value]="false">{{'common.off' | translate}}</mat-button-toggle>
-          </mat-button-toggle-group>
-
-          <label for="transfer" class="mt-1 mr-5">{{'common.transfer' | translate}} <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}"
-              [icon]="faQuestionCircle"></fa-icon></label>
-        </div>
+        <div class="d-inline-flex item-form unpading-item">
+            <mat-button-toggle-group [disabled]="!loginService.loggedIn()" [(ngModel)]="model.transfer" name="transfer" id="transfer"
+              class="mr-3" [value]="0">
+              <mat-button-toggle [value]="true">{{'common.on' | translate}}</mat-button-toggle>
+              <mat-button-toggle [value]="false">{{'common.off' | translate}}</mat-button-toggle>
+            </mat-button-toggle-group>
+            <label for="transfer" class="mt-1 mr-1" #tooltip="matTooltip" matTooltip="{{'delegate.tooltip' | translate}}">{{'common.transfer' | translate}}</label>
+            <button type="button" class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
+              (click)="tooltip.show()" (tap)="tooltip.show()">
+              <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
+            </button>
+          </div>
+          
       </div>
       <div class="button-container">
         <button [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" id="submit" [ngClass]="{'grey-button': !loginService.loggedIn()}"
