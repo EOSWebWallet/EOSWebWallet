@@ -8,55 +8,50 @@
     <div class="row">
       <div class="form-group col-md-6 unlogin-w-100">
         <mat-form-field class="full-width item-form">
-          <input matInput placeholder="{{'contracts.contract-account' | translate}}" id="account"
-                 type="text" required
-                 [(ngModel)]="model.account" name="account"
-                 [disabled]="!loginService.loggedIn()"
-                 #account="ngModel">
+          <input matInput placeholder="{{'contracts.contract-account' | translate}}" id="account" type="text" required
+            [(ngModel)]="model.account" name="account" [disabled]="!loginService.loggedIn()" #account="ngModel">
           <mat-error *ngIf="account.errors?.required">{{'contracts.account-is-required' | translate}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="form-group col-md-3 unlogin-w-100">
         <mat-form-field class="full-width item-form" floatPlaceholder="always">
-            <input matInput type="number" step="0.1" id="type" required
-                [(ngModel)]="model.type" name="type" placeholder="{{'contracts.type' | translate}}" [disabled]="!loginService.loggedIn()"
-                #type="ngModel">
-              <mat-error *ngIf="type.errors?.required">{{'contracts.type-required' | translate}}</mat-error>
-          </mat-form-field>
+          <input matInput type="number" step="0.1" id="type" required [(ngModel)]="model.type" name="type" placeholder="{{'contracts.type' | translate}}"
+            [disabled]="!loginService.loggedIn()" #type="ngModel">
+          <mat-error *ngIf="type.errors?.required">{{'contracts.type-required' | translate}}</mat-error>
+        </mat-form-field>
       </div>
 
       <div class="form-group col-md-3 unlogin-w-100">
         <mat-form-field class="full-width item-form last-item" floatPlaceholder="always">
-            <input matInput type="number" step="0.1" id="version" required
-                [(ngModel)]="model.version" name="version" placeholder="{{'contracts.version' | translate}}" [disabled]="!loginService.loggedIn()"
-                #version="ngModel">
-              <mat-error *ngIf="version.errors?.required">{{'contracts.version-required' | translate}}</mat-error>
-          </mat-form-field>
+          <input matInput type="number" step="0.1" id="version" required [(ngModel)]="model.version" name="version"
+            placeholder="{{'contracts.version' | translate}}" [disabled]="!loginService.loggedIn()" #version="ngModel">
+          <mat-error *ngIf="version.errors?.required">{{'contracts.version-required' | translate}}</mat-error>
+        </mat-form-field>
       </div>
     </div>
 
     <mat-form-field class="text-area full-width item-form last-item unpading-item">
-      <textarea matInput type="text" class="code-textarea" name="byteCode"
-        id="byteCode" placeholder="{{'contracts.byte-code' | translate}}" required [errorStateMatcher]="matcher"
-        #byteCode [disabled]="!loginService.loggedIn()"></textarea>
-        <mat-error *ngIf="!byteCode.value">
-            {{'contracts.required' | translate}}
-        </mat-error>
+      <textarea matInput type="text" class="code-textarea" name="byteCode" id="byteCode" placeholder="{{'contracts.byte-code' | translate}}"
+        required [errorStateMatcher]="matcher" #byteCode [disabled]="!loginService.loggedIn()"></textarea>
+      <mat-error *ngIf="!byteCode.value">
+        {{'contracts.required' | translate}}
+      </mat-error>
     </mat-form-field>
 
     <div class="btn-width-file">
-      <label for="bytecode-file" class="file-label font-weight-bold mb-0" [ngClass]="{'file-label-grey': !loginService.loggedIn()}">
-          {{'contracts.attach-byte-code-file' | translate}}
-      </label>
-      <input id="bytecode-file" class="file-input" type="file" (change)="attachFile($event, file.value)"
-        [disabled]="!loginService.loggedIn()" #file/>
-      <div class="button-container">
-          <button mat-raised-button type="submit"
-          class="submit"  id="submit"
-          [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
-          [ngClass]="{'grey-button': !loginService.loggedIn()}">  {{'buttons.deploy' | translate}}</button>
+        <div [hidden]="!loginService.loggedIn()" class="label-wrapp">
+          <label for="bytecode-file" class="file-label font-weight-bold mb-0">
+            <div>{{'contracts.attach-byte-code-file' | translate}}</div>
+          </label>
+          <input id="bytecode-file" class="file-input" type="file" (change)="attachFile($event, file.value)" [disabled]="!loginService.loggedIn()"
+        #file />
+        </div>
+
+        <div class="button-container">
+            <button mat-raised-button type="submit" class="submit" id="submit" [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+            [ngClass]="{'grey-button': !loginService.loggedIn()}"> {{'buttons.deploy' | translate}}</button>
+        </div>
       </div>
-    </div>
   </form>
 </div>

@@ -27,7 +27,7 @@
 					<mat-error *ngIf="privateKey.errors?.required">{{'login.private-key' | translate}} {{'errors.is-required' |
 						translate}}</mat-error>
 				</mat-form-field>
-				<button class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
+				<button type="button" class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
 				 (click)="tooltip.show()" (tap)="tooltip.show()">
 					<fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
 				</button>

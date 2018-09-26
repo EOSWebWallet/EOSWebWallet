@@ -77,7 +77,7 @@
             <div>{{'contracts.attach-csv-file' | translate}}</div>
           </label>
           <input id="csv-file" class="file-input" type="file" accept=".csv" (change)="attachFile($event, file)" #file />
-          <button class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
+          <button type="button" class="mat-tooltip-btn mt-2" mat-raised-button (mouseover)="tooltip.show()" (mouseenter)="tooltip.show()"
             (click)="tooltip.show()" (tap)="tooltip.show()">
             <fa-icon [ngClass]="{'grey-icon': !loginService.loggedIn()}" [icon]="faQuestionCircle"></fa-icon>
           </button>
