@@ -124,13 +124,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         self.loginInProcess = false
         self.isLoggedIn = LoginState.scatter
         this.navigateAfterLogin()
-      }, (error) => {
+      }, async (error) => {
         if (error.code === 423) {
           self.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
           dialogConfig.disableClose = true
-          dialogConfig.data = { message: error.message, title: 'Scatter locked' }
+          dialogConfig.data = { message: error.message, title: await this.translations.get('dialogs.scatter-locked').toPromise() }
           let dialogRef = self.dialog.open(InfoDialogComponent, dialogConfig)
         }
         else if (error.code === 402) {
@@ -213,17 +213,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (data.account_names.length === 0) {
         const dialogConfig = new MatDialogConfig()
         dialogConfig.closeOnNavigation = true
-        dialogConfig.data = { message: 'Account with this key was not found' }
+        dialogConfig.data = { message: await this.translations.get('dialogs.account-not-found').toPromise() }
         let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
         this.loginInProcess = false
         return
       }
 
+      let accountNotFoundMesage = await this.translations.get('dialogs.account-not-found').toPromise()
+
       let callback = (): void => {
         if (this.model.permission == null) {
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
-          dialogConfig.data = { message: 'Account with this key was not found' }
+          dialogConfig.data = { message: accountNotFoundMesage }
           let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
           this.loginInProcess = false
           return
@@ -280,7 +282,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.hashedPass !== (CryptoJS.SHA256(this.passBase64)).toString()) {
       const dialogConfig = new MatDialogConfig()
       dialogConfig.closeOnNavigation = true
-      dialogConfig.data = { message: 'Password not match' }
+      dialogConfig.data = { message: await this.translations.get('dialogs.wrong-password').toPromise() }
       let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
       this.loginInProcess = false
       return
@@ -292,18 +294,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (!data) {
       const dialogConfig = new MatDialogConfig()
       dialogConfig.closeOnNavigation = true
-      dialogConfig.data = { message: 'Account with this key was not found' }
+      dialogConfig.data = { message: await this.translations.get('dialogs.account-not-found').toPromise() }
       let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
       this.loginInProcess = false
       return
     }
 
-    let callback = (): void => {
+    let accountNotFoundMesage = this.translations.get('dialogs.account-not-found').toPromise()
 
+    let callback = (): void => {
       if (this.model.permission == null) {
         const dialogConfig = new MatDialogConfig()
         dialogConfig.closeOnNavigation = true
-        dialogConfig.data = { message: 'Account with this key was not found' }
+        dialogConfig.data = { message: accountNotFoundMesage }
         let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
         this.loginInProcess = false
         return

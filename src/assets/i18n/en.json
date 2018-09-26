@@ -35,6 +35,9 @@
     "account-missing": "Account with this name is missing"
   },
   "dialogs": {
+    "wrong-password": "Password not match",
+    "account-not-found": "Account with this key was not found",
+    "scatter-locked": "Scatter locked",
     "you-have":"You have to install <a href='${scatterPluginLink}' target='_blank'> Scatter Plugin </a> .",
     "info": "Info",
     "open-info": "Show details",
@@ -48,7 +51,7 @@
     "sending": "Sending...",
     "success": "Success",
     "scatter-should-appear": "",
-    "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWORDS"
+    "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
   "dialog-add-network": {
     "header": "Add new network",

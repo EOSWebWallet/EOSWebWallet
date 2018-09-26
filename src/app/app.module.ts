@@ -375,7 +375,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AppComponent,
     NavbarComponent,
     PageNotFoundComponent,
     MainManageAccountComponent,

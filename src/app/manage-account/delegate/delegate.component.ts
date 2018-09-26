@@ -65,7 +65,7 @@ export class DelegateComponent {
       this.dialogsService.showSuccess(await this.translate.get('undelegate.operation-completed').toPromise())
     } catch (error) {
       if (error.type === 'account_missing') {
-        this.dialogsService.showFailure('undelegate.account-missing')
+        this.dialogsService.showFailure(await this.translate.get('undelegate.account-missing').toPromise())
       } else {
         if (error.code === 402) {
           this.dialogsService.showInfo(error.message)
