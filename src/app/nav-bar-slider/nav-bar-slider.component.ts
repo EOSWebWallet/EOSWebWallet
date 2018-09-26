@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core'
 import { LoginService } from '../services/login.service'
+import ResizeObserver from 'resize-observer-polyfill'
 
 @Component({
   selector: 'app-nav-bar-slider',
@@ -15,6 +16,9 @@ export class NavBarSliderComponent {
   @ViewChild('sliderWrapp') sliderWrapp: ElementRef
   @ViewChild('linksWrapp') linksWrapp: ElementRef
 
+  widthLinkWrapp: number
+  widthbsliderWrapp: number
+
   posLeftsliderWrapp: number
   showLeftArrowNav: boolean
   showRightArrowNav: boolean
@@ -22,14 +26,30 @@ export class NavBarSliderComponent {
   constructor (public loginService: LoginService) {
   }
 
-  ngOnInit () {
+  ro = new ResizeObserver((entries, observer) => {
     this.init()
+  })
+
+  ngOnInit () {
+    this.init(true)
+    this.ro.observe(this.linksWrapp.nativeElement)
   }
 
-  init () {
-    this.posLeftsliderWrapp = 0
-    this.showLeftArrowNav = false
-    this.showRightArrowNav = true
+  init (isDefault = false) {
+    this.widthLinkWrapp = this.linksWrapp.nativeElement.offsetWidth
+    this.widthbsliderWrapp = this.sliderWrapp.nativeElement.offsetWidth
+
+    if (!isDefault) {
+      if (this.widthLinkWrapp < this.widthbsliderWrapp) {
+        this.showLeftArrowNav = false
+        this.showRightArrowNav = false
+        this.posLeftsliderWrapp = 0
+      }
+    } else {
+      this.showLeftArrowNav = false
+      this.showRightArrowNav = true
+      this.posLeftsliderWrapp = 0
+    }
   }
 
   moveNav (direction: string) {
@@ -39,12 +59,10 @@ export class NavBarSliderComponent {
     let moveSize = 150
     let moveMaxPosition = 0
     let moveLenth = 0
-    let widthLinkWrapp = this.linksWrapp.nativeElement.offsetWidth
-    let widthbsliderWrapp = this.sliderWrapp.nativeElement.offsetWidth
     let posLeftsliderWrapp = this.posLeftsliderWrapp
 
     if (direction === 'right') {
-      moveLenth = (posLeftsliderWrapp + widthLinkWrapp) - widthbsliderWrapp - 1
+      moveLenth = (posLeftsliderWrapp + this.widthLinkWrapp) - this.widthbsliderWrapp - 1
       moveSize = this.minMove(moveLenth, moveSize)
 
       if (moveLenth > 0) {
