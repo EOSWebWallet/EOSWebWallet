@@ -6,3 +6,37 @@
     color: gray !important;
   }
 }
+@import 'variable.scss';
+
+::ng-deep fa-icon {
+  color: #C0A387 !important;
+  &.grey-icon {
+    color: gray !important;
+  }
+}
+
+.mat-tooltip-btn{
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  min-width: auto;  
+  box-shadow: none !important;
+  height: 18px;
+  width: 18px;
+  background: transparent;
+}
+
+::ng-deep .mat-tooltip-btn .mat-button-wrapper{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  width: 18px;
+  .ng-fa-icon{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    font-size: 17px;
+  }
+}
