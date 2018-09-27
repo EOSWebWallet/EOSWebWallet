@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
-import { Interact } from '../../models/interact-with-contract.model'
-import { LoginService, DialogsService, ButtonBlockService, EosService } from '../../services'
 import { TranslateService } from '@ngx-translate/core'
+import { LocalStorage } from 'ngx-webstorage'
+import { LoginService, DialogsService, ButtonBlockService, EosService } from '../../services'
+import { Interact } from '../../models/interact-with-contract.model'
 import { IContract } from '../../models/contract.model'
 import { IContractFields } from '../../models/contract-fields.model'
-import { LocalStorage } from 'ngx-webstorage'
 import { EosTypes } from '../../models/eos-types.model'
+import { LoginState } from '../../models/login-state.model'
 import * as _ from 'lodash'
 
 @Component({
@@ -58,6 +59,10 @@ export class InteractWithContractComponent {
       this.network = obj.network
     }
 
+    let eos = (this.loginService.isLoggedIn === LoginState.scatter) ?
+              await this.loginService.setupScutterEos() :
+              this.eos
+
     try {
 
       if (this.model.account != null) {
@@ -67,15 +72,12 @@ export class InteractWithContractComponent {
         this.buttonUsed = false
         return
       }
-      let obj = await this.loginService.setupScutterEos()
-      let eos = obj.eos
-      let network = obj.network
 
       let contract = await eos.contract(this.contractName)
-      console.log(contract)
 
       this.model.interface = JSON.stringify(contract.fc.abi)
       if (this.model.interface == null) throw new Error(("Abi wasn't successfuly extracted"))
+
       this.displayActions(contract.fc.abi)
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (err) {

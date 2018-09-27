@@ -176,39 +176,19 @@ export class LoginService {
     let net = await this.accountService.getChainInfo().toPromise()
     this.currentChainId = net.chain_id
 
-    let network = {
-      blockchain: 'eos',
-      protocol: 'https',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
-    }
-
     let eos
-
-    const requiredFields = {
-      accounts: [ network ]
-    }
-
     await this.scatterService.ready
     if (!this.scatterService) {
       alert(await this.translations.get('errors.scatter-not').toPromise())
       return
     }
-    // eos = this.scatterService.scatter.eos(network, Eos, {})
     eos = Eos({
       httpEndpoint: this.protocol + this.currentNetwork + ':' + this.port,
       chainId: this.currentChainId,
       keyProvider: [this.scatterService.scatter]
     })
-    const identity = await this.scatterService.scatter.getIdentity(requiredFields)
-    const eosAccount = identity.accounts.find(account => account.blockchain === 'eos')
 
-    return {
-      network: network,
-      eos: eos,
-      account: eosAccount.name
-    }
+    return eos
   }
 
   async getFullOptions (privateKey: string = '') {
