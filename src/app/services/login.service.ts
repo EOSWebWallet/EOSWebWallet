@@ -168,6 +168,29 @@ export class LoginService {
     }
   }
 
+  async setupScutterEos () {
+    if (this.currentNetwork == null) {
+      this.currentNetwork = ConfigService.settings.eos.host
+    }
+
+    let net = await this.accountService.getChainInfo().toPromise()
+    this.currentChainId = net.chain_id
+
+    let eos
+    await this.scatterService.ready
+    if (!this.scatterService) {
+      alert(await this.translations.get('errors.scatter-not').toPromise())
+      return
+    }
+    eos = Eos({
+      httpEndpoint: this.protocol + this.currentNetwork + ':' + this.port,
+      chainId: this.currentChainId,
+      keyProvider: [this.scatterService.scatter]
+    })
+
+    return eos
+  }
+
   async getFullOptions (privateKey: string = '') {
     let options
 
