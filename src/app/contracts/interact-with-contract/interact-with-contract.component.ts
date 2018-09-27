@@ -67,7 +67,13 @@ export class InteractWithContractComponent {
         this.buttonUsed = false
         return
       }
-      let contract = await this.eos.contract(this.contractName)
+      let obj = await this.loginService.setupScutterEos()
+      let eos = obj.eos
+      let network = obj.network
+
+      let contract = await eos.contract(this.contractName)
+      console.log(contract)
+
       this.model.interface = JSON.stringify(contract.fc.abi)
       if (this.model.interface == null) throw new Error(("Abi wasn't successfuly extracted"))
       this.displayActions(contract.fc.abi)
