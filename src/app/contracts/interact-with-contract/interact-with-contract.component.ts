@@ -52,6 +52,8 @@ export class InteractWithContractComponent {
 
   async interact () {
     this.buttonUsed = true
+    this.fields = []
+    this.model.actions = []
 
     if (!this.eos) {
       let obj = await this.loginService.setupEos()
