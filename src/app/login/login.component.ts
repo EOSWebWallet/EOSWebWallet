@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
-import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
-import { ScatterService, LoginService, ConfigService, AccountService, CryptoService } from '../services'
-import { LoginState } from '../models/login-state.model'
-import { SelectAccountDialogComponent } from '../dialogs/select-account-dialog/select-account-dialog.component'
 import { MatDialog, MatDialogConfig } from '@angular/material'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-import { FailureDialogComponent } from '../dialogs/failure-dialog/failure-dialog.component'
-import { LoginKeys } from '../models/login-keys.model'
-import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog.component'
 import { Subscription } from 'rxjs'
 import { TranslateService } from '@ngx-translate/core'
 import * as CryptoJS from 'crypto-js'
 import * as Eos from 'eosjs'
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
+import { ScatterService, LoginService, ConfigService, AccountService, CryptoService } from '../services'
+import { LoginState } from '../models/login-state.model'
+import { LoginKeys } from '../models/login-keys.model'
+import { SelectAccountDialogComponent } from '../dialogs/select-account-dialog/select-account-dialog.component'
+import { FailureDialogComponent } from '../dialogs/failure-dialog/failure-dialog.component'
+import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog.component'
 
 declare var Eos: any
 const { ecc } = Eos.modules
@@ -132,11 +132,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           dialogConfig.disableClose = true
           dialogConfig.data = { message: error.message, title: await this.translations.get('dialogs.scatter-locked').toPromise() }
           let dialogRef = self.dialog.open(InfoDialogComponent, dialogConfig)
-        }
-        else if (error.code === 402) {
+        } else if (error.code === 402) {
           self.loginInProcess = false
-        }
-        else {
+        } else {
           self.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
@@ -291,7 +289,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     let pubKey = this.cryptoService.decrypt(this.publicKey, this.passBase64)
     let data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
 
-    if (!data) {
+    if (!data || !data.account_names.length) {
       const dialogConfig = new MatDialogConfig()
       dialogConfig.closeOnNavigation = true
       dialogConfig.data = { message: await this.translations.get('dialogs.account-not-found').toPromise() }
@@ -323,9 +321,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     await this.selectPermission(data, callback)
   }
 
-  navigateAfterLogin() {
+  navigateAfterLogin () {
     if (this.returnUrl === '/') {
-    this.returnUrl = this.router.url === '/login' ? '/transferTokens' : this.router.url
+      this.returnUrl = this.router.url === '/login' ? '/transferTokens' : this.router.url
     }
     this.router.navigateByUrl(this.returnUrl)
   }
