@@ -1,11 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core'
-import { TransactionBar } from '../models/transaction-bar.model'
-import { DialogsService } from '../services/dialogs.service'
 import { TranslateService } from '@ngx-translate/core'
-import { LoginService } from '../services/login.service'
-import { LoginState } from '../models/login-state.model'
 import { LocalStorage } from 'ngx-webstorage'
-import { AccountService } from '../services/account.service'
+import { DialogsService, AccountService, LoginService } from '../services'
+import { TransactionBar } from '../models/transaction-bar.model'
+import { LoginState } from '../models/login-state.model'
 
 @Component({
   selector: 'app-transaction-bar',
@@ -48,26 +46,28 @@ export class TransactionBarComponent implements OnInit {
     }
   }
 
-  public Refresh(){
-      this.getActions()
+  public Refresh () {
+    this.getActions()
   }
 
   getActions () {
     this.result = { actions: [] }
     this.resNumber = 0
     this.data.getActions('{"account_name":"' + this.accountName + '", "offset":-500}').subscribe(data => { // we are exploring only last 500 actions
-      this.model = data
-      this.model.actions.reverse()
-      for (let action in this.model.actions) {
-        console.log((this.model.actions[action]).action_trace.act.name)
-        if ((this.model.actions[action]).action_trace.act.name === 'transfer' && this.resNumber < 5) {
-          if ((this.model.actions[action]).action_trace.act.data.from === this.accountName) {
-            this.model.actions[action].direction = 'Out'
-          } else {
-            this.model.actions[action].direction = 'In'
+      if (data) {
+        this.model = data
+        this.model.actions.reverse()
+        for (let action in this.model.actions) {
+          console.log((this.model.actions[action]).action_trace.act.name)
+          if ((this.model.actions[action]).action_trace.act.name === 'transfer' && this.resNumber < 5) {
+            if ((this.model.actions[action]).action_trace.act.data.from === this.accountName) {
+              this.model.actions[action].direction = 'Out'
+            } else {
+              this.model.actions[action].direction = 'In'
+            }
+            this.result.actions.push(this.model.actions[action])
+            this.resNumber++
           }
-          this.result.actions.push(this.model.actions[action])
-          this.resNumber++
         }
       }
     })

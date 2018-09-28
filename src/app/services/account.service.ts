@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, of, forkJoin } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { LocalStorage } from 'ngx-webstorage'
@@ -77,7 +77,6 @@ export class AccountService {
 
   getCurrentCourse (): Observable<any> {
     let custHeaders = new HttpHeaders().set('Referrer-Policy', 'no-referrer')
-    // console.log(custHeaders)
     return this.httpClient.get('https://api.coingecko.com/api/v3/coins/eos').pipe(
       catchError(err => {
         return of(false)
