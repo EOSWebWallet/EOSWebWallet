@@ -84,7 +84,7 @@
         </div>
 
         <div class="button-container">
-          <button id="submit" class="submit" type="button" mat-raised-button color="primary" [ngClass]="{'grey-button': !loginService.loggedIn()}"
+          <button id="submit" class="submit" type="submit" mat-raised-button color="primary" [ngClass]="{'grey-button': !loginService.loggedIn()}"
             [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()" on>{{'transfer-tokens.send' |
             translate}}</button>
         </div>
