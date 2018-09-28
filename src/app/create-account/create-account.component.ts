@@ -42,7 +42,7 @@ export class CreateAccountComponent {
   ) {
     this.buttonUsed = false
     this.model = (this.loginService.loggedIn())
-      ? new Account('', '', '', '', 0.001, 0.001, 8192, true)
+      ? new Account('', this.accountName, '', '', 0.001, 0.001, 8192, true)
       : new Account('', '', '', '', null, null, null, true)
   }
 
