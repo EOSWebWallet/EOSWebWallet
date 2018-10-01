@@ -9,7 +9,6 @@ import { AddEditNetworkDialogComponent } from '../dialogs/add-edit-network/add-e
 import { ScatterService, LoginService, ConfigService } from '../services/'
 import { LoginState } from '../models/login-state.model'
 import { Network, NetworkProtocol, NetworkChaindId } from '../models/network.model'
-import { isNull } from '@angular/compiler/src/output/output_ast';
 
 export interface DropdownList {
   value: string
@@ -110,7 +109,6 @@ export class NavbarComponent {
       443,
       NetworkProtocol.Https
       ))
-
 
     if (this.userNetworks) {
       this.userNetworks.forEach(network => {

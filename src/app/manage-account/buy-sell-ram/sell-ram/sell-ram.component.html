@@ -10,7 +10,7 @@
     </div>
     <mat-form-field class="full-width item-form last-item">
       <input matInput placeholder="{{'buy-sell-ram.ram-sell' | translate}}" id="ramSell"
-              type="number"  step="1024" required
+              type="number"  step="1" required
                class="font-weight-bold"
               [(ngModel)]="modelSell.ram" name="recipient"
               [disabled]="!loginService.loggedIn()"
