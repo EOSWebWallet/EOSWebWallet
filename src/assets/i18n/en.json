@@ -72,6 +72,11 @@
     "btn-delete": "Delete network",
     "btn-cancel": "Cancel"
   },
+  "dialog-change-last-network": {
+    "header": "Log in to the latest network?",
+    "btn-success": "Ok",
+    "btn-cancel": "Cancel"
+  },
   "undelegate": {
     "stake-holder": "Stake Holder",
     "header": "Undelegate",

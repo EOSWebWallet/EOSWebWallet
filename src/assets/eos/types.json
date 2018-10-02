@@ -172,6 +172,15 @@
             "type": "number"
         },
         {
+            "name": "uint8",
+            "type": "number",
+            "min": 0
+        },
+        {
+            "name": "int8",
+            "type": "number"
+        },
+        {
             "name": "uint16",
             "type": "number",
             "min": 0

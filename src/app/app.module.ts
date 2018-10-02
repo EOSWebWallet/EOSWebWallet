@@ -34,13 +34,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { AuthGuardService, ScatterService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService } from './services'
 
-import { SuccessDialogComponent } from './dialogs/success-dialog/success-dialog.component'
-import { FailureDialogComponent } from './dialogs/failure-dialog/failure-dialog.component'
-import { SendingDialogComponent } from './dialogs/sending-dialog/sending-dialog.component'
-import { SelectAccountDialogComponent } from './dialogs/select-account-dialog/select-account-dialog.component'
-import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component'
-import { AddEditNetworkDialogComponent } from './dialogs/add-edit-network/add-edit-network-dialog.component'
-
+import { SuccessDialogComponent,
+  FailureDialogComponent,
+  SendingDialogComponent,
+  SelectAccountDialogComponent,
+  InfoDialogComponent,
+  AddEditNetworkDialogComponent,
+  ChangeLastNetworkDialogComponent
+} from './dialogs'
 
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
@@ -161,7 +162,8 @@ library.add(faQuestionCircle)
     SendingDialogComponent,
     SelectAccountDialogComponent,
     InfoDialogComponent,
-    AddEditNetworkDialogComponent
+    AddEditNetworkDialogComponent,
+    ChangeLastNetworkDialogComponent
   ]
 })
 export class MaterialModule {}
@@ -428,6 +430,7 @@ const appRoutes: Routes = [
     SendingDialogComponent,
     InfoDialogComponent,
     AddEditNetworkDialogComponent,
+    ChangeLastNetworkDialogComponent,
     SetAccountLimitsComponent,
     SetGlobalLimitsComponent,
     SetPrivilegeComponent,

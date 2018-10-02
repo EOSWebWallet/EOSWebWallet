@@ -71,6 +71,11 @@
     "btn-delete": "Netzwerk löschen",
     "btn-cancel": "Stornieren"
   },
+  "dialog-change-last-network": {
+    "header": "Log in to the latest network?",
+    "btn-success": "Ok",
+    "btn-cancel": "Cancel"
+  },
   "undelegate": {
     "stake-holder": "Pfahlhalterung",
     "header": "Undelegate",
