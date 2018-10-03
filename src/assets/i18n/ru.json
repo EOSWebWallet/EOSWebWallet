@@ -74,8 +74,9 @@
   },
   "dialog-change-last-network": {
     "header": "Log in to the latest network?",
-    "btn-success": "Ok",
-    "btn-cancel": "Cancel"
+    "description": "There are didn't choose accounts on current network. Would you like switch back or logout?",
+    "btn-success": "back",
+    "btn-cancel": "logout"
   },
   "undelegate": {
     "stake-holder": "Владелец аккаунта",
