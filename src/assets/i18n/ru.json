@@ -72,6 +72,12 @@
     "btn-delete": "Удалить сеть",
     "btn-cancel": "Отмена"
   },
+  "dialog-change-last-network": {
+    "header": "Log in to the latest network?",
+    "description": "There are didn't choose accounts on current network. Would you like switch back or logout?",
+    "btn-success": "back",
+    "btn-cancel": "logout"
+  },
   "undelegate": {
     "stake-holder": "Владелец аккаунта",
     "header": "Отозвать полномочия",

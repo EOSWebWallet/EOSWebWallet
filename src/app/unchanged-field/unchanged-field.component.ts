@@ -28,6 +28,7 @@ export class UnchangedFieldComponent implements OnInit, ControlValueAccessor {
   isLoggedIn: LoginState
 
   @Input() childMessage: string
+  @Input() hidePermission: boolean
 
   constructor (public loginService: LoginService) { }
 

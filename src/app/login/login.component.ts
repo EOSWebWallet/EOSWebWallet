@@ -68,6 +68,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   @LocalStorage()
   currentNetwork: string
 
+  @LocalStorage()
+  selectedIdNetwork: number
+
+  @LocalStorage()
+  lastIdNetwork: number
+
   model = new LoginKeys('','',false,'','','')
   loginInProcess = false
 
@@ -123,6 +129,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       await this.scatterService.login(() => {
         self.loginInProcess = false
         self.isLoggedIn = LoginState.scatter
+        this.lastIdNetwork = this.selectedIdNetwork
         this.navigateAfterLogin()
       }, async (error) => {
         if (error.code === 423) {
@@ -208,7 +215,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.model.publicKey = publicKey
 
       let data = await this.accountService.findByKey('{"public_key":"' + publicKey + '"}').toPromise()
-      if (data.account_names.length === 0) {
+      if (!data || !data.account_names.length) {
         const dialogConfig = new MatDialogConfig()
         dialogConfig.closeOnNavigation = true
         dialogConfig.data = { message: await this.translations.get('dialogs.account-not-found').toPromise() }

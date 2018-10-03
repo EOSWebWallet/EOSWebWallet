@@ -1,5 +1,5 @@
   <div *ngIf="loginService.loggedIn()">
-    <mat-card class="card-blue">{{childMessage}}: <span class="info-text">{{accountInfo}}@{{permission}}</span></mat-card>
+    <mat-card class="card-blue">{{childMessage}}: <span class="info-text">{{accountInfo}}{{hidePermission? '' : '@'+permission}}</span></mat-card>
   </div>
   <div *ngIf="!loginService.loggedIn()">
     <mat-card class="disabled"> <span class="info-text">{{childMessage}}</span></mat-card>

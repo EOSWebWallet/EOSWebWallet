@@ -5,7 +5,7 @@ import { LocalStorage } from 'ngx-webstorage'
 import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 
-import { AddEditNetworkDialogComponent } from '../dialogs/add-edit-network/add-edit-network-dialog.component'
+import { AddEditNetworkDialogComponent, ChangeLastNetworkDialogComponent } from '../dialogs'
 import { ScatterService, LoginService, ConfigService } from '../services/'
 import { LoginState } from '../models/login-state.model'
 import { Network, NetworkProtocol, NetworkChaindId } from '../models/network.model'
@@ -45,6 +45,10 @@ export class NavbarComponent {
   selectedLanguage: string
   @LocalStorage()
   selectedNetwork: string
+  @LocalStorage()
+  selectedIdNetwork: number
+  @LocalStorage()
+  lastIdNetwork: number
 
   toggleNav: boolean
 
@@ -87,28 +91,28 @@ export class NavbarComponent {
       NetworkChaindId.MainNet,
       443,
       NetworkProtocol.Https
-      ))
+    ))
     this.networks.push(new Network(
       'eos.greymass.com',
       'Mainnet (Greymass)',
       NetworkChaindId.MainNet,
       443,
       NetworkProtocol.Https
-      ))
+    ))
     this.networks.push(new Network(
       'junglenodes.eosmetal.io',
       'Jungle (Eosmetal)',
       NetworkChaindId.Jungle,
       443,
       NetworkProtocol.Https
-      ))
+    ))
     this.networks.push(new Network(
       'jungle.eos.smartz.io',
       'Jungle (Smartz)',
       NetworkChaindId.Jungle,
       443,
       NetworkProtocol.Https
-      ))
+    ))
 
     if (this.userNetworks) {
       this.userNetworks.forEach(network => {
@@ -143,6 +147,15 @@ export class NavbarComponent {
       this.changeChainId()
     }
 
+    if (this.selectedIdNetwork === null) {
+      for (let i = 0; i < this.networks.length; i++) {
+        if (this.networks[i].host === this.currentNetwork) {
+          this.selectedIdNetwork = i
+          break
+        }
+      }
+    }
+
   }
 
   displayLogOut () {
@@ -173,57 +186,99 @@ export class NavbarComponent {
   networkChanged (index: number) {
     this.selectedNetwork = this.networks[index].host
     if (this.selectedNetwork) {
-      this.currentNetwork = this.selectedNetwork
       this.changeChainId(index)
     }
   }
 
-  changeChainId (index: number = -1) {
+  async changeChainId (index: number = -1) {
     if (index === -1) {
-      this.networks.forEach(network => {
+      for (let i = 0; i < this.networks.length; i++) {
+        let network = this.networks[i]
         if (network.host === this.currentNetwork) {
-          this.currentChainId = network.currentChainId
-          this.port = network.port
-          this.protocol = network.protocol
+          this.setNetwork(i)
+          break
         }
-      })
+      }
     } else {
-      this.currentChainId = this.networks[index].currentChainId
-      this.port = this.networks[index].port
-      this.protocol = this.networks[index].protocol
+      this.setNetwork(index)
     }
 
     // suggest new network if logged in with scatter
     if ((this.isLoggedIn === LoginState.scatter) || (this.isLoggedIn == null)) {
 
-      this.scatterService.ready.then(() => {
-        let network = {
-          blockchain: 'eos',
-          port: this.port,
-          host: this.currentNetwork,
-          chainId: this.currentChainId
+      let rez = await this.loginScatter()
+      if (rez) {
+        this.lastIdNetwork = this.selectedIdNetwork
+      } else {
+        if (this.lastIdNetwork === null) {
+          this.logout()
         }
-        this.scatterService.scatter.forgetIdentity().then(() => {
-          const requiredFields = {
-            accounts: [ network ]
-          }
-          this.scatterService.scatter.getIdentity(requiredFields).then(identity => {
-            this.scatterService.scatter.suggestNetwork(network)
-            this.accountName = identity.accounts[0].name
-            let currentRoute = this.router.url
-            this.router.navigate(['/']).then(() => {
-              this.router.navigate([currentRoute])
-            })
-          })
-        })
-      })
 
+        let dialogRef = this.dialog.open(ChangeLastNetworkDialogComponent)
+        await dialogRef.afterClosed().subscribe(async result => {
+          if (result) {
+            this.selectedNetwork = this.networks[this.lastIdNetwork].host
+            this.setNetwork(this.lastIdNetwork)
+            rez = await this.loginScatter(false)
+            if (rez) {
+              this.lastIdNetwork = this.selectedIdNetwork
+            } else {
+              this.lastIdNetwork = null
+              this.logout()
+            }
+          } else {
+            this.lastIdNetwork = null
+            this.logout()
+          }
+        })
+      }
     } else if (this.isLoggedIn === LoginState.publicKey) {
       this.logout()
     } else if (this.isLoggedIn === LoginState.out) {
       this.logout()
     }
 
+  }
+
+  async loginScatter (forgetIdentity = true) {
+    await this.scatterService.ready
+
+    let network = {
+      blockchain: 'eos',
+      port: this.port,
+      host: this.currentNetwork,
+      chainId: this.currentChainId
+    }
+
+    if (forgetIdentity) {
+      await this.scatterService.scatter.forgetIdentity()
+    }
+
+    const requiredFields = {
+      accounts: [network]
+    }
+    let isLoginned = false
+    await this.scatterService.scatter.getIdentity(requiredFields).then(identity => {
+      this.scatterService.scatter.suggestNetwork(network)
+      this.accountName = identity.accounts[0].name
+      let currentRoute = this.router.url
+      this.router.navigate(['/']).then(() => {
+        this.router.navigate([currentRoute])
+      })
+      isLoginned = true
+    }).catch(() => {
+      isLoginned = false
+    })
+
+    return isLoginned
+  }
+
+  setNetwork (index) {
+    this.currentNetwork = this.networks[index].host
+    this.currentChainId = this.networks[index].currentChainId
+    this.port = this.networks[index].port
+    this.protocol = this.networks[index].protocol
+    this.selectedIdNetwork = index
   }
 
   addNetwork () {
