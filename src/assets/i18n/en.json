@@ -163,6 +163,7 @@
   },
   "find-account": {
     "search-account": "FIND ACCOUNT",
+    "not-found-title": "Account was '{{account}}' not found.",
     "account-data-is-required": "Account data is required field",
     "account-data": "Account data",
     "total-balance": "Total Balance",

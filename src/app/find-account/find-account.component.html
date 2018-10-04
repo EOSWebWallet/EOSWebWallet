@@ -3,10 +3,8 @@
     <form (ngSubmit)="f.form.valid && chooseType()" #f="ngForm">
       <h3 class="text-center header"> {{'find-account.search-account' | translate}}</h3>
       <mat-form-field class="full-width item-form last-item">
-          <input matInput type="text" name="proxy"
-            required [(ngModel)]="accountData"
-            [disabled]="!loginService.loggedIn()"
-            placeholder="{{'find-account.account-data' | translate}}" #accountDataInput="ngModel"/>
+        <input matInput type="text" name="proxy" required [(ngModel)]="accountData" placeholder="{{'find-account.account-data' | translate}}"
+          #accountDataInput="ngModel" (input)="searchComplite=false" />
         <mat-error *ngIf="accountDataInput.errors?.required"> {{'find-account.account-data-is-required' | translate}}</mat-error>
       </mat-form-field>
       <div class="text-center">
@@ -17,6 +15,14 @@
   </div>
   <div>
     <app-side-bar class="ricardian-container" [hidden]="!loginService.loggedIn()"></app-side-bar>
+  </div>
+</div>
+
+<div class="page-container" *ngIf="searchComplite && !acoountsInf.length">
+  <div class="window-container shadow-container result-conainer">
+    <div class="conainer-fluid">
+      <h4 class="not-found-title">{{'find-account.not-found-title' | translate:{ account: accountData } }}</h4>
+    </div>
   </div>
 </div>
 
@@ -33,7 +39,7 @@
               EOS</span></div>
           <ng-template #doubleTotal>
             <div class="info"><span class="font-weight-bold">{{elem?.total_balance_cut[0]}}</span>.{{elem?.total_balance_cut[1]}}
-              EOS / <span style="color: #8e8e8e"> {{result?.usd_total | number}} USD</span></div>
+              EOS / <span class="text-sepia"> {{result?.usd_total | number}} USD</span></div>
           </ng-template>
         </div>
       </div>
@@ -78,7 +84,6 @@
           <div class="info"><span class="font-weight-bold">{{'find-account.owner' | translate}}: </span>{{elem?.total_resources.owner}}</div>
         </div>
       </div>
-
 
       <div class="row info-item">
         <div class="col-sm-2 col-xs-4">
@@ -146,7 +151,6 @@
         </div>
       </div>
 
-
       <div class="row info-item mb-0">
         <div class="col-sm-2 col-xs-4">
           <span class="info-title">{{'find-account.tokens' | translate}}:</span>
@@ -158,146 +162,6 @@
         </div>
       </div>
 
-
     </div>
   </div>
 </div>
-
-
-<!-- <ul class="list-group" [hidden]="!successKey">
-  <li class="shadow-container list-group-item search-container mb-5 " *ngFor="let elem of acoountsInf">
-    <div class="form-group container ml-5 mr-5 pt-5" style="background-color: white; max-width: 2200px">
-      <h2 class="mb-5" style="  color: #567EC3">{{elem?.account_name}}</h2>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.total-balance' | translate}}
-        </div>
-        <div class="col-9">
-          <div *ngIf="!result?.total_balance_cut[1];else doubleTotalKey"><span class="font-weight-bold">{{elem?.total_balance_cut[0]}}
-              {{'info-bar.kb' | translate}}</span> </div>
-          <ng-template #doubleTotalKey>
-            <div><span class="font-weight-bold">{{elem?.total_balance_cut[0]}}</span>.{{elem?.total_balance_cut[1]}}
-              {{'info-bar.kb' | translate}}</div>
-          </ng-template>
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.unstacked' | translate}}
-        </div>
-        <div class="col-9">
-          <span class="font-weight-bold">{{elem?.balance_cut[0]}}.</span>{{elem ?.balance_cut[1]}}
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.stacked' | translate}}
-        </div>
-        <div class="col-9">
-          <div *ngIf="!result?.staked_cut[1];else double"><span class="font-weight-bold">{{elem?.staked_cut[0]}}</span>
-            {{'info-bar.eos' | translate}}</div>
-          <ng-template #double>
-            <div><span class="font-weight-bold">{{elem?.staked_cut[0]}}</span>.{{elem?.staked_cut[1]}} {{'info-bar.eos'
-              | translate}}</div>
-          </ng-template>
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.total-resources' | translate}}
-        </div>
-        <div class="col-3">
-          <b>{{'find-account.cpu-weight' | translate}}: </b>{{elem?.total_resources.cpu_weight}}
-        </div>
-        <div class="col-3">
-          <b>{{'find-account.net-weight' | translate}}: </b>{{elem?.total_resources.net_weight}}
-        </div>
-        <div class="col-3">
-          <b>{{'find-account.owner' | translate}}: </b>{{elem?.total_resources.owner}}
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.delegated-bandwidth' | translate}}
-        </div>
-        <div *ngIf="elem?.self_delegated_bandwidth !== null; else elseDesKey" class="col-9">
-          <b>{{'find-account.cpu-weight' | translate}}: </b> {{elem?.self_delegated_bandwidth.cpu_weight}} <b>{{'find-account.from'
-            | translate}}:</b> {{elem?.self_delegated_bandwidth.from}} <b> {{'find-account.net-weight' | translate}}:
-          </b>{{elem?.self_delegated_bandwidth.net_weight}}
-          <b>{{'find-account.to' | translate}}: </b> {{elem?.self_delegated_bandwidth.to}}
-        </div>
-        <ng-template #elseDesKey>
-          <div class="col-9"><b>{{'find-account.null' | translate}}</b></div>
-        </ng-template>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.created' | translate}}
-        </div>
-        <div class="col-9">
-          {{elem?.created}}
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-lg-4 col-md-12">
-          <mat-progress-bar class="CPU HUGE" mode="determinate" value={{result?.cpu_percent}}>{{'find-account.cpu' |
-            translate}}</mat-progress-bar>
-          <div class="container">
-            <div class="row">
-              <div class="col-2" style="position: relative; top: -29px;">
-                {{'find-account.cpu' | translate}}:
-              </div>
-              <div align="right" class="col-10" style="position: relative; top: -29px; align-items: right">
-                <font style="font-weight: bold;"> {{elem?.cpu_used_sec}}</font> / {{elem?.cpu_max_sec}} <b>
-                  {{'find-account.sec' | translate}}</b>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <mat-progress-bar class="NET HUGE" mode="determinate" value={{elem?.net_percent}}>{{'find-account.net' |
-            translate}}</mat-progress-bar>
-          <div class="container">
-            <div class="row">
-              <div class="col-2" style="position: relative; top: -29px;">
-                {{'find-account.net' | translate}}:
-              </div>
-              <div align="right" class="col-10" style="position: relative; top: -29px; align-items: right">
-                <font style="font-weight: bold">{{elem?.net_used_kb}}</font> / {{elem?.net_max_kb}} <b> {{'info-bar.kb'
-                  | translate}}</b>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
-          <mat-progress-bar class="RAM HUGE" mode="determinate" value={{elem?.ram_percent}}>{{'find-account.ram' |
-            translate}}</mat-progress-bar>
-          <div class="container">
-            <div class="row">
-              <div class="col-2" style="position: relative; top: -29px;">
-                {{'find-account.ram' | translate}}:
-              </div>
-              <div align="right" class="col-10" style="position: relative; top: -29px; align-items: right">
-                <font style="font-weight: bold">{{elem?.ram_used_kb}}</font> / {{elem?.ram_max_kb}} <b> {{'info-bar.kb'
-                  | translate}}</b>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row custom-row">
-        <div class="col-2 custom-col-first">
-          {{'find-account.tokens' | translate}}
-        </div>
-        <div class="col-9">
-          <div class="row">
-            <mat-list-item style="max-height: 2rem" class="pl-3 pb-3" *ngFor="let tokenOrd of elem.tokens">
-              {{tokenOrd?.balance}} <span class="font-weight-bold">{{tokenOrd?.international}}</span> -
-              {{tokenOrd?.token}}
-            </mat-list-item>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-</ul> -->

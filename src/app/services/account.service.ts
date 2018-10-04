@@ -25,14 +25,14 @@ export class AccountService {
    )
   }
   findByKey (body: string): Observable<any> {
-    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port +  '/v1/history/get_key_accounts' , body).pipe(
+    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port + '/v1/history/get_key_accounts' , body).pipe(
       catchError(err => {
         return of(false)
       })
     )
   }
   getTokenInfo (body: string): Observable<any> {
-    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port +  '/v1/chain/get_currency_balance' , body).pipe(
+    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port + '/v1/chain/get_currency_balance' , body).pipe(
       catchError(err => {
         return of(false)
       })
@@ -51,7 +51,7 @@ export class AccountService {
   }
 
   getChainInfo (): Observable<any> {
-    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port +  '/v1/chain/get_info','').pipe(
+    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port + '/v1/chain/get_info','').pipe(
       catchError(err => {
         return of(false)
       })
@@ -59,7 +59,7 @@ export class AccountService {
   }
 
   getActions (body: string): Observable<any> {
-    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port +  '/v1/history/get_actions', body).pipe(
+    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port + '/v1/history/get_actions', body).pipe(
       catchError(err => {
         return of(false)
       })
@@ -67,7 +67,7 @@ export class AccountService {
   }
 
   getProducers (): Observable<any> {
-    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port +  '/v1/chain/get_producers',
+    return this.httpClient.post(this.protocol + this.currentNetwork + ':' + this.port + '/v1/chain/get_producers',
       JSON.stringify({ json: true })).pipe(
         catchError(err => {
           return of(false)

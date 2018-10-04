@@ -39,18 +39,18 @@ mat-button-toggle {
   
   &.mat-button-toggle-disabled {
     cursor: default;
-    border: 1px solid #8E8E8E !important;
+    border: 1px solid $sepia !important;
     color: $dark_input;
 
     &.mat-button-toggle-checked  {
-      background-color: #8E8E8E !important;
+      background-color: $sepia !important;
       color: $white;
     }
   }
 }
 
 .grey-button {
-  background-color: #8E8E8E !important;
+  background-color: $sepia !important;
   color: $white;
   text-transform: uppercase;
 }
