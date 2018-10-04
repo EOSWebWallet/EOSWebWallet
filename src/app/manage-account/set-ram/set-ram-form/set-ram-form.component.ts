@@ -68,7 +68,7 @@ export class SetRamFormComponent {
       await this.eos.transaction({
         actions: [
           {
-            account: 'eosio',
+            account: 'eosio.token',
             name: 'setram',
             authorization: [{ actor: this.accountName, permission: this.permission }],
             data: {

@@ -45,7 +45,7 @@ export class RemoveProducerComponent {
 
       await this.eos.transaction({
         actions: [{
-          account: 'eosio',
+          account: this.accountName,
           name: 'rmvproducer',
           authorization: [{ actor: this.accountName, permission: this.permission }],
           data: {
