@@ -5,7 +5,8 @@
       <div class="info-item-wrapp">
         <div class="info-item">
           <span class="info-title">{{'info-bar.total-balance'| translate}}:</span>
-          {{info.accountInfo?.total_balance}} {{'info-bar.eos'| translate}} / <font style="color: #8e8e8e"> {{info.exUsdTotal| number}} USD </font>
+          {{info.accountInfo?.total_balance || 0 | number}} {{'info-bar.eos'| translate}} / 
+          <span class="text-sepia"> {{info.exUsdTotal || 0 | number}} USD </span>
         </div>
         <div class="info-item">
           <span class="info-title">{{'info-bar.unstaked'| translate}}:</span>
@@ -13,7 +14,7 @@
         </div>
         <div class="info-item">
           <span class="info-title">{{'info-bar.staked'| translate}}:</span>
-          {{info.accountInfo?.voter_info?.staked}} {{'info-bar.eos'| translate}}
+          {{info.accountInfo?.voter_info?.staked || 0 | number}} {{'info-bar.eos'| translate}}
         </div>
       </div>
       <div class="parametr-item-wrapp">
@@ -23,7 +24,7 @@
               {{'info-bar.cpu'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.cpu_used_sec}}</b> / {{info.accountInfo?.cpu_max_sec}} <b> {{'info-bar.sec'| translate}}</b>
+              <b>{{info.accountInfo?.cpu_used_sec || 0 | number}}</b> / {{info.accountInfo?.cpu_max_sec || 0 | number}} <b> {{'info-bar.sec'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -36,7 +37,7 @@
               {{'info-bar.net'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.net_used_kb}}</b> / {{info.accountInfo?.net_max_kb}} <b> {{'info-bar.kb'| translate}}</b>
+              <b>{{info.accountInfo?.net_used_kb || 0 | number}}</b> / {{info.accountInfo?.net_max_kb || 0 | number}} <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -49,7 +50,7 @@
               {{'info-bar.ram'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.ram_used_kb}}</b> / {{info.accountInfo?.ram_max_kb}} <b> {{'info-bar.kb'| translate}}</b>
+              <b>{{info.accountInfo?.ram_used_kb || 0 | number}}</b> / {{info.accountInfo?.ram_max_kb || 0 | number}} <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">

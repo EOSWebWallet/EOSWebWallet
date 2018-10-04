@@ -23,6 +23,7 @@ export class FindAccountComponent implements OnInit {
   accounts: AccountsByKeyModel
   acoountsInf: AccountInfo[] = []
   tokenArray: { token: string, balance: string, international: string }[] = []
+  searchComplite: boolean
   searchAccount: boolean
   successName: boolean
   successKey: boolean
@@ -106,8 +107,6 @@ export class FindAccountComponent implements OnInit {
             data => {
               this.tokenInfo = data
               if (this.tokenInfo.length !== 0 && this.tokenInfo) {
-                console.log(this.tokenInfo)
-                console.log('token:' + index)
                 for (let tokens of this.tokenInfo) {
                   this.tokenCut = tokens.split(' ', 2)
                   this.tokenArray.push(({ token: tokenList.tokens[index], balance: this.tokenCut[0], international: this.tokenCut[1] }))
@@ -125,6 +124,9 @@ export class FindAccountComponent implements OnInit {
         } else {
           this.errorMessage = error.message
         }
+      },
+      () => {
+        this.searchComplite = true
       })
   }
 
@@ -175,14 +177,11 @@ export class FindAccountComponent implements OnInit {
                   data => {
                     this.tokenInfo = data
                     if (this.tokenInfo.length !== 0 && this.tokenInfo) {
-                      console.log(this.tokenInfo)
-                      console.log('token:' + index)
                       for (let tokens of this.tokenInfo) {
                         this.tokenCut = tokens.split(' ', 2)
                         this.tokenArray.push(({ token: tokenList.tokens[index], balance: this.tokenCut[0], international: this.tokenCut[1] }))
                       }
                       this.acoountsInf[iter].tokens = this.tokenArray
-                      console.log(this.acoountsInf[iter].tokens)
                     }
                   },
                   error => {
@@ -209,6 +208,9 @@ export class FindAccountComponent implements OnInit {
         } else {
           this.errorMessage = error.message
         }
+      },
+      () => {
+        this.searchComplite = true
       }
     )
   }

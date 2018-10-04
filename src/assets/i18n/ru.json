@@ -163,6 +163,7 @@
   },
   "find-account": {
     "search-account": "Найти аккаунт",
+    "not-found-title": "Аккаунт '{{account}}' не найден.",
     "account-data-is-required": "Поле 'Данные учетной записи' являются обязательным",
     "account-data": "Account data",
     "total-balance": "Баланс",
