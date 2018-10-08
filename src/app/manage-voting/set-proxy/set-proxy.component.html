@@ -6,13 +6,19 @@
   </div>
   <form class="set-proxy-container" [ngClass]="{'unlogin-row-wrapp': !loginService.loggedIn()}" #f="ngForm" (ngSubmit)="f.form.valid && setProxy()">
     <div class="row">
+
+      <div class="col-md-6 item-form card-item">
+        <app-unchanged-field childMessage="{{'common.account' | translate}}" hidePermission="true"></app-unchanged-field>
+      </div>
+
       <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form">
         <input matInput type="text" name="proxy" maxlength="12"
-               required [(ngModel)]="proxy" maxlength="12"
-               [disabled]="!loginService.loggedIn()"
-               placeholder="{{'manage-voting.proxy-account-name' | translate}}" #proxyAccount="ngModel"/>
-               <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+                required [(ngModel)]="proxy" maxlength="12"
+                [disabled]="!loginService.loggedIn()"
+                placeholder="{{'manage-voting.proxy-account-name' | translate}}" #proxyAccount="ngModel"/>
+                <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
       </mat-form-field>
+
       <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form last-item">
         <input matInput type="text" name="voter" maxlength="12"
                [disabled]="!loginService.loggedIn()" maxlength="12"

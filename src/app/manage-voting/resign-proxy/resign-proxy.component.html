@@ -7,14 +7,18 @@
         </div>
       </div>
 
+      <div class="item-form card-item">
+        <app-unchanged-field childMessage="{{'common.account' | translate}}" hidePermission="true"></app-unchanged-field>
+      </div>
+
       <mat-form-field class="full-width item-form last-item">
         <input matInput type="text" name="proxy"
-               #proxyAccount="ngModel" required
-               [(ngModel)]="proxy"
-               maxlength="12"
-               [disabled]="!loginService.loggedIn()"
-               placeholder="{{'manage-voting.proxy-account-name' | translate}}" />
-               <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
+                #proxyAccount="ngModel" required
+                [(ngModel)]="proxy"
+                maxlength="12"
+                [disabled]="!loginService.loggedIn()"
+                placeholder="{{'manage-voting.proxy-account-name' | translate}}" />
+                <mat-error *ngIf="proxyAccount.errors?.required">{{'manage-voting.proxy-account-name-required' | translate}}</mat-error>
       </mat-form-field>
 
       <div class="button-container">
