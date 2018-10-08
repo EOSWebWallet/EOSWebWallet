@@ -1,5 +1,10 @@
 <div class="window-container shadow-container container1">
   <form id="createProxy" #f="ngForm" (ngSubmit)="f.form.valid && createProxy()">
+
+    <div class="item-form card-item">
+      <app-unchanged-field childMessage="{{'manage-voting.proxy-account-name-create' | translate}}" hidePermission="true"></app-unchanged-field>
+    </div>
+
     <mat-form-field class="full-width item-form last-item">
       <input matInput type="text" name="proxy" #proxyName="ngModel"
         [(ngModel)]="proxy" maxlength="12"

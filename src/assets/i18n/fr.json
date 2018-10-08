@@ -163,7 +163,7 @@
   },
   "find-account": {
     "search-account": "Trouver un compte",
-    "not-found-title": "Account was '{{account}}' not found.",
+    "not-found-title": "Account '{{account}}' was not found.",
     "account-data-is-required": "Les données de compte sont un champ obligatoire",
     "account-data": "Account data",
     "total-balance": "solde total",

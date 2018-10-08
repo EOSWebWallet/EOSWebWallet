@@ -3,30 +3,31 @@
     <h3 class="header">{{'other.on-error' | translate}}</h3>
   </div>
 </div>
-<form (ngSubmit)="f.form.valid && onError()"  #f="ngForm">
+<form (ngSubmit)="f.form.valid && onError()" #f="ngForm">
 
-<div class="row">
-  <div class="col">
-  <mat-form-field class="full-width">
-    <input matInput type="number" name="senderId"
-      [(ngModel)]="model.senderId" [disabled]="!loginService.loggedIn()"
-      placeholder="{{'other.sender-id' | translate}}"/>
-  </mat-form-field>
-</div>
-
-  <div class="col">
-    <mat-form-field class="full-width item-form last-item">
-      <input matInput type="number" step="1" name="sentTrx"
-             [(ngModel)]="model.sentTrx" [disabled]="!loginService.loggedIn()"
-             placeholder="{{'other.sent-transaction' | translate}}" />
-    </mat-form-field>
+  <div class="item-form card-item">
+    <app-unchanged-field childMessage="{{'common.account' | translate}}" hidePermission="true"></app-unchanged-field>
   </div>
-</div>
 
-<div class="button-container mt-3">
-  <button mat-raised-button type="submit" id="submit" class="submit"
-    [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
-    [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.on-error' | translate}}</button>
-</div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput type="number" name="senderId" [(ngModel)]="model.senderId" [disabled]="!loginService.loggedIn()"
+          placeholder="{{'other.sender-id' | translate}}" />
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="full-width item-form last-item">
+        <input matInput type="number" step="1" name="sentTrx" [(ngModel)]="model.sentTrx" [disabled]="!loginService.loggedIn()"
+          placeholder="{{'other.sent-transaction' | translate}}" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="button-container mt-3">
+    <button mat-raised-button type="submit" id="submit" class="submit" [disabled]="!loginService.loggedIn() || buttonBlockService.buttonBlocked()"
+      [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.on-error' | translate}}</button>
+  </div>
 </form>
 <app-failure-dialog *ngIf="error"></app-failure-dialog>

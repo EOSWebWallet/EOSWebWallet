@@ -162,7 +162,7 @@
   },
   "find-account": {
     "search-account": "Konto suchen",
-    "not-found-title": "Account was '{{account}}' not found.",
+    "not-found-title": "Account '{{account}}' was not found.",
     "account-data-is-required": "Kontodaten sind ein Pflichtfeld",
     "account-data": "Account data",
     "total-balance": "Total Balance",

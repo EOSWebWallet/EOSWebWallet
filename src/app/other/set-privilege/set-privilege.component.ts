@@ -47,12 +47,12 @@ export class SetPrivilegeComponent {
       }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+      await this.translate.get('dialogs.scatter-should-appear').toPromise())
 
       await this.eos.transaction({
         actions: [
           {
-            account: 'eosio',
+            account: 'eosio.token',
             name: 'setpriv',
             authorization: [{ actor: this.accountName, permission: this.permission }],
             data: {
