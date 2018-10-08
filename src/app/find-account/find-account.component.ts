@@ -78,9 +78,14 @@ export class FindAccountComponent implements OnInit {
     const requestBody = '{"account_name":"' + accountName + '"}'
     this.data.findByName(requestBody).subscribe(
       data => {
+        this.searchComplite = true
+        this.acoountsInf = []
         this.successName = true
+        if (!data) {
+          return
+        }
         this.result = data
-        this.result.balance_cut = this.result.core_liquid_balance.split('.', 2)
+        this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
         this.result.netData = this.result.total_resources.net_weight.split(' ', 1)
         this.result.cpuData = this.result.total_resources.cpu_weight.split(' ', 1)
         this.result.voter_info.staked = this.result.voter_info.staked.toString()
@@ -124,9 +129,6 @@ export class FindAccountComponent implements OnInit {
         } else {
           this.errorMessage = error.message
         }
-      },
-      () => {
-        this.searchComplite = true
       })
   }
 
@@ -138,10 +140,11 @@ export class FindAccountComponent implements OnInit {
     this.errorName = false
     this.errorKey = false
     this.tokenArray = []
-    this.acoountsInf = []
     const body = '{"public_key":"' + publicKey + '"}'
     this.data.findByKey(body).subscribe(
       data => {
+        this.searchComplite = true
+        this.acoountsInf = []
         this.successKey = true
         this.accounts = data
         for (let index in this.accounts.account_names) {
@@ -208,9 +211,6 @@ export class FindAccountComponent implements OnInit {
         } else {
           this.errorMessage = error.message
         }
-      },
-      () => {
-        this.searchComplite = true
       }
     )
   }
