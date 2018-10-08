@@ -22,6 +22,8 @@ export class DelegateComponent {
   @LocalStorage()
   accountName: string
   @LocalStorage()
+  permission: string
+  @LocalStorage()
   isLoggedIn: LoginState
   @LocalStorage()
   buttonUsed: boolean
@@ -51,6 +53,8 @@ export class DelegateComponent {
         this.eos = obj.eos
         this.network = obj.network
       }
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
       await this.eos.transaction(tr => {
@@ -60,7 +64,7 @@ export class DelegateComponent {
           stake_net_quantity: String(model.net.toFixed(4)) + ' EOS',
           stake_cpu_quantity: String(model.cpu.toFixed(4)) + ' EOS',
           transfer: Number(model.transfer | 0)
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('undelegate.operation-completed').toPromise())
     } catch (error) {

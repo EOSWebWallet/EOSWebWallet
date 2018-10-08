@@ -23,6 +23,9 @@ export class SellRamComponent {
   accountName: string
 
   @LocalStorage()
+  permission: string
+
+  @LocalStorage()
   isLoggedIn: LoginState
 
   @LocalStorage()
@@ -54,12 +57,14 @@ export class SellRamComponent {
         this.eos = obj.eos
         this.network = obj.network
       }
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
       await this.eos.transaction(tr => {
         tr.sellram({
           account: model.seller,
           bytes: model.ram
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('buy-sell-ram.operation-completed').toPromise())
     } catch (err) {

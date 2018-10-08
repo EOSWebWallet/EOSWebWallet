@@ -46,12 +46,13 @@ export class VoterProducerComponent {
 
   async voteProducer () {
     this.buttonUsed = true
-    let options = await this.loginService.getFullOptions()
+    let optionsTr = await this.loginService.getFullOptions()
 
     try {
       let obj = await this.loginService.setupEos()
       this.eos = obj.eos
       this.network = obj.network
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
       for (let i = 0; i < this.model.producers.length; i++) {
         this.model.producers[i] = this.model.producers[i].toLowerCase()
@@ -65,8 +66,8 @@ export class VoterProducerComponent {
           voter: this.model.voter,
           proxy: this.model.proxy.toLowerCase(),
           producers: this.model.producers
-        })
-      }, options)
+        }, options)
+      }, optionsTr)
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

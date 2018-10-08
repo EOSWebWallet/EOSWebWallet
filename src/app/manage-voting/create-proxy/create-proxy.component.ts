@@ -15,6 +15,10 @@ import { LocalStorage } from 'ngx-webstorage'
 })
 export class CreateProxyComponent {
   @LocalStorage()
+  accountName: string
+  @LocalStorage()
+  permission: string
+  @LocalStorage()
   buttonUsed: boolean
 
   proxy: String
@@ -38,6 +42,7 @@ export class CreateProxyComponent {
       let obj = await this.loginService.setupEos()
       this.eos = obj.eos
       this.network = obj.network
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
@@ -46,7 +51,7 @@ export class CreateProxyComponent {
         tr.regproxy({
           proxy: this.proxy.toLowerCase(),
           isproxy: 1
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {

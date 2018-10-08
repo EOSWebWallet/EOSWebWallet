@@ -20,6 +20,8 @@ export class UndelegateComponent {
   @LocalStorage()
   accountName: string
   @LocalStorage()
+  permission: string
+  @LocalStorage()
   isLoggedIn: LoginState
   @LocalStorage()
   buttonUsed: boolean
@@ -46,6 +48,8 @@ export class UndelegateComponent {
         this.eos = obj.eos
         this.network = obj.network
       }
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
       await this.eos.transaction(tr => {
         tr.undelegatebw({
@@ -53,7 +57,7 @@ export class UndelegateComponent {
           receiver: model.stakeHolder.toLowerCase(),
           unstake_net_quantity: String(model.net.toFixed(4)) + ' EOS',
           unstake_cpu_quantity: String(model.cpu.toFixed(4)) + ' EOS'
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('delegate.operation-completed').toPromise())
     } catch (error) {
