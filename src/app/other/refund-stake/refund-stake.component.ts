@@ -41,12 +41,6 @@ export class RefundStakeComponent {
     this.eos = obj.eos
     this.network = obj.network
 
-    let optionsTr = {
-      broadcast: true,
-      sign: true,
-      verbose: true,
-      authorization: [{ actor: this.accountName, permission: this.permission }]
-    }
 
     const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
@@ -58,7 +52,7 @@ export class RefundStakeComponent {
         tr.refund({
           owner: this.owner.toLowerCase()
         }, options)
-      }, optionsTr)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

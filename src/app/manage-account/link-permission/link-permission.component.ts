@@ -50,12 +50,6 @@ export class LinkPermissionComponent implements OnInit {
 
   async link () {
     this.buttonUsed = true
-    let optionsTr = {
-      broadcast: true,
-      sign: true,
-      verbose: true,
-      authorization: [{ actor: this.accountName, permission: this.permission }]
-    }
     const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
     try {
@@ -72,7 +66,7 @@ export class LinkPermissionComponent implements OnInit {
           type: this.model.type, // action_name
           requirement: this.model.requirement // permission_name
         }, options)
-      }, optionsTr)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

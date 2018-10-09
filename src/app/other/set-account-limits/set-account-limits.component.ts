@@ -53,8 +53,6 @@ export class SetAccountLimitsComponent {
     this.eos = obj.eos
     this.network = obj.network
 
-    let options = await this.loginService.getFullOptions()
-
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
      await this.translate.get('dialogs.scatter-should-appear').toPromise())
 
@@ -73,7 +71,7 @@ export class SetAccountLimitsComponent {
             }
           }
         ]
-      }, options)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

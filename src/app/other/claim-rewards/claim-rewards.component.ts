@@ -46,10 +46,6 @@ export class ClaimRewardsComponent {
     this.eos = obj.eos
     this.network = obj.network
 
-    let optionsTr = {
-      broadcast: true,
-      sign: true
-    }
     const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
@@ -58,7 +54,7 @@ export class ClaimRewardsComponent {
     try {
       await this.eos.transaction(tr => {
         tr.claimrewards(this.owner.toLowerCase(), options)
-      }, options)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

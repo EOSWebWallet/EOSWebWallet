@@ -46,7 +46,6 @@ export class VoterProducerComponent {
 
   async voteProducer () {
     this.buttonUsed = true
-    let optionsTr = await this.loginService.getFullOptions()
 
     try {
       let obj = await this.loginService.setupEos()
@@ -67,7 +66,7 @@ export class VoterProducerComponent {
           proxy: this.model.proxy.toLowerCase(),
           producers: this.model.producers
         }, options)
-      }, optionsTr)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {
