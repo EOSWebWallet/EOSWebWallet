@@ -67,7 +67,7 @@
 			<div class="col-md-12 my-auto">
 				<mat-form-field class="full-width dark">
 					<input matInput type="password" id="password" placeholder="{{'login.enter-password' | translate}}" [(ngModel)]="model.pass"
-					 name="password" required (click.Enter)="onSubmitPassword()" #password="ngModel" class="black-text-color">
+					 name="password" required #password="ngModel" class="black-text-color">
 					<mat-error *ngIf="password.errors?.required">{{'common.password' | translate}} {{'errors.is-required' |
 						translate}}</mat-error>
 				</mat-form-field>
