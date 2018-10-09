@@ -63,7 +63,7 @@ export class VoterProducerComponent {
 
       await this.eos.transaction(tr => {
         tr.voteproducer({
-          voter: this.model.voter,
+          voter: this.accountName,
           proxy: this.model.proxy.toLowerCase(),
           producers: this.model.producers
         }, options)

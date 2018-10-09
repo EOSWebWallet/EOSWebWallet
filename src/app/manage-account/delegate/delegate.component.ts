@@ -59,7 +59,7 @@ export class DelegateComponent {
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
       await this.eos.transaction(tr => {
         tr.delegatebw({
-          from: model.stakeOwner,
+          from: this.accountName,
           receiver: model.recipient.toLowerCase(),
           stake_net_quantity: String(model.net.toFixed(4)) + ' EOS',
           stake_cpu_quantity: String(model.cpu.toFixed(4)) + ' EOS',
