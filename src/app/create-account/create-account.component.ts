@@ -93,7 +93,7 @@ export class CreateAccountComponent {
           stake_cpu_quantity: String(model.cpuStake.toFixed(4)) + ' EOS',
           transfer: Number(model.transfer | 0)
         }, options)
-      }, options)
+      })
       this.dialogsService.showSuccess(await this.translate.get('create-account.account-created').toPromise())
     } catch (err) {
       this.dialogsService.showFailure(err)
