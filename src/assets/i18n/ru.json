@@ -424,7 +424,7 @@
     "link-unlink-permis": "Привязать/отвязать разрешение",
     "delete-permis": "Удалить разрешение",
     "advanced-permis": "Расширить разрешение",
-    "set-ram-rate": "Задать RAM & RAM rate"
+    "set-ram-rate": "Задать RAM"
   },
   "other-navbar": {
     "set-privilege": "Установить привелегии",
