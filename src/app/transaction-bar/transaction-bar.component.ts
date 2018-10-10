@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { LocalStorage } from 'ngx-webstorage'
+import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
 import { DialogsService, AccountService, LoginService } from '../services'
 import { TransactionBar } from '../models/transaction-bar.model'
 import { LoginState } from '../models/login-state.model'
@@ -36,14 +36,23 @@ export class TransactionBarComponent implements OnInit {
     public loginService: LoginService,
     private translate: TranslateService,
     private dialogsService: DialogsService,
+    private storage: LocalStorageService,
     private data: AccountService
   ) { }
 
   ngOnInit () {
     this.innerWidth = window.innerWidth
-    if (this.isLoggedIn !== LoginState.out) {
+    if (this.isLoggedIn && this.isLoggedIn !== LoginState.out) {
       this.getActions()
     }
+
+    this.storage.observe('currentnetwork').subscribe(() => {
+      if (this.isLoggedIn && this.isLoggedIn !== LoginState.out) {
+        this.Refresh()
+      }
+    }, (error) => {
+      console.log(error)
+    })
   }
 
   public Refresh () {
