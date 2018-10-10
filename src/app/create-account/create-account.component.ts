@@ -32,6 +32,9 @@ export class CreateAccountComponent {
   @LocalStorage()
   accountName: string
 
+  @LocalStorage()
+  permission: string
+
   model: Account
 
   constructor (
@@ -67,19 +70,21 @@ export class CreateAccountComponent {
       this.eos = obj.eos
       this.network = obj.network
 
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
       await this.eos.transaction(tr => {
         tr.newaccount({
           creator: model.owner.toLowerCase(),
           name: model.name.toLowerCase(),
           owner: model.ownerKey,
           active: model.activeKey
-        })
+        }, options)
 
         tr.buyrambytes({
           payer: model.owner.toLowerCase(),
           receiver: model.name.toLowerCase(),
           bytes: model.bytes
-        })
+        }, options)
 
         tr.delegatebw({
           from: model.owner.toLowerCase(),
@@ -87,8 +92,8 @@ export class CreateAccountComponent {
           stake_net_quantity: String(model.netStake.toFixed(4)) + ' EOS',
           stake_cpu_quantity: String(model.cpuStake.toFixed(4)) + ' EOS',
           transfer: Number(model.transfer | 0)
-        })
-      })
+        }, options)
+      }, options)
       this.dialogsService.showSuccess(await this.translate.get('create-account.account-created').toPromise())
     } catch (err) {
       this.dialogsService.showFailure(err)

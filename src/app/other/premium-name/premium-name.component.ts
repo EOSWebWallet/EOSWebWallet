@@ -51,11 +51,6 @@ export class PremiumNameComponent {
     this.eos = obj.eos
     this.network = obj.network
 
-    let options = {
-      broadcast: true,
-      sign: true
-    }
-
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
      await this.translate.get('dialogs.scatter-should-appear').toPromise())
 
@@ -71,7 +66,7 @@ export class PremiumNameComponent {
             bid: this.model.bid.toFixed(4) + ' EOS'
           }
         }]
-      }, options)
+      })
 
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {

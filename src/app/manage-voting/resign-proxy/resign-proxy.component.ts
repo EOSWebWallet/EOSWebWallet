@@ -15,6 +15,10 @@ import { LocalStorage } from 'ngx-webstorage'
 })
 export class ResignProxyComponent {
   @LocalStorage()
+  accountName: string
+  @LocalStorage()
+  permission: string
+  @LocalStorage()
   buttonUsed: boolean
   proxy: String
   network: any
@@ -35,6 +39,7 @@ export class ResignProxyComponent {
       let obj = await this.loginService.setupEos()
       this.eos = obj.eos
       this.network = obj.network
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
@@ -43,7 +48,7 @@ export class ResignProxyComponent {
         tr.regproxy({
           proxy: this.proxy.toLowerCase(),
           isproxy: 0
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {

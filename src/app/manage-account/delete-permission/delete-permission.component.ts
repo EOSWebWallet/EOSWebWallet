@@ -18,6 +18,9 @@ export class DeletePermissionComponent {
   accountName: string
 
   @LocalStorage()
+  permission: string
+
+  @LocalStorage()
   isLoggedIn: LoginState
 
   @LocalStorage()
@@ -25,7 +28,7 @@ export class DeletePermissionComponent {
 
   network: any
   eos: any
-  permission: string
+  permissionModel: string
 
   constructor (
     public buttonBlockService: ButtonBlockService,
@@ -33,26 +36,28 @@ export class DeletePermissionComponent {
     private translate: TranslateService,
     private dialogsService: DialogsService
   ) {
-    this.permission = ''
+    this.permissionModel = ''
     this.buttonUsed = false
   }
 
   async delete () {
     this.buttonUsed = true
 
-    if (this.permission) {
+    if (this.permissionModel) {
       try {
         if (!this.eos) {
           let obj = await this.loginService.setupEos()
           this.eos = obj.eos
           this.network = obj.network
         }
+        const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
         this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
         await this.eos.transaction(tr => {
           tr.deleteauth({
             account: this.accountName,
-            permission: this.permission
-          })
+            permission: this.permissionModel
+          }, options)
         })
         this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
       } catch (error) {

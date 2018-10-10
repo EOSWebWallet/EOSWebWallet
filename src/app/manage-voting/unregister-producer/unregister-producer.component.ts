@@ -15,6 +15,10 @@ import { LocalStorage } from 'ngx-webstorage'
 })
 export class UnregisterProducerComponent {
   @LocalStorage()
+  permission: string
+  @LocalStorage()
+  accountName: string
+  @LocalStorage()
   buttonUsed: boolean
   producer: string
   network: any
@@ -35,6 +39,7 @@ export class UnregisterProducerComponent {
       let obj = await this.loginService.setupEos()
       this.eos = obj.eos
       this.network = obj.network
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
@@ -42,7 +47,7 @@ export class UnregisterProducerComponent {
       await this.eos.transaction(tr => {
         tr.unregprod({
           producer: this.producer.toLowerCase()
-        })
+        }, options)
       })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {

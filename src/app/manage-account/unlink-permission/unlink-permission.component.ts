@@ -40,13 +40,7 @@ export class UnlinkPermissionComponent {
 
   async unlink () {
     this.buttonUsed = true
-    let options = {
-      broadcast: true,
-      sign: true,
-      verbose: true,
-      authorization: [{ actor: this.accountName, permission: this.permission }]
-    }
-
+    const options = { authorization: [`${this.accountName}@${this.permission}`] }
     try {
       if (!this.eos) {
         let obj = await this.loginService.setupEos()
@@ -59,8 +53,8 @@ export class UnlinkPermissionComponent {
           account: this.accountName,
           code: this.model.code,
           type: this.model.type
-        })
-      }, options)
+        }, options)
+      })
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())
     } catch (error) {
       if (error.code === 402) {

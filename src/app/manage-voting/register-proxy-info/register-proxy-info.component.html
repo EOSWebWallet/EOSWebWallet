@@ -18,7 +18,7 @@
       </div>
       <div class="form-group col-md-6 unlogin-w-100">
         <mat-form-field class="full-width item-form">
-          <input matInput type="text" maxlength="12"
+          <input matInput type="text" maxlength="64"
             id="proxyName" placeholder="{{'manage-voting.proxy-name' | translate}}"
             [disabled]="!loginService.loggedIn()" required
             [(ngModel)]="model.name" name="proxyName" #proxyName="ngModel">

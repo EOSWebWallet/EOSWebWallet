@@ -42,11 +42,8 @@ export class UnregisterProxyInfoComponent {
       this.eos = obj.eos
       this.network = obj.network
 
-      const options = {
-        broadcast: true,
-        sign: true,
-        authorization: [{ actor: this.accountName, permission: this.permission }]
-      }
+      const options = { authorization: [`${this.accountName}@${this.permission}`] }
+
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
        await this.translate.get('dialogs.scatter-should-appear').toPromise())
 

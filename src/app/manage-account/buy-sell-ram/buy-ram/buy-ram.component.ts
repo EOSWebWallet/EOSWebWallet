@@ -22,6 +22,9 @@ export class BuyRamComponent {
   accountName: string
 
   @LocalStorage()
+  permission: string
+
+  @LocalStorage()
   isLoggedIn: LoginState
 
   @LocalStorage()
@@ -60,6 +63,7 @@ export class BuyRamComponent {
       this.dialogsService.showFailure(err)
       return
     }
+    const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
     // do not fix with ===
     if (model.unit == Unit.bytes) {
@@ -70,7 +74,7 @@ export class BuyRamComponent {
             payer: model.payer,
             receiver: model.recipient.toLowerCase(),
             bytes: model.ram
-          })
+          }, options)
         })
         this.dialogsService.showSuccess(await this.translate.get('buy-sell-ram.operation-completed').toPromise())
       } catch (err) {

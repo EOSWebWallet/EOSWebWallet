@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
 
     this.storage.observe('currentnetwork').subscribe(() => {
-      if (this.model.publicKey) {
+      if (this.model.publicKey && (this.isLoggedIn == null || this.isLoggedIn === LoginState.out)) {
         this.publicKey = ''
         this.accountName = ''
         this.permission = ''
@@ -235,6 +235,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loginInProcess = false
           return
         }
+        this.lastIdNetwork = this.selectedIdNetwork
       }
 
       await this.selectPermission(data, callback)
@@ -276,6 +277,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isLoggedIn = LoginState.publicKey
     this.remember = this.model.remember
     this.loginInProcess = false
+    this.lastIdNetwork = this.selectedIdNetwork
     this.navigateAfterLogin()
   }
 
@@ -322,6 +324,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.pass = this.passBase64
       this.isLoggedIn = LoginState.publicKey
       this.loginInProcess = false
+      this.lastIdNetwork = this.selectedIdNetwork
       this.navigateAfterLogin()
     }
 
@@ -343,10 +346,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async onSubmit () {
     await this.loginPublicKey()
-  }
-
-  async onSubmitPassword () {
-    await this.loginPublicKeyPassword()
   }
 
   loggedIn () {

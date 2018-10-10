@@ -13,7 +13,7 @@
   <mat-form-field class="full-width item-form last-item">
     <input matInput placeholder="{{'permission.permission' | translate}}"
             type="text"  id="permissionName" required
-            [(ngModel)]="permission" name="permissionName"
+            [(ngModel)]="permissionModel" name="permissionName"
             [disabled]="!loginService.loggedIn()"
             #permissionName="ngModel">
     <mat-error *ngIf="permissionName.errors?.required">{{'permission.permisson-is-req' | translate}}</mat-error>
