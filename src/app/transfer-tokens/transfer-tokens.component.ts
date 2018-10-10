@@ -64,7 +64,6 @@ export class TransferTokensComponent {
 
   async transferTokens (model) {
     this.buttonUsed = true
-    let options = this.loginService.getFullOptions()
 
     this.loginService.setupEos().then(async obj => {
       this.eos = obj.eos
@@ -80,7 +79,7 @@ export class TransferTokensComponent {
             console.log(item.recipient.toLowerCase())
             tr.transfer(this.accountName, item.recipient.toLowerCase(), item.quantity.toFixed(4) + ' ' + item.symbol, item.memo, options)
           }
-        }, options)
+        })
         this.dialogsService.showSuccess(await this.translate.get('transfer-tokens.transfer-completed').toPromise())
         this.buttonUsed = false
         this.bar.Refresh()
