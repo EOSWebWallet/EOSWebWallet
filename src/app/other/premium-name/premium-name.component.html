@@ -11,7 +11,7 @@
   <div class="form-group row mt-3">
     <mat-form-field class="full-width col-md-6 unlogin-w-100 item-form">
       <input matInput type="text" id="premiumName" placeholder="{{'other.new-name' | translate}}"
-            required pattern=".[a-zA-Z1-5]*" required
+            pattern=".[a-zA-Z1-5]*" required
             [(ngModel)]="model.premiumName" name="premiumName"
             [disabled]="!loginService.loggedIn()"
             #premiumName="ngModel">
@@ -34,4 +34,3 @@
             [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.bid' | translate}}</button>
   </div>
 </form>
-

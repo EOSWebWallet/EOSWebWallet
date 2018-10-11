@@ -303,6 +303,15 @@
     "max-auth-depth": "Max authority depth",
     "claim-warning": "En exécutant cette action, vous acceptez la constitution d'EOS et le contrat ricard associé à cette action. Le contrat ricardian peut être consulté dans Scatter approval prompt."
   },
+  "name-binds": {
+    "search": "Search",
+    "title-rez": "Current bids",
+    "high-bid": "High bid",
+    "high-bidder": "High bidder",
+    "last-bid-time": "Last bid time",
+    "newname": "New name",
+    "of-page": "of"
+  },
   "info-bar": {
     "total-balance": "Solde total",
     "staked": "Staked",

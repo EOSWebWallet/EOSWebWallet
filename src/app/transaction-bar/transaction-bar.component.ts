@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
-import { DialogsService, AccountService, LoginService } from '../services'
+import { AccountService, LoginService } from '../services'
 import { TransactionBar } from '../models/transaction-bar.model'
 import { LoginState } from '../models/login-state.model'
 
@@ -11,6 +11,7 @@ import { LoginState } from '../models/login-state.model'
   styleUrls: [
     './transaction-bar.component.scss',
     '../../page-container.styles.scss',
+    '../../table-rez.styles.scss',
     '../../page-container.styles.scss'
   ]
 })
@@ -35,7 +36,6 @@ export class TransactionBarComponent implements OnInit {
   constructor (
     public loginService: LoginService,
     private translate: TranslateService,
-    private dialogsService: DialogsService,
     private storage: LocalStorageService,
     private data: AccountService
   ) { }
