@@ -70,6 +70,7 @@ import { InfoBarComponent } from './info-bar/info-bar.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SideBarComponent } from './side-bar/side-bar.component'
 import { TransactionBarComponent } from './transaction-bar/transaction-bar.component'
+import { NameBindsBarComponent } from './name-binds-bar/name-binds-bar.component'
 import { ManageAccountNavbarComponent } from './manage-account/manage-account-navbar/manage-account-navbar.component'
 import { RemoveProducerComponent } from './manage-voting/remove-producer/remove-producer.component'
 import { SetProducerComponent } from './manage-voting/set-producer/set-producer.component'
@@ -345,6 +346,10 @@ const appRoutes: Routes = [
     component: TransactionBarComponent
   },
   {
+    path: 'nameBindsBar',
+    component: NameBindsBarComponent
+  },
+  {
     path: 'contracts',
     component: ContractsComponent,
     children: [
@@ -402,6 +407,7 @@ const appRoutes: Routes = [
     InteractWithContractComponent,
     InfoBarComponent,
     TransactionBarComponent,
+    NameBindsBarComponent,
     UnchangedFieldComponent,
     UnchangedFieldLoginComponent,
     SideBarComponent,

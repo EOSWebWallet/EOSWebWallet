@@ -1,0 +1,77 @@
+<div class="transaction-bar" [hidden]="model?.binds.length === 0 || !loginService.loggedIn()">
+  <div class="page-container d-block">
+    <div class="name-binds-container search-binds-container shadow-container">
+      <form class="search-form" (ngSubmit)="f.form.valid && viewRezult()" #f="ngForm">
+          <div class="input-wrapp">
+              <mat-form-field class="full-width unlogin-w-100 item-form">
+                  <input matInput type="text" id="search" placeholder="{{'other.new-name' | translate}}"
+                        [(ngModel)]="search" name="search"
+                        [disabled]="!loginService.loggedIn()"
+                        #searchInput="ngModel">
+                        <mat-error *ngIf="searchInput.errors?.required">{{'name-binds.new-name-is-required' | translate}}</mat-error>
+                </mat-form-field>
+          </div>
+          <div class="btn-wrapp">
+              <button class="submit"
+              mat-raised-button type="submit" on id="submit"
+              [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'name-binds.search' | translate}}</button>
+          </div>
+      </form>
+    </div>
+  </div>
+  <div class="page-container d-block">
+    <div class="name-binds-container table-rez-container shadow-container">
+      <h4 class="section-title">{{'name-binds.title-rez' | translate}}</h4>
+      <div class="table-responsive" *ngIf="innerWidth >= 960; else width">
+        <table class="table">
+          <thead class="thead">
+            <tr>
+              <th scope="col" class="">{{'name-binds.high-bid' | translate}}</th>
+              <th scope="col">{{'name-binds.high-bidder' | translate}}</th>
+              <th scope="col" class="">{{'name-binds.last-bid-time' | translate}}</th>
+              <th scope="col" class="">{{'name-binds.new-name' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of modelRez?.binds; let i = index">
+              <td class="">{{item.high_bid}}</td>
+              <td class="">{{item.high_bidder}}</td>
+              <td class="">{{item.last_bid_time | date:'MMMM d y, h:mm:ss a'}}</td>
+              <td class="">{{item.newname}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #width>
+        <div class="container-mobile">
+          <div class="transaction-item" *ngFor="let item of modelRez?.binds; let i = index">
+            <div class="row">
+              <div class="col-sm-6 col-xs-12 item">
+                <span class="thead-title">{{'name-binds.high-bid' | translate}}:</span> <span>{{item.high_bid}}</span>
+              </div>
+              <div class="col-sm-6 col-xs-12 item">
+                <span class="thead-title">{{'name-binds.high-bidder' | translate}}:</span> <span>{{item.high_bidder}}</span>
+              </div>
+              <div class="col-sm-6 col-xs-12 item">
+                <span class="thead-title">{{'name-binds.last-bid-time' | translate}}:</span> <span>{{item.last_bid_time |
+                    date:'MMMM d y, h:mm:ss a'}}</span>
+              </div>
+              <div class="col-sm-6 col-xs-12 item">
+                <span class="thead-title">{{'name-binds.new-name' | translate}}:</span> <span>{{item.newname}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="nav-find-container">
+        <button class="btn btn-prew" [disabled]="page === 1" (click)="(page = page - 1) && viewRezult()"></button>
+        <div class="info-nav"><span>{{page}}</span> {{'name-binds.of-page' | translate}} {{countPages}}</div>
+        <button class="btn btn-next" [disabled]="page === countPages" (click)="(page = page + 1) && viewRezult()"></button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,84 @@
+@import '../../variable.scss';
+
+$theadbg: #eff6fe;
+
+.name-binds-container{
+  width: 100%;
+  background: $white;
+  &.search-binds-container{
+    padding: $block_p_h $block_p_w;
+    .search-form{
+      display: flex;
+      align-items: center;
+      margin: 0 -16px;
+      .input-wrapp{
+        width: 100%;
+      }
+      .input-wrapp, .btn-wrapp{
+        padding: 0 16px;
+      }
+    }
+  }
+
+  .nav-find-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .btn{
+      margin: 0 10px;
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      border: none;
+      opacity: 0.7;
+      z-index: 2;
+      background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgogIDxnPgogICAgPHBhdGggZD0ibTQwLjQsMTIxLjNjLTAuOCwwLjgtMS44LDEuMi0yLjksMS4ycy0yLjEtMC40LTIuOS0xLjJjLTEuNi0xLjYtMS42LTQuMiAwLTUuOGw1MS01MS01MS01MWMtMS42LTEuNi0xLjYtNC4yIDAtNS44IDEuNi0xLjYgNC4yLTEuNiA1LjgsMGw1My45LDUzLjljMS42LDEuNiAxLjYsNC4yIDAsNS44bC01My45LDUzLjl6IiBmaWxsPSIjMzQzNDM0Ii8+CiAgPC9nPgo8L3N2Zz4K) no-repeat center;
+      background-size: 18px;
+      background-color: rgba(255, 255, 255, 0.5);
+      box-shadow: none !important;
+      cursor: pointer;
+      &.btn-prew{
+        padding-right: 0;
+        transform: rotate(180deg)
+      }
+      &.btn-prew{
+        padding-left: 0;
+      }
+    }
+  }
+
+
+  @media only screen and (max-width: $xl) {
+    &.search-binds-container{
+      padding: $block_p_h_lg $block_p_w_lg;      
+    }
+  }
+
+  @media only screen and (max-width: $lg) {
+    &.search-binds-container{
+      padding: $block_p_h_md $block_p_w_md;
+    }
+  }
+
+  @media screen and (max-width: $md){
+    &.table-rez-container{
+      padding-bottom: 10px;
+    }
+  }
+
+  @media screen and (max-width: $xs){
+    &.search-binds-container{
+      .search-form{
+        flex-direction: column;
+        margin: 0 -16px;
+        .input-wrapp{
+          width: 100%;
+        }
+        .input-wrapp, .btn-wrapp{
+          padding: 0 16px;
+        }
+      }
+    }
+  }
+}

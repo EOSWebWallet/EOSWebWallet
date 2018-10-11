@@ -303,6 +303,15 @@
     "max-auth-depth": "Max authority depth",
     "claim-warning": "By executing this action you are agreeing to the EOS constitution and this action's associated ricardian contract. The ricardian contract may be viewed in the Scatter approval prompt."
   },
+  "name-binds": {
+    "search": "Search",
+    "title-rez": "Current bids",
+    "high-bid": "High bid",
+    "high-bidder": "High bidder",
+    "last-bid-time": "Last bid time",
+    "new-name": "New name",
+    "of-page": "of"
+  },
   "info-bar": {
     "total-balance": "Total balance",
     "staked": "Staked",

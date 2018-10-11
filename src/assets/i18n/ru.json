@@ -303,6 +303,15 @@
     "max-auth-depth": "Max authority depth",
     "claim-warning": "Выполняя это действие, вы подтверждаете, что ознакомлены с концепцией EOS и рикардианским договором. Ознакомиться с ricardian contract возможно в Scatter approval prompt."
   },
+  "name-binds": {
+    "search": "Найти",
+    "title-rez": "Current bids",
+    "high-bid": "High bid",
+    "high-bidder": "High bidder",
+    "last-bid-time": "Last bid time",
+    "newname": "New name",
+    "of-page": "из"
+  },
   "info-bar": {
     "total-balance": "Баланс",
     "staked": "Staked",

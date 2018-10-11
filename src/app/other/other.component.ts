@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { LocalStorage } from 'ngx-webstorage'
 import { LoginService } from '../services/login.service'
 import { InformationService } from '../services/information.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-other',
@@ -16,11 +17,18 @@ import { InformationService } from '../services/information.service'
 export class OtherComponent implements OnInit {
   message: string
 
-  constructor (public loginService: LoginService, private infoService: InformationService) {
+  constructor (
+    public loginService: LoginService,
+    private infoService: InformationService,
+    private router: Router
+  ) {
     this.infoService.currentMessage.subscribe(message => this.message = message)
   }
 
-  ngOnInit () {
+  ngOnInit () {}
+
+  get isbindOnName () {
+    return this.router.url.startsWith('/other/premiumName')
   }
 
 }
