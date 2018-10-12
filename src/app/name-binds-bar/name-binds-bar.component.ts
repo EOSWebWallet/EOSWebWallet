@@ -44,7 +44,7 @@ export class NameBindsBarComponent implements OnInit {
 
   ngOnInit () {
     this.page = 1
-    this.limit = 10
+    this.limit = 5
     this.countPages = 0
     this.innerWidth = window.innerWidth
     if (this.isLoggedIn && this.isLoggedIn !== LoginState.out) {
