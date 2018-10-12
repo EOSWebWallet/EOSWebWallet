@@ -79,6 +79,11 @@ export class NameBindsBarComponent implements OnInit {
     })
   }
 
+  searchNew () {
+    this.page = 1
+    this.viewRezult()
+  }
+
   viewRezult () {
     this.modelRez.binds = this.getBindsPage()
   }
@@ -98,7 +103,7 @@ export class NameBindsBarComponent implements OnInit {
     for (let i = from; i < rez.length && i < to; i++) {
       rezPage.push(rez[i])
     }
-
+    // this.page = 1
     return rezPage
   }
 }

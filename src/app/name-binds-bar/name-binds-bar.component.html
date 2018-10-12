@@ -1,7 +1,7 @@
 <div class="transaction-bar" [hidden]="model?.binds.length === 0 || !loginService.loggedIn()">
   <div class="page-container d-block">
     <div class="name-binds-container search-binds-container shadow-container">
-      <form class="search-form" (ngSubmit)="f.form.valid && viewRezult()" #f="ngForm">
+      <form class="search-form" (ngSubmit)="f.form.valid && searchNew()" #f="ngForm">
           <div class="input-wrapp">
               <mat-form-field class="full-width unlogin-w-100 item-form">
                   <input matInput type="text" id="search" placeholder="{{'other.new-name' | translate}}"
