@@ -1,7 +1,7 @@
 <div class="transaction-bar" [hidden]="model?.binds.length === 0 || !loginService.loggedIn()">
   <div class="page-container d-block">
     <div class="name-binds-container search-binds-container shadow-container">
-      <form class="search-form" (ngSubmit)="f.form.valid && viewRezult()" #f="ngForm">
+      <form class="search-form" (ngSubmit)="f.form.valid && searchNew()" #f="ngForm">
           <div class="input-wrapp">
               <mat-form-field class="full-width unlogin-w-100 item-form">
                   <input matInput type="text" id="search" placeholder="{{'other.new-name' | translate}}"
@@ -27,17 +27,17 @@
           <thead class="thead">
             <tr>
               <th scope="col" class="">{{'name-binds.high-bid' | translate}}</th>
-              <th scope="col">{{'name-binds.high-bidder' | translate}}</th>
+              <th scope="col">{{'name-binds.new-name' | translate}}</th>
+              <th scope="col" class="">{{'name-binds.high-bidder' | translate}}</th>
               <th scope="col" class="">{{'name-binds.last-bid-time' | translate}}</th>
-              <th scope="col" class="">{{'name-binds.new-name' | translate}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of modelRez?.binds; let i = index">
               <td class="">{{item.high_bid}}</td>
-              <td class="">{{item.high_bidder}}</td>
-              <td class="">{{item.last_bid_time | date:'MMMM d y, h:mm:ss a'}}</td>
               <td class="">{{item.newname}}</td>
+              <td class="">{{item.high_bidder}}</td>
+              <td class="">{{item.last_bid_time | date: 'MMMM d y, h:mm:ss a'}}</td>
             </tr>
           </tbody>
         </table>
@@ -51,14 +51,13 @@
                 <span class="thead-title">{{'name-binds.high-bid' | translate}}:</span> <span>{{item.high_bid}}</span>
               </div>
               <div class="col-sm-6 col-xs-12 item">
+                <span class="thead-title">{{'name-binds.new-name' | translate}}:</span> <span>{{item.newname}}</span>
+              </div>
+              <div class="col-sm-6 col-xs-12 item">
                 <span class="thead-title">{{'name-binds.high-bidder' | translate}}:</span> <span>{{item.high_bidder}}</span>
               </div>
               <div class="col-sm-6 col-xs-12 item">
-                <span class="thead-title">{{'name-binds.last-bid-time' | translate}}:</span> <span>{{item.last_bid_time |
-                    date:'MMMM d y, h:mm:ss a'}}</span>
-              </div>
-              <div class="col-sm-6 col-xs-12 item">
-                <span class="thead-title">{{'name-binds.new-name' | translate}}:</span> <span>{{item.newname}}</span>
+                <span class="thead-title">{{'name-binds.last-bid-time' | translate}}:</span> <span>{{item.last_bid_time | date: 'MMMM d y, h:mm:ss a'}}</span>
               </div>
             </div>
           </div>

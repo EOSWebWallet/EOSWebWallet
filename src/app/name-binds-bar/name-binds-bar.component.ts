@@ -44,7 +44,7 @@ export class NameBindsBarComponent implements OnInit {
 
   ngOnInit () {
     this.page = 1
-    this.limit = 10
+    this.limit = 5
     this.countPages = 0
     this.innerWidth = window.innerWidth
     if (this.isLoggedIn && this.isLoggedIn !== LoginState.out) {
@@ -73,10 +73,15 @@ export class NameBindsBarComponent implements OnInit {
 
     eos.getTableRows(true, 'eosio', 'eosio', 'namebids', '', '', '', -1).then(binds => {
       if (binds && binds.rows.length) {
-        this.model.binds = binds.rows
+        this.model.binds = binds.rows.sort((ob1, ob2) => ob2.high_bid - ob1.high_bid)
         this.viewRezult()
       }
     })
+  }
+
+  searchNew () {
+    this.page = 1
+    this.viewRezult()
   }
 
   viewRezult () {
@@ -98,7 +103,7 @@ export class NameBindsBarComponent implements OnInit {
     for (let i = from; i < rez.length && i < to; i++) {
       rezPage.push(rez[i])
     }
-
+    // this.page = 1
     return rezPage
   }
 }
