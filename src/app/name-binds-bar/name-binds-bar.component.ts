@@ -73,7 +73,7 @@ export class NameBindsBarComponent implements OnInit {
 
     eos.getTableRows(true, 'eosio', 'eosio', 'namebids', '', '', '', -1).then(binds => {
       if (binds && binds.rows.length) {
-        this.model.binds = binds.rows
+        this.model.binds = binds.rows.sort((ob1, ob2) => ob2.high_bid - ob1.high_bid)
         this.viewRezult()
       }
     })
