@@ -32,6 +32,7 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfi
 import { PapaParseModule } from 'ngx-papaparse'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
+import { DateCheckPipe } from './pipes/date-to-time-stamp'
 import { AuthGuardService, ScatterService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService } from './services'
 
 import { SuccessDialogComponent,
@@ -105,6 +106,7 @@ import { SetRamRateComponent } from './manage-account/set-ram/set-ram-rate/set-r
 import { UnchangedFieldLoginComponent } from './unchanged-field-login/unchanged-field-login.component'
 import { BuyRamComponent } from './manage-account/buy-sell-ram/buy-ram/buy-ram.component'
 import { SellRamComponent } from './manage-account/buy-sell-ram/sell-ram/sell-ram.component'
+import { from } from 'rxjs'
 
 export const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -448,7 +450,8 @@ const appRoutes: Routes = [
     NavBarSliderComponent,
     GetPermissionComponent,
     BuyRamComponent,
-    SellRamComponent
+    SellRamComponent,
+    DateCheckPipe
   ],
   imports: [
     MaterialModule,

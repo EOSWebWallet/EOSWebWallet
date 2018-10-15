@@ -62,6 +62,7 @@ export class NameBindsBarComponent implements OnInit {
 
   public Refresh () {
     this.search = ''
+    this.page = 1
     this.getBinds()
   }
 

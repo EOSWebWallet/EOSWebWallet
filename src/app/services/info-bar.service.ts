@@ -73,15 +73,7 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.cpuData = parseFloat(this.cpuData).toFixed(2).toString()
           }
           this.ramPercent = Math.round(Number(this.accountInfo.ram_usage) / Number(this.accountInfo.ram_quota) * 100)
-          if (this.accountInfo.core_liquid_balance) {
-            this.accountInfo.total_balance = (Number(this.accountInfo.core_liquid_balance.split(' ',1)[0]) + Number(this.accountInfo.voter_info.staked)).toString()
-          } else {
-            this.accountInfo.total_balance = Number(this.accountInfo.voter_info.staked).toString()
-          }
-          this.data.getCurrentCourse().subscribe((result) => {
-            this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
-            // console.log(this.accountInfo.usd_total)
-          })
+
           this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked.toString()
           this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used) / 1000000
           this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max) / 1000000)
@@ -106,9 +98,15 @@ export class InfoBarService implements OnInit, OnDestroy {
               }
               this.tokenStringTemp = result.toString()
             })
+            this.stacked = +this.accountInfo.voter_info.staked / 10000
+            this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
+            this.data.getCurrentCourse().subscribe((result) => {
+              this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
+            })
           } else {
             this.accountInfo.core_liquid_balance = '0'
             this.unstacked = 0
+            this.accountInfo.total_balance = Number(this.accountInfo.voter_info.staked).toString()
           }
         }
       },
