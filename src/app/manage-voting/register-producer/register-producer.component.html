@@ -7,6 +7,9 @@
 </div>
 <div class="register-producer-container">
   <form (ngSubmit)="f.form.valid && registerProducer()" #f="ngForm">
+    <div class="item-form card-item">
+      <app-unchanged-field childMessage="{{'common.account' | translate}}"> </app-unchanged-field>
+    </div>
     <div class="row">
       <div class="form-group input-wrapp col-md-6 unlogin-w-100">
         <mat-form-field class="full-width item-form">
