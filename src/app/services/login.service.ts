@@ -129,6 +129,7 @@ export class LoginService {
     let network = {
       blockchain: 'eos',
       port: this.port,
+      protocol: 'https',
       host: this.currentNetwork,
       chainId: this.currentChainId
     }
@@ -145,8 +146,8 @@ export class LoginService {
         alert(await this.translations.get('errors.scatter-not').toPromise())
         return
       }
-      eos = this.scatterService.scatter.eos(network, Eos, {}, 'https')
-      const identity = await this.scatterService.scatter.getIdentity(requiredFields)
+      eos = (window as any).eosPlugin.eos(network, Eos, {});
+      const identity = await (window as any).eosPlugin.getIdentity(network);
       const eosAccount = identity.accounts.find(account => account.blockchain === 'eos')
       this.accountName = eosAccount.name
       this.permission = eosAccount.authority

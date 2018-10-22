@@ -30,7 +30,7 @@ export class ScatterService {
   constructor (private translations: TranslateService) {
     let resolved = false
     this.ready = new Promise<void>((resolve, reject) => {
-      document.addEventListener('scatterLoaded', () => {
+      document.addEventListener('eosPluginLoaded', () => {
         this.load()
         resolve()
         resolved = true
@@ -47,6 +47,7 @@ export class ScatterService {
 
     this.network = {
       blockchain: 'eos',
+      protocol: 'https',
       port: this.port,
       host: this.currentNetwork,
       chainId: this.currentChainId
@@ -61,7 +62,7 @@ export class ScatterService {
     const self = this
 
     if (this.scatter) {
-      this.scatter.getIdentity(requiredFields).then(identity => {
+      (window as any).eosPlugin.requestIdentity(this.network).then(identity => {
         if (!identity) {
           return errorCallbak()
         }
@@ -84,7 +85,7 @@ export class ScatterService {
   }
 
   load () {
-    this.scatter = (window as any).scatter
+    this.scatter = (window as any).eosPlugin
 
     this.network = {
       blockchain: 'eos',
