@@ -6,7 +6,7 @@ import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 
 import { AddEditNetworkDialogComponent, ChangeLastNetworkDialogComponent, SelectAccountDialogComponent } from '../dialogs'
-import { ScatterService, LoginService, ConfigService, CryptoService, AccountService } from '../services/'
+import { FactoryPluginService, LoginService, ConfigService, CryptoService, AccountService } from '../services/'
 import { LoginState } from '../models/login-state.model'
 import { Network, NetworkProtocol, NetworkChaindId } from '../models/network.model'
 
@@ -56,7 +56,7 @@ export class NavbarComponent {
     if (!this.isLoggedIn) {
       return 'logo'
     }
-    if (this.isLoggedIn === LoginState.scatter) {
+    if (this.isLoggedIn === LoginState.plugin) {
       return 'scatter'
     } else if (this.isLoggedIn === LoginState.publicKey) {
       return 'publicKey'
@@ -75,7 +75,7 @@ export class NavbarComponent {
 
   constructor (
     public dialog: MatDialog,
-    private scatterService: ScatterService,
+    private factoryPluginService: FactoryPluginService,
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -206,7 +206,7 @@ export class NavbarComponent {
     }
 
     // suggest new network if logged in with scatter
-    if ((this.isLoggedIn === LoginState.scatter) || (this.isLoggedIn == null)) {
+    if ((this.isLoggedIn === LoginState.plugin) || (this.isLoggedIn == null)) {
 
       let rez = await this.loginScatter()
       if (rez) {
@@ -317,7 +317,7 @@ export class NavbarComponent {
   }
 
   async loginScatter (forgetIdentity = true) {
-    await this.scatterService.ready
+    await this.factoryPluginService.currentPlugin.ready
 
     let network = {
       blockchain: 'eos',
@@ -327,22 +327,26 @@ export class NavbarComponent {
     }
 
     if (forgetIdentity) {
-      await this.scatterService.scatter.forgetIdentity()
+      await this.factoryPluginService.currentPlugin.plugin.forgetIdentity()
     }
 
     const requiredFields = {
       accounts: [network]
     }
     let isLoginned = false
-    await this.scatterService.scatter.getIdentity(requiredFields).then(identity => {
-      this.scatterService.scatter.suggestNetwork(network)
+    await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields).then(identity => {
+      this.factoryPluginService.currentPlugin.plugin.suggestNetwork(network)
       this.accountName = identity.accounts[0].name
       let currentRoute = this.router.url
       this.router.navigate(['/']).then(() => {
         this.router.navigate([currentRoute])
       })
       isLoginned = true
+    console.log(1)
+
     }).catch(() => {
+    console.log(1)
+
       isLoginned = false
     })
 

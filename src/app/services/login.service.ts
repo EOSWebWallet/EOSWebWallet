@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { LoginState } from '../models/login-state.model'
 import { Router } from '@angular/router'
 import { AccountService } from './account.service'
-import { ScatterService } from './scatter.service'
+import { FactoryPluginService } from './plugins'
 import { ConfigService } from './config.service'
 import { CryptoService } from './crypto.service'
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
@@ -16,7 +16,6 @@ const { ecc } = Eos.modules
   providedIn: 'root'
 })
 export class LoginService {
-  scatter: any
 
   @LocalStorage()
   publicKey: string
@@ -42,7 +41,7 @@ export class LoginService {
   remember: boolean
 
   constructor (
-    private scatterService: ScatterService,
+    private factoryPluginService: FactoryPluginService,
     private accountService: AccountService,
     private cryptoService: CryptoService,
     private router: Router,
@@ -67,8 +66,8 @@ export class LoginService {
   }
 
   async logout () {
-    if (this.isLoggedIn === LoginState.scatter && this.scatterService.scatter.identity) {
-      await this.scatterService.scatter.forgetIdentity()
+    if (this.isLoggedIn === LoginState.plugin && this.factoryPluginService.currentPlugin.plugin.identity) {
+      await this.factoryPluginService.currentPlugin.plugin.forgetIdentity()
     }
     this.isLoggedIn = LoginState.out
     this.router.navigate(['transferTokens'])
@@ -114,7 +113,7 @@ export class LoginService {
       accounts: [ network ]
     }
 
-    const identity = await this.scatterService.scatter.getIdentity(requiredFields)
+    const identity = await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields)
     return identity.publicKey
   }
 
@@ -129,7 +128,6 @@ export class LoginService {
     let network = {
       blockchain: 'eos',
       port: this.port,
-      protocol: 'https',
       host: this.currentNetwork,
       chainId: this.currentChainId
     }
@@ -140,14 +138,19 @@ export class LoginService {
       accounts: [ network ]
     }
 
-    if (this.isLoggedIn === LoginState.scatter) {
-      await this.scatterService.ready
-      if (!this.scatterService) {
+    if (this.isLoggedIn === LoginState.plugin) {
+      await this.factoryPluginService.currentPlugin.ready
+      if (!this.factoryPluginService.currentPlugin) {
         alert(await this.translations.get('errors.scatter-not').toPromise())
         return
       }
-      eos = (window as any).eosPlugin.eos(network, Eos, {});
-      const identity = await (window as any).eosPlugin.getIdentity(network);
+      // eos = (window as any).eosPlugin.eos(network, Eos, {})
+      // const identity = await (window as any).eosPlugin.getIdentity(network)
+      console.log(this.factoryPluginService.currentPlugin.name)
+      eos = this.factoryPluginService.currentPlugin.plugin.eos(network, Eos, {}, 'https')
+      console.log(eos)
+
+      const identity = await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields)
       const eosAccount = identity.accounts.find(account => account.blockchain === 'eos')
       this.accountName = eosAccount.name
       this.permission = eosAccount.authority
@@ -178,15 +181,15 @@ export class LoginService {
     this.currentChainId = net.chain_id
 
     let eos
-    await this.scatterService.ready
-    if (!this.scatterService) {
+    await this.factoryPluginService.currentPlugin.ready
+    if (!this.factoryPluginService.currentPlugin) {
       alert(await this.translations.get('errors.scatter-not').toPromise())
       return
     }
     eos = Eos({
       httpEndpoint: this.protocol + this.currentNetwork + ':' + this.port,
       chainId: this.currentChainId,
-      keyProvider: [this.scatterService.scatter]
+      keyProvider: [this.factoryPluginService.currentPlugin.plugin]
     })
 
     return eos

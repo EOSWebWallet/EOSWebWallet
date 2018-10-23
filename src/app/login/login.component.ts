@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core'
 import * as CryptoJS from 'crypto-js'
 import * as Eos from 'eosjs'
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
-import { ScatterService, LoginService, ConfigService, AccountService, CryptoService } from '../services'
+import { FactoryPluginService, LoginService, ConfigService, AccountService, CryptoService } from '../services'
 import { LoginState } from '../models/login-state.model'
 import { LoginKeys } from '../models/login-keys.model'
 import { SelectAccountDialogComponent } from '../dialogs/select-account-dialog/select-account-dialog.component'
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private scatterService: ScatterService,
+    private factoryPluginService: FactoryPluginService,
     private accountService: AccountService,
     private cryptoService: CryptoService,
     private storage: LocalStorageService,
@@ -120,18 +120,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   async login () {
+    // this.basePluginService = this.scatterService
     const self = this
     if (this.loginInProcess) return
     this.loginInProcess = true
 
-    this.scatterService.ready.then(async () => {
+    this.factoryPluginService.currentPlugin.ready.then(async () => {
+      console.log(this.factoryPluginService.currentPlugin.name)
 
-      await this.scatterService.login(() => {
+      await this.factoryPluginService.currentPlugin.login(() => {
         self.loginInProcess = false
-        self.isLoggedIn = LoginState.scatter
+        self.isLoggedIn = LoginState.plugin
         this.lastIdNetwork = this.selectedIdNetwork
         this.navigateAfterLogin()
       }, async (error) => {
+        console.log(this.factoryPluginService.currentPlugin.name)
+
         if (error.code === 423) {
           self.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
@@ -339,7 +343,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   logout () {
-    this.scatterService.logout()
+    this.factoryPluginService.currentPlugin.logout()
     this.isLoggedIn = LoginState.out
     this.storage.clear('pass')
   }

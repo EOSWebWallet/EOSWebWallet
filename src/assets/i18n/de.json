@@ -325,7 +325,7 @@
   "login": {
     "connect-account": "Konto verbinden",
     "scatter-plugin": "Scatter plugin",
-    "eos-extension": "EOS extension",
+    "eos-extension": "EOS plugin",
     "private-key": "Privat Schlüssel",
     "data": "EosWebWallet speichert Ihre Daten nicht. Wir können nicht auf Konten zugreifen, Schlüssel wiederherstellen, Kennwörter zurücksetzen oder Transaktionen stornieren. Private Schlüsselinformationen werden lokal von Ihnen gespeichert.",
     "public-key": "Offentliche Schlüssel",
@@ -367,6 +367,7 @@
   "errors": {
     "account-name-is-required": "Kontoname ist  erforderlich",
     "scatter-not": "Scatter plugin wird nicht erkannt.",
+    "eos-plugin-not": "EOS plugin is not detected.",
     "account-name": "Kontoname",
     "is-required": "ist erforderlich",
     "length-warning": "Length should be exactly 12 symbols"

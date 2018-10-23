@@ -61,7 +61,7 @@ export class InteractWithContractComponent {
       this.network = obj.network
     }
 
-    let eos = (this.loginService.isLoggedIn === LoginState.scatter) ?
+    let eos = (this.loginService.isLoggedIn === LoginState.plugin) ?
               await this.loginService.setupScutterEos() :
               this.eos
 
