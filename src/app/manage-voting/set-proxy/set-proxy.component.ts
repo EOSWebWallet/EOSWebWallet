@@ -20,6 +20,8 @@ export class SetProxyComponent {
   permission: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   proxy: string
   voter: string
@@ -50,7 +52,7 @@ export class SetProxyComponent {
       this.network = obj.network
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction({
         actions: [{

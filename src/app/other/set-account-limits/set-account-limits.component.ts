@@ -32,6 +32,8 @@ export class SetAccountLimitsComponent {
   isLoggedIn: LoginState
   @LocalStorage()
   publicKey: string
+  @LocalStorage()
+  currentPluginName: string
 
   constructor (
     public buttonBlockService: ButtonBlockService,
@@ -54,7 +56,7 @@ export class SetAccountLimitsComponent {
     this.network = obj.network
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
     try {
       await this.eos.transaction({

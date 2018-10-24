@@ -2,24 +2,28 @@ import { Injectable } from '@angular/core'
 import { BasePluginService } from './base-plugin'
 import { EosPluginService } from './eos-plugin.service'
 import { ScatterService } from './scatter.service'
+import { LocalStorage } from 'ngx-webstorage'
 
 @Injectable()
 export class FactoryPluginService {
 
-  private currentPluginName: string
+  @LocalStorage()
+  currentPluginName: string
 
   constructor (
         private eosPluginService: EosPluginService,
         private scatterService: ScatterService
     ) {
-    this.currentPluginName = 'scatter'
+    if (!this.currentPluginName) {
+      this.currentPluginName = 'scatter'
+    }
   }
 
   get currentPlugin (): BasePluginService {
     switch (this.currentPluginName) {
       case 'scatter':
         return this.scatterService
-      case 'eosPlugin':
+      case 'eos-plugin':
         return this.eosPluginService
       default:
         return this.scatterService

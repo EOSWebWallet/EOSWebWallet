@@ -25,6 +25,8 @@ export class UndelegateComponent {
   isLoggedIn: LoginState
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   model: Undelegate
   network: any
@@ -50,7 +52,10 @@ export class UndelegateComponent {
       }
       const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
-      this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
+      this.dialogsService.showSending(
+        await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
+        await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
+      )
       await this.eos.transaction(tr => {
         tr.undelegatebw({
           from: model.stakeOwner,

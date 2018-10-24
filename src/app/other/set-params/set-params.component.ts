@@ -16,6 +16,8 @@ export class SetParamsComponent {
   accountName: string
   @LocalStorage()
   permission: string
+  @LocalStorage()
+  currentPluginName: string
 
   model: SetParams
   network: any
@@ -41,7 +43,7 @@ export class SetParamsComponent {
 
     // TODO skip values with 0 ?
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
     try {
       await this.eos.transaction({

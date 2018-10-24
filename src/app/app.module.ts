@@ -37,7 +37,6 @@ import {
   AuthGuardService,
   FactoryPluginService,
   ScatterService,
-  BasePluginService,
   EosPluginService,
   ConfigService,
   AccountService,

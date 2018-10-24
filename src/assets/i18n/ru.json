@@ -331,7 +331,7 @@
   "login": {
     "connect-account": "ПОДКЛЮЧИТЬ АККАУНТ",
     "scatter-plugin": "Scatter plugin",
-    "eos-extension": "EOS plugin",
+    "eos-plugin": "EOS plugin",
     "private-key": "Закрытый ключ",
     "data": "EosWebWallet не хранит вашу информацию. Мы не имеем доступа к учетным записям, а также не можем восстанавливать ключи, сбрасывать пароли или отзывать транзакции. Информация о секретном ключе хранится Вами локально.",
     "public-key": "Открытый ключ",
@@ -381,7 +381,7 @@
   "errors": {
     "account-name-is-required": "Необходимо ввести учетную запись",
     "scatter-not": "Scatter plugin не обнаружен.",
-    "eos-plugin-not": "EOS plugin is not detected.",
+    "eos-plugin-not": "EOS plugin не обнаружен.",
     "account-name": "Учётная запись",
     "is-required": "is required field",
     "length-warning": "Length should be exactly 12 symbols"

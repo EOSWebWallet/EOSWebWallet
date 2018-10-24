@@ -101,20 +101,9 @@ export class LoginService {
       }
     }
 
-    // return public key from Scatter
-    let network = {
-      blockchain: 'eos',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
-    }
-
-    const requiredFields = {
-      accounts: [ network ]
-    }
-
-    const identity = await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields)
-    return identity.publicKey
+    // return public key from Plugin
+    await this.factoryPluginService.currentPlugin.login()
+    return this.factoryPluginService.currentPlugin.identity.publicKey
   }
 
   async setupEos () {
@@ -174,7 +163,7 @@ export class LoginService {
     }
   }
 
-  async setupScatterEos () {
+  async setupPluginEos () {
     if (this.currentNetwork == null) {
       this.currentNetwork = ConfigService.settings.eos.host
     }
@@ -185,7 +174,7 @@ export class LoginService {
     let eos
     await this.factoryPluginService.currentPlugin.ready
     if (!this.factoryPluginService.currentPlugin) {
-      alert(await this.translations.get('errors.scatter-not').toPromise())
+      alert(await this.translations.get(`errors.${this.factoryPluginService.currentPlugin.name}-not`).toPromise())
       return
     }
     eos = Eos({

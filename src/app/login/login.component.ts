@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   network: any
   eos: any
 
-  hover_scatter: any
-  hover_key: any
+  hoverScatter: any
+  hoverEosPlugin: any
+  hoverKey: any
   showKeyLogin: any
 
   @LocalStorage()
@@ -120,7 +121,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   async loginEosPlugin () {
-    this.factoryPluginService.setCurrentPlugin('eosPlugin')
+    this.factoryPluginService.setCurrentPlugin('eos-plugin')
     await this.loginPlugin()
   }
 

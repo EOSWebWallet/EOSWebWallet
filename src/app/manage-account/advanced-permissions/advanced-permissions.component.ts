@@ -31,6 +31,8 @@ export class AdvancedPermissionsComponent {
   currentChainId: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   authority: Authorities[]
 
@@ -67,16 +69,14 @@ export class AdvancedPermissionsComponent {
     let keys
 
     if (this.isLoggedIn === LoginState.publicKey) {
-    
-    let pubKey = await this.loginService.getPublicKey(this.publicKey)
-      
+      let pubKey = await this.loginService.getPublicKey(this.publicKey)
       keys = [{ key: pubKey, weight: 1 }]
     } else {
       keys = []
     }
 
       // TODO FIX - same error like with setprods
-      // Missing required accounts, repull the identity - with scatter
+      // Missing required accounts, repull the identity - with plugin
       // Transaction should have at least one required authority - with key
     try {
       for (let item of this.authority) {
@@ -91,7 +91,7 @@ export class AdvancedPermissionsComponent {
         const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
         this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-         await this.translate.get('dialogs.scatter-should-appear').toPromise())
+         await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
         await this.eos.transaction({
           actions: [

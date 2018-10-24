@@ -33,6 +33,8 @@ export class DeployContractComponent {
   publicKey: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   fileBase64: any
 
@@ -73,7 +75,7 @@ export class DeployContractComponent {
       }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.setcode(this.model.account.toLowerCase(), this.model.type, this.model.version, this.model.byteCode)
       this.dialogsService.showSuccess(await this.translate.get('common.operation-completed').toPromise())

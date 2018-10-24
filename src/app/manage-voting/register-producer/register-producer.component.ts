@@ -17,6 +17,8 @@ import { LocalStorage } from 'ngx-webstorage'
 export class RegisterProducerComponent {
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   model: RegisterProducer
   network: any
@@ -65,7 +67,7 @@ export class RegisterProducerComponent {
       }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction(tr => {
         tr.regproducer({

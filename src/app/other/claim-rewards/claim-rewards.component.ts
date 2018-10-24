@@ -26,6 +26,8 @@ export class ClaimRewardsComponent {
   publicKey: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   constructor (
     public buttonBlockService: ButtonBlockService,
@@ -34,9 +36,6 @@ export class ClaimRewardsComponent {
     private translate: TranslateService
   ) {
     this.buttonUsed = false
-  }
-
-  ngOnInit (){
   }
 
   async onSubmit () {
@@ -49,7 +48,7 @@ export class ClaimRewardsComponent {
     const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
     try {
       await this.eos.transaction(tr => {

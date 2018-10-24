@@ -331,7 +331,7 @@
   "login": {
     "connect-account": "CONNECT ACCOUNT",
     "scatter-plugin": "Scatter plugin",
-    "eos-extension": "EOS plugin",
+    "eos-plugin": "EOS plugin",
     "private-key": "Private key",
     "data": "EosWebWallet does not store Your data. We cannot access accounts, recover keys, reset passwords or reverse transactions. Private key info is stored locally by You.",
     "public-key": "Public key",

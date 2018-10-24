@@ -30,6 +30,10 @@ export class BuyRamComponent {
   @LocalStorage()
   buttonUsed: boolean
 
+  @LocalStorage()
+  currentPluginName: string
+  
+
   @ViewChild('ram') ram: ElementRef
 
   modelBuy: BuyRam
@@ -68,7 +72,10 @@ export class BuyRamComponent {
     // do not fix with ===
     if (model.unit == Unit.bytes) {
       try {
-        this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
+        this.dialogsService.showSending(
+          await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
+          await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
+          )
         await this.eos.transaction(tr => {
           tr.buyrambytes({
             payer: model.payer,
@@ -86,7 +93,10 @@ export class BuyRamComponent {
       }
     } else if (model.unit == Unit.eos) {
       try {
-        this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
+        this.dialogsService.showSending(
+          await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
+          await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
+        )
         await this.eos.transaction(tr => {
           tr.buyram({
             payer: model.payer,

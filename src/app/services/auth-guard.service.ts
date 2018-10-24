@@ -6,16 +6,16 @@ import { LoginState } from '../models/login-state.model'
 @Injectable()
 export class AuthGuardService implements CanActivate {
   @LocalStorage()
-  public isLoggedIn : LoginState
+  public isLoggedIn: LoginState
 
   constructor (private router: Router) {}
 
   canActivate (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.isLoggedIn == LoginState.ewb || this.isLoggedIn == LoginState.publicKey
-                                          || this.isLoggedIn == LoginState.scatter ) {
+    if (this.isLoggedIn === LoginState.ewb || this.isLoggedIn === LoginState.publicKey
+                                           || this.isLoggedIn === LoginState.plugin) {
       return true
     }
-    this.router.navigate(['login'], { queryParams: { returnUrl: state.url }});
+    this.router.navigate(['login'], { queryParams: { returnUrl: state.url } })
     return false
   }
 }

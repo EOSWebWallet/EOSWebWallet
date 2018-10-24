@@ -49,6 +49,8 @@ export class NavbarComponent {
   selectedIdNetwork: number
   @LocalStorage()
   lastIdNetwork: number
+  @LocalStorage()
+  currentPluginName: string
 
   toggleNav: boolean
 
@@ -57,7 +59,7 @@ export class NavbarComponent {
       return 'logo'
     }
     if (this.isLoggedIn === LoginState.plugin) {
-      return 'scatter'
+      return this.currentPluginName
     } else if (this.isLoggedIn === LoginState.publicKey) {
       return 'publicKey'
     }
@@ -205,10 +207,10 @@ export class NavbarComponent {
       this.setNetwork(index)
     }
 
-    // suggest new network if logged in with scatter
+    // suggest new network if logged in with plugin
     if ((this.isLoggedIn === LoginState.plugin) || (this.isLoggedIn == null)) {
 
-      let rez = await this.loginScatter()
+      let rez = await this.loginPlugin()
       if (rez) {
         this.lastIdNetwork = this.selectedIdNetwork
       } else {
@@ -221,7 +223,7 @@ export class NavbarComponent {
           if (result) {
             this.selectedNetwork = this.networks[this.lastIdNetwork].host
             this.setNetwork(this.lastIdNetwork)
-            rez = await this.loginScatter(false)
+            rez = await this.loginPlugin(false)
             if (rez) {
               this.lastIdNetwork = this.selectedIdNetwork
             } else {
@@ -316,29 +318,17 @@ export class NavbarComponent {
     callback(result.data.split(',')[0], result.data.split(',')[1])
   }
 
-  async loginScatter (forgetIdentity = true) {
+  async loginPlugin (forgetIdentity = true) {
     const currentPlugin = this.factoryPluginService.currentPlugin
     await currentPlugin.ready
-
-    let network = {
-      blockchain: 'eos',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
-    }
 
     if (forgetIdentity && currentPlugin.plugin.identity) {
       await currentPlugin.plugin.forgetIdentity()
     }
 
-    const requiredFields = {
-      accounts: [network]
-    }
     let isLoginned = false
-
     try {
       await currentPlugin.login()
-      // currentPlugin.plugin.suggestNetwork(network)
       let currentRoute = this.router.url
       this.router.navigate(['/']).then(() => {
         this.router.navigate([currentRoute])

@@ -5,7 +5,7 @@ import { LocalStorage } from 'ngx-webstorage'
 import { TranslateService } from '@ngx-translate/core'
 import { LoginState } from '../models/login-state.model'
 import { ActivatedRoute } from '@angular/router'
-import { LoginService, DialogsService, CryptoService, ButtonBlockService, InfoBarService } from '../services'
+import { LoginService, DialogsService, CryptoService, ButtonBlockService, InfoBarService, FactoryPluginService } from '../services'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import * as _ from 'lodash'
 import { TransactionBarComponent } from '../transaction-bar/transaction-bar.component'
@@ -38,6 +38,8 @@ export class TransferTokensComponent {
   publicKey: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   symbols: string[]
 
@@ -53,6 +55,7 @@ export class TransferTokensComponent {
     private dialogsService: DialogsService,
     private cryptoService: CryptoService,
     public buttonBlockService: ButtonBlockService,
+    public factoryPluginService: FactoryPluginService,
     private papa: PapaParseService,
     private info: InfoBarService
   ) {
@@ -70,7 +73,7 @@ export class TransferTokensComponent {
       this.network = obj.network
       const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
-      let message = await this.translate.get('dialogs.scatter-should-appear').toPromise()
+      let message = await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
       let title = await this.translate.get('dialogs.transaction-wil-be-sent').toPromise()
       this.dialogsService.showSending(message, title)
       try {

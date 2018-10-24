@@ -20,11 +20,12 @@ export class CreateProxyComponent {
   permission: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   proxy: String
   network: any
   eos: any
-  scatter: any
 
   constructor (
     public loginService: LoginService,
@@ -45,7 +46,7 @@ export class CreateProxyComponent {
       const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction(tr => {
         tr.regproxy({
