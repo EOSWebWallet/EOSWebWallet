@@ -119,51 +119,60 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.cryptoService.btoa(this.model.pass)
   }
 
-  async login () {
-    // this.basePluginService = this.scatterService
-    const self = this
+  async loginEosPlugin () {
+    this.factoryPluginService.setCurrentPlugin('eosPlugin')
+    await this.loginPlugin()
+  }
+
+  async loginScatter () {
+    this.factoryPluginService.setCurrentPlugin('scatter')
+    await this.loginPlugin()
+  }
+
+  async loginPlugin () {
     if (this.loginInProcess) return
     this.loginInProcess = true
+    const currentPlugin = this.factoryPluginService.currentPlugin
 
     this.factoryPluginService.currentPlugin.ready.then(async () => {
-      console.log(this.factoryPluginService.currentPlugin.name)
+      try {
+        await currentPlugin.login()
 
-      await this.factoryPluginService.currentPlugin.login(() => {
-        self.loginInProcess = false
-        self.isLoggedIn = LoginState.plugin
+        this.loginInProcess = false
+        this.isLoggedIn = LoginState.plugin
         this.lastIdNetwork = this.selectedIdNetwork
         this.navigateAfterLogin()
-      }, async (error) => {
-        console.log(this.factoryPluginService.currentPlugin.name)
-
+      } catch (error) {
         if (error.code === 423) {
-          self.loginInProcess = false
+          this.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
           dialogConfig.disableClose = true
-          dialogConfig.data = { message: error.message, title: await this.translations.get('dialogs.scatter-locked').toPromise() }
-          let dialogRef = self.dialog.open(InfoDialogComponent, dialogConfig)
+          dialogConfig.data = {
+            message: error.message,
+            title: await this.translations.get(`dialogs.${currentPlugin.name}-locked`).toPromise()
+          }
+          let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
         } else if (error.code === 402) {
-          self.loginInProcess = false
+          this.loginInProcess = false
         } else {
-          self.loginInProcess = false
+          this.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
           dialogConfig.disableClose = true
           dialogConfig.data = { message: error.message }
-          let dialogRef = self.dialog.open(FailureDialogComponent, dialogConfig)
+          let dialogRef = this.dialog.open(FailureDialogComponent, dialogConfig)
         }
-      })
+      }
     }).catch(async () => {
-      const scatterPluginLink = 'https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle/support?hl=en'
-      self.loginInProcess = false
+      this.loginInProcess = false
       const dialogConfig = new MatDialogConfig()
       dialogConfig.closeOnNavigation = true
       dialogConfig.disableClose = true
       dialogConfig.data = {
-        content: await this.translations.get('dialogs.you-have').toPromise()
+        content: await this.translations.get(`dialogs.you-have-${currentPlugin.name}`, { pluginLink: currentPlugin.downloadLink }).toPromise()
       }
-      let dialogRef = self.dialog.open(InfoDialogComponent, dialogConfig)
+      let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
     })
   }
 
@@ -174,10 +183,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       return
     }
 
-    let self = this
     let accounts = []
     for (const account of data.account_names) {
-      let permissions = await self.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
+      let permissions = await this.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
       if (permissions) {
         for (const item of permissions.permissions) {
           accounts.push([account.toString(),item.perm_name])

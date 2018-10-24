@@ -38,7 +38,9 @@
     "wrong-password": "Password not match",
     "account-not-found": "Account with this key was not found",
     "scatter-locked": "Scatter locked",
-    "you-have":"You have to install <a href='${scatterPluginLink}' target='_blank'> Scatter Plugin </a> .",
+    "eos-plugin-locked": "EOS plugin locked",
+    "you-have-scatter":"You have to install <a href='{{pluginLink}}' target='_blank'> Scatter Plugin </a> .",
+    "you-have-eos-plugin":"You have to install <a href='{{pluginLink}}' target='_blank'> EOS Plugin </a> .",
     "info": "Info",
     "open-info": "Show details",
     "failure": "Failure",
@@ -50,7 +52,8 @@
     "go-back": "Back",
     "sending": "Sending...",
     "success": "Success",
-    "scatter-should-appear": "",
+    "scatter-should-appear": "SCATTER SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
+    "eos-plugin-should-appear": "EOS PLAGIN SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
   "dialog-add-network": {

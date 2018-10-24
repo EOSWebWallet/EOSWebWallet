@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { LocalStorage } from 'ngx-webstorage'
 import { TranslateService } from '@ngx-translate/core'
 import { BasePluginService } from './base-plugin'
 
@@ -13,6 +12,7 @@ export class ScatterService extends BasePluginService {
   constructor (private translations: TranslateService) {
     super()
     this.name = 'scatter'
+    this.downloadLink = 'https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle/support?hl=en'
     let resolved = false
     this.ready = new Promise<void>((resolve, reject) => {
       document.addEventListener('scatterLoaded', () => {
@@ -28,50 +28,19 @@ export class ScatterService extends BasePluginService {
     })
   }
 
-  async login (successCallback, errorCallbak) {
-
-    this.network = {
-      blockchain: 'eos',
-      protocol: 'https',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
-    }
-
+  async login () {
+    this.setNetwork.call(this)
     const requiredFields = {
       accounts: [
         this.network
       ]
     }
 
-    const self = this
-    console.log(this.plugin)
-
     if (this.plugin) {
-      console.log(this.plugin)
-
-      this.plugin.getIdentity(requiredFields).then(identity => {
-      console.log(identity)
-
-        if (!identity) {
-      console.log(this.plugin)
-
-          return errorCallbak()
-        }
-        this.accountName = identity.accounts[0].name
-        this.permission = identity.accounts[0].authority
-        self.identity = identity
-      //  self.scatter.useIdentity(identity.hash)
-        successCallback()
-      }).catch(error => {
-      console.log(error)
-
-        errorCallbak(error)
-      })
+      await this.requestIdentity(this.plugin.getIdentity, requiredFields)
     } else {
-      alert(await this.translations.get('errors.scatter-not').toPromise())
+      alert(await this.translations.get(`errors.${this.name}-not`).toPromise())
     }
-
   }
 
   logout () {
@@ -80,15 +49,8 @@ export class ScatterService extends BasePluginService {
 
   load () {
     this.plugin = (window as any).scatter
+    this.plugin.getIdentity = this.plugin.getIdentity.bind(this.plugin)
 
-    this.network = {
-      blockchain: 'eos',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
-    }
-
-    let protocol = this.protocol.substr(0, this.protocol.indexOf('://'))
-    this.eos = this.plugin.eos(this.network, Eos, {}, protocol)
+    this.loadPlugin()
   }
 }

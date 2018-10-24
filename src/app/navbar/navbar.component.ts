@@ -317,7 +317,8 @@ export class NavbarComponent {
   }
 
   async loginScatter (forgetIdentity = true) {
-    await this.factoryPluginService.currentPlugin.ready
+    const currentPlugin = this.factoryPluginService.currentPlugin
+    await currentPlugin.ready
 
     let network = {
       blockchain: 'eos',
@@ -326,29 +327,26 @@ export class NavbarComponent {
       chainId: this.currentChainId
     }
 
-    if (forgetIdentity) {
-      await this.factoryPluginService.currentPlugin.plugin.forgetIdentity()
+    if (forgetIdentity && currentPlugin.plugin.identity) {
+      await currentPlugin.plugin.forgetIdentity()
     }
 
     const requiredFields = {
       accounts: [network]
     }
     let isLoginned = false
-    await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields).then(identity => {
-      this.factoryPluginService.currentPlugin.plugin.suggestNetwork(network)
-      this.accountName = identity.accounts[0].name
+
+    try {
+      await currentPlugin.login()
+      // currentPlugin.plugin.suggestNetwork(network)
       let currentRoute = this.router.url
       this.router.navigate(['/']).then(() => {
         this.router.navigate([currentRoute])
       })
       isLoginned = true
-    console.log(1)
-
-    }).catch(() => {
-    console.log(1)
-
+    } catch (error) {
       isLoginned = false
-    })
+    }
 
     return isLoginned
   }

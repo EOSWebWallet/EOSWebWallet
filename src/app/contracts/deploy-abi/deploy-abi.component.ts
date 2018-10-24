@@ -1,5 +1,5 @@
-  import { Component } from '@angular/core'
-import { LoginService, DialogsService, ButtonBlockService } from '../../services'
+import { Component } from '@angular/core'
+import { LoginService, DialogsService, ButtonBlockService, FactoryPluginService } from '../../services'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalStorage } from 'ngx-webstorage'
 
@@ -27,6 +27,7 @@ export class DeployAbiComponent {
     public loginService: LoginService,
     private translate: TranslateService,
     private dialogsService: DialogsService,
+    private factoryPluginService: FactoryPluginService,
     public buttonBlockService: ButtonBlockService) {
     this.buttonUsed = false
   }
@@ -42,7 +43,7 @@ export class DeployAbiComponent {
       }
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.factoryPluginService.currentPlugin.name}-should-appear`).toPromise())
 
       try {
         await this.eos.setabi(this.account.toLowerCase(), JSON.parse(this.abi))

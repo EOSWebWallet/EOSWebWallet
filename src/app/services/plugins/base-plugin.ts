@@ -7,13 +7,14 @@ declare var Eos: any
 import * as Eos from 'eosjs'
 
 @Injectable()
-export class BasePluginService {
+export abstract class BasePluginService {
   ready: Promise<void>
   plugin: any
   eos: any
   network: any
   identity: any
   name: string
+  downloadLink: string
 
   @LocalStorage()
   currentNetwork: string
@@ -32,12 +33,34 @@ export class BasePluginService {
     this.name = 'basePlugin'
   }
 
-  async login (successCallback, errorCallbak) {
+  abstract async login ()
+  abstract logout ()
+  abstract load ()
+
+  protected setNetwork () {
+    this.network = {
+      blockchain: 'eos',
+      protocol: 'https',
+      port: this.port,
+      host: this.currentNetwork,
+      chainId: this.currentChainId
+    }
   }
 
-  logout () {
+  protected async requestIdentity (identityFunction, networkParametrs) {
+    console.log(this.network)
+    const identity = await identityFunction(networkParametrs)
+    if (!identity) throw new Error()
+    this.accountName = identity.accounts[0].name
+    this.permission = identity.accounts[0].authority
+    this.identity = identity
   }
 
-  load () {
+  protected loadPlugin () {
+    this.setNetwork()
+
+    let protocol = this.protocol.substr(0, this.protocol.indexOf('://'))
+    this.eos = this.plugin.eos(this.network, Eos, {}, protocol)
   }
+
 }

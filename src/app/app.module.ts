@@ -497,7 +497,6 @@ const appRoutes: Routes = [
     InformationService,
     InfoBarService,
     FactoryPluginService,
-    BasePluginService,
     ScatterService,
     EosPluginService,
     CryptoService,
