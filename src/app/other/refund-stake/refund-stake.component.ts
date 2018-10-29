@@ -20,6 +20,8 @@ export class RefundStakeComponent {
   permission: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   owner: string
   network: any
@@ -41,11 +43,10 @@ export class RefundStakeComponent {
     this.eos = obj.eos
     this.network = obj.network
 
-
     const options = { authorization: [`${this.accountName}@${this.permission}`] }
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
     try {
       await this.eos.transaction(tr => {

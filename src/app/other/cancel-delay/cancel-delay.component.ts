@@ -29,6 +29,8 @@ export class CancelDelayComponent {
   accountName: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   constructor (
     public buttonBlockService: ButtonBlockService,
@@ -51,7 +53,7 @@ export class CancelDelayComponent {
       let hashedString = shajs('sha256').update(this.model.trxId).digest('hex')
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction({
         actions: [

@@ -26,6 +26,8 @@ export class LinkPermissionComponent implements OnInit {
   permission: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   model: LinkPermission
   network: any
@@ -58,7 +60,10 @@ export class LinkPermissionComponent implements OnInit {
         this.eos = obj.eos
         this.network = obj.network
       }
-      this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(), await this.translate.get('dialogs.scatter-should-appear').toPromise())
+      this.dialogsService.showSending(
+        await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
+        await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
+      )
       await this.eos.transaction(tr => {
         tr.linkauth({
           account: this.accountName, // account_name

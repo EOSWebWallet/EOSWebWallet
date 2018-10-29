@@ -38,7 +38,9 @@
     "wrong-password": "Password not match",
     "account-not-found": "Account with this key was not found",
     "scatter-locked": "Scatter locked",
-    "you-have":"You have to install <a href='${scatterPluginLink}' target='_blank'> Scatter Plugin </a> .",
+    "eos-plugin-locked": "EOS plugin locked",
+    "you-have-scatter":"You have to install <a href='{{pluginLink}}' target='_blank'> Scatter Plugin </a> .",
+    "you-have-eos-plugin":"You have to install <a href='{{pluginLink}}' target='_blank'> EOS Plugin </a> .",
     "info": "Info",
     "open-info": "Show details",
     "failure": "Failure",
@@ -50,7 +52,8 @@
     "go-back": "Back",
     "sending": "Sending...",
     "success": "Success",
-    "scatter-should-appear": "",
+    "scatter-should-appear": "SCATTER SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
+    "eos-plugin-should-appear": "EOS PLAGIN SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
   "dialog-add-network": {
@@ -328,6 +331,7 @@
   "login": {
     "connect-account": "CONNECT ACCOUNT",
     "scatter-plugin": "Scatter plugin",
+    "eos-plugin": "EOS plugin",
     "private-key": "Private key",
     "data": "EosWebWallet does not store Your data. We cannot access accounts, recover keys, reset passwords or reverse transactions. Private key info is stored locally by You.",
     "public-key": "Public key",
@@ -376,6 +380,7 @@
   "errors": {
     "account-name-is-required": "Account name is required",
     "scatter-not": "Scatter plugin is not detected.",
+    "eos-plugin-not": "EOS plugin is not detected.",
     "account-name": "Account name",
     "is-required": "is required field",
     "length-warning": "Length should be exactly 12 symbols"

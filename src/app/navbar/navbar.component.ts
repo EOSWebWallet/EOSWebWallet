@@ -6,7 +6,7 @@ import { Router } from '@angular/router'
 import { TranslateService } from '@ngx-translate/core'
 
 import { AddEditNetworkDialogComponent, ChangeLastNetworkDialogComponent, SelectAccountDialogComponent } from '../dialogs'
-import { ScatterService, LoginService, ConfigService, CryptoService, AccountService } from '../services/'
+import { FactoryPluginService, LoginService, ConfigService, CryptoService, AccountService } from '../services/'
 import { LoginState } from '../models/login-state.model'
 import { Network, NetworkProtocol, NetworkChaindId } from '../models/network.model'
 
@@ -49,6 +49,8 @@ export class NavbarComponent {
   selectedIdNetwork: number
   @LocalStorage()
   lastIdNetwork: number
+  @LocalStorage()
+  currentPluginName: string
 
   toggleNav: boolean
 
@@ -56,8 +58,8 @@ export class NavbarComponent {
     if (!this.isLoggedIn) {
       return 'logo'
     }
-    if (this.isLoggedIn === LoginState.scatter) {
-      return 'scatter'
+    if (this.isLoggedIn === LoginState.plugin) {
+      return this.currentPluginName
     } else if (this.isLoggedIn === LoginState.publicKey) {
       return 'publicKey'
     }
@@ -75,7 +77,7 @@ export class NavbarComponent {
 
   constructor (
     public dialog: MatDialog,
-    private scatterService: ScatterService,
+    private factoryPluginService: FactoryPluginService,
     private router: Router,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
@@ -205,10 +207,10 @@ export class NavbarComponent {
       this.setNetwork(index)
     }
 
-    // suggest new network if logged in with scatter
-    if ((this.isLoggedIn === LoginState.scatter) || (this.isLoggedIn == null)) {
+    // suggest new network if logged in with plugin
+    if ((this.isLoggedIn === LoginState.plugin) || (this.isLoggedIn == null)) {
 
-      let rez = await this.loginScatter()
+      let rez = await this.loginPlugin()
       if (rez) {
         this.lastIdNetwork = this.selectedIdNetwork
       } else {
@@ -221,7 +223,7 @@ export class NavbarComponent {
           if (result) {
             this.selectedNetwork = this.networks[this.lastIdNetwork].host
             this.setNetwork(this.lastIdNetwork)
-            rez = await this.loginScatter(false)
+            rez = await this.loginPlugin(false)
             if (rez) {
               this.lastIdNetwork = this.selectedIdNetwork
             } else {
@@ -316,35 +318,25 @@ export class NavbarComponent {
     callback(result.data.split(',')[0], result.data.split(',')[1])
   }
 
-  async loginScatter (forgetIdentity = true) {
-    await this.scatterService.ready
+  async loginPlugin (forgetIdentity = true) {
+    const currentPlugin = this.factoryPluginService.currentPlugin
+    await currentPlugin.ready
 
-    let network = {
-      blockchain: 'eos',
-      port: this.port,
-      host: this.currentNetwork,
-      chainId: this.currentChainId
+    if (forgetIdentity && currentPlugin.plugin.identity) {
+      await currentPlugin.plugin.forgetIdentity()
     }
 
-    if (forgetIdentity) {
-      await this.scatterService.scatter.forgetIdentity()
-    }
-
-    const requiredFields = {
-      accounts: [network]
-    }
     let isLoginned = false
-    await this.scatterService.scatter.getIdentity(requiredFields).then(identity => {
-      this.scatterService.scatter.suggestNetwork(network)
-      this.accountName = identity.accounts[0].name
+    try {
+      await currentPlugin.login()
       let currentRoute = this.router.url
       this.router.navigate(['/']).then(() => {
         this.router.navigate([currentRoute])
       })
       isLoginned = true
-    }).catch(() => {
+    } catch (error) {
       isLoginned = false
-    })
+    }
 
     return isLoginned
   }

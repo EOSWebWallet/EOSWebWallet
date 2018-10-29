@@ -20,6 +20,8 @@ export class RemoveProducerComponent {
   permission: string
   @LocalStorage()
   buttonUsed: boolean
+  @LocalStorage()
+  currentPluginName: string
 
   name: string
   network: any
@@ -41,7 +43,7 @@ export class RemoveProducerComponent {
       this.eos = obj.eos
       this.network = obj.network
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-       await this.translate.get('dialogs.scatter-should-appear').toPromise())
+       await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction({
         actions: [{

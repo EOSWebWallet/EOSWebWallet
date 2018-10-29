@@ -21,19 +21,17 @@ export class CreateAccountComponent {
   faQuestionCircle = faQuestionCircle
   network: any
   eos: any
-  scatter: any
 
   @LocalStorage()
   buttonUsed: boolean
-
   @LocalStorage()
   isLoggedIn: LoginState
-
   @LocalStorage()
   accountName: string
-
   @LocalStorage()
   permission: string
+  @LocalStorage()
+  currentPluginName: string
 
   model: Account
 
@@ -57,11 +55,11 @@ export class CreateAccountComponent {
     }
   }
 
-  // under scatter works only with active key
+  // under plugin works only with active key
   // works with owner or active when user is logged in with keys
   async createAccount (model) {
     this.buttonUsed = true
-    const message = await this.translate.get('dialogs.scatter-should-appear').toPromise()
+    const message = await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise()
     const title = await this.translate.get('dialogs.transaction-wil-be-sent').toPromise()
     this.dialogsService.showSending(message, title)
 

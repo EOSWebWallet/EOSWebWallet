@@ -25,6 +25,8 @@ export class PremiumNameComponent {
   accountName: string
   @LocalStorage()
   permission: string
+  @LocalStorage()
+  currentPluginName: string
 
   model: PremiumName
 
@@ -41,9 +43,6 @@ export class PremiumNameComponent {
       : new PremiumName('', this.accountName, null)
   }
 
-  ngOnInit () {}
-
-
   async onSubmitPrices () {
     this.buttonUsed = true
 
@@ -52,7 +51,7 @@ export class PremiumNameComponent {
     this.network = obj.network
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
     try {
       await this.eos.transaction({

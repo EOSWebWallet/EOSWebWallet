@@ -16,6 +16,8 @@ export class SetPrivilegeComponent {
   accountName: string
   @LocalStorage()
   permission: string
+  @LocalStorage()
+  currentPluginName: string
 
   isPriv: string
   network: any
@@ -40,7 +42,7 @@ export class SetPrivilegeComponent {
       this.network = obj.network
 
       this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-      await this.translate.get('dialogs.scatter-should-appear').toPromise())
+      await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
 
       await this.eos.transaction({
         actions: [

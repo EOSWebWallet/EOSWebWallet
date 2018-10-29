@@ -27,6 +27,8 @@ export class InteractWithContractComponent {
   accountName: string
   @LocalStorage()
   permission: string
+  @LocalStorage()
+  currentPluginName: string
 
   model: Interact
   network: any
@@ -61,8 +63,8 @@ export class InteractWithContractComponent {
       this.network = obj.network
     }
 
-    let eos = (this.loginService.isLoggedIn === LoginState.scatter) ?
-              await this.loginService.setupScutterEos() :
+    let eos = (this.loginService.isLoggedIn === LoginState.plugin) ?
+              await this.loginService.setupPluginEos() :
               this.eos
 
     try {
@@ -111,7 +113,7 @@ export class InteractWithContractComponent {
     let itemsData = _.fromPairs(items)
 
     this.dialogsService.showSending(await this.translate.get('dialogs.transaction-wil-be-sent').toPromise(),
-     await this.translate.get('dialogs.scatter-should-appear').toPromise())
+     await this.translate.get(`dialogs.${this.currentPluginName}-should-appear`).toPromise())
     let actionsObject = {
       account: this.contractName,
       name: this.model.action,

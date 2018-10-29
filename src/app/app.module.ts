@@ -33,7 +33,18 @@ import { PapaParseModule } from 'ngx-papaparse'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { DateCheckPipe } from './pipes/date-to-time-stamp'
-import { AuthGuardService, ScatterService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService } from './services'
+import {
+  AuthGuardService,
+  FactoryPluginService,
+  ScatterService,
+  EosPluginService,
+  ConfigService,
+  AccountService,
+  CryptoService,
+  EosService,
+  InformationService,
+  InfoBarService
+} from './services'
 
 import { SuccessDialogComponent,
   FailureDialogComponent,
@@ -496,7 +507,9 @@ const appRoutes: Routes = [
     AuthGuardService,
     InformationService,
     InfoBarService,
+    FactoryPluginService,
     ScatterService,
+    EosPluginService,
     CryptoService,
     EosService,
     ConfigService,
