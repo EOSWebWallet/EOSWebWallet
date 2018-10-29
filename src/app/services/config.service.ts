@@ -9,12 +9,11 @@ export class ConfigService {
 
   constructor (private http: HttpClient) { }
 
-
   load () {
     const jsonFile = 'assets/config/config.json'
     return new Promise<void>((resolve, reject) => {
       this.http.get(jsonFile).subscribe(response => {
-        ConfigService.settings = <IAppConfig>response
+        ConfigService.settings = response as IAppConfig
         resolve()
       },
       error => {

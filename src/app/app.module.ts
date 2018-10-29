@@ -53,6 +53,8 @@ import { LoginComponent } from './login/login.component'
 import { TransferTokensComponent } from './transfer-tokens/transfer-tokens.component'
 import { FindAccountComponent } from './find-account/find-account.component'
 import { GenerateKeyPairsComponent } from './generate-key-pairs/generate-key-pairs.component'
+import { FaqComponent } from './faq/faq.component'
+import { OurFeaturesComponent } from './our-features/our-features.component'
 import { DelegateComponent } from './manage-account/delegate/delegate.component'
 import { PremiumNameComponent } from './other/premium-name/premium-name.component'
 import { UndelegateComponent } from './manage-account/undelegate/undelegate.component'
@@ -201,6 +203,14 @@ const appRoutes: Routes = [
   {
     path: 'generateKeyPairs',
     component: GenerateKeyPairsComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
+  },
+  {
+    path: 'ourFeatures',
+    component: OurFeaturesComponent
   },
   {
     path: 'other',
@@ -391,6 +401,8 @@ const appRoutes: Routes = [
     LoginComponent,
     TransferTokensComponent,
     GenerateKeyPairsComponent,
+    FaqComponent,
+    OurFeaturesComponent,
     DelegateComponent,
     PremiumNameComponent,
     UndelegateComponent,

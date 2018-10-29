@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div [ngClass]="{'window-container shadow-container': true, 'one-container': !loginService.loggedIn()}">
+    <h3 class="header">{{'our-features.title' | translate}}</h3>
+    <h4 class="description">{{'our-features.description' | translate}}</h4>
+
+    <section class="section" *ngFor="let section of 'our-features.sections' | translate">
+      <h5 class="section-title">{{section.title}}</h5>
+      <ul>
+        <li *ngFor="let item of section.items">{{item}}</li>
+      </ul>
+    </section>
+
+    <div class="bottom">
+      <p class="mb-0" [innerHTML]="'our-features.bottom' | translate: {link: telegramLink}"></p>
+    </div>
+
+  </div>
+  <div class="side-bar" [hidden]="!loginService.loggedIn()">
+    <app-side-bar></app-side-bar>
+  </div>
+</div>

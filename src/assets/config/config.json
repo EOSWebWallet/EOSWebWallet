@@ -1,10 +1,12 @@
 {
     "eos":
     {
-    "chainId":"aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-    "host":"eosapi.blockmatrix.network",
-	"port":"443",
-	"protocol":"https://"
+    "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+    "host": "eosapi.blockmatrix.network",
+	"port": "443",
+	"protocol": "https://"
     },
-    "vector":"KUyewuyf2uvlcvbasucqwyv23vjw"
+    "vector":"KUyewuyf2uvlcvbasucqwyv23vjw",
+    "telegramLink": "https://t.me/joinchat/D8E_QEXSIScnu2rXw2EJ4w",
+    "frameboxLink": "http://framebox.org/AhasA-OthQcg"
 }
