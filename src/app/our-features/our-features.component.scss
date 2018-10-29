@@ -1,0 +1,16 @@
+@import '../../variable.scss';
+
+.description{
+    margin-bottom: $block_p_h / 2;
+}
+.section{
+    margin-bottom: $block_p_h / 2;
+    .section-title{
+        margin-bottom: 15px;
+    }
+    ul{
+        li{
+            margin-bottom: 10px;
+        }
+    }
+}

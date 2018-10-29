@@ -340,8 +340,7 @@
     "copyright": "Copyright",
     "info": {
       "text1": "EosWebWallet offre une interface gratuite, open-source, orientée client pour le transfert d'EOS et de tokens. Les informations de clé privée sont stockées localement par vous. Vous êtes responsable de votre sécurité. EosWebWallet n'est pas le créateur de, et n'a aucun contrôle sur aucun des actifs numériques que ce logiciel vous permet d'utiliser.",
-      "text2": "Si vous avez remarqué une vulnérabilité dans le logiciel, veuillez nous en informer à l’adresse support@eoswebwallet.io.",
-      "text3": ""
+      "text2": "Si vous avez remarqué une vulnérabilité dans le logiciel, veuillez nous en informer à l’adresse support@eoswebwallet.io."
     }
   },
   "common": {
@@ -497,5 +496,68 @@
       "cancelDelay":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "onError":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique."
     }
+  },
+  "our-features":{
+    "title": "Our Features",
+    "description": "Currently we have added the next features:",
+    "sections": [
+      {
+        "title": "General",
+        "items": [
+          "Local Storage Only",
+          "Login via Scatter",
+          "AirDrops Support",
+          "Customer Support",
+          "No installation is required",
+          "Multilingual"
+        ]
+      },
+      {
+        "title": "Specific",
+        "items": [
+          "Blockchain Explorer",
+          "Smart Contract Executer",
+          "History of Transactions",
+          "Delegation/Staking/Voting Support",
+          "Contacts Management",
+          "Accounts Management"
+        ]
+      }
+    ],
+    "bottom": "Do you want to add other features? Write us in <a href='{{link}}'>telegram</a> channel."
+  },
+  "faq": {
+    "title": "FAQ",
+    "faq-sections": [
+      {
+        "question": "How do you store my keys?",
+        "answer": "We don't store your keys, they located in your Browser local storage, so we don't know them and can't restore. Remember: We do not store any user private data."
+      },
+      {
+        "question": "Can I stake/unstake my EOS in your wallet?",
+        "answer": "Yes, you can perform these actions also as others: vote, delegate, create new accounts and much more. Just log in your account."
+      },
+      {
+        "question": "Do you have a mobile application?",
+        "answer": "No, currently we have created only a web browser application, but you can use on your mobile devices also."
+      },
+      {
+        "question": "Do you support Airdrops?",
+        "answer": "We support all major EOS airdrops, contact us in <a href='{{link}}'>telegram</a> if we missed the good one."
+      },
+      {
+        "question": "I am developer, can I use your code?",
+        "answer": "Yes, we have created open source software, so you can fork or update it."
+      },
+      {
+        "question": "Can I restore my EOS wallet in other device?",
+        "answer": "Yes, you can restore your wallet in any device. You should only know your Private keys or be logged in Scatter."
+      },
+      {
+        "question": "Houston, we have a problem. Who can help me?",
+        "answer": "In case you have problems in connection to our wallet, work with accounts, managing your EOS and others - just contact us via <a href='{{link}}'>telegram</a>, we would be happy to assist you."
+      }
+    ],
+    "bottom": "Visualization of the required sections can be <a href='{{framebox}}' target='_blank'>found here</a>."
   }
 }

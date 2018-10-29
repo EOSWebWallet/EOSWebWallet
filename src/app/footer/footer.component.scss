@@ -1,45 +1,51 @@
-@import '../../variable.scss';
+@import "../../variable.scss";
 
 $footer_m_h: 13px;
 
-.footer{
+.footer {
   margin: 0;
-  .page-container{
+  .page-container {
     width: 100%;
     margin: 0;
   }
-  .footer-wrapp{
+  .footer-wrapp {
     padding: $footer_m_h 0;
     font-family: $ff_title;
-    .head-footer{
+    .head-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      .copyright{
+      .copyright {
         margin: 0 0.5rem 0 0;
         font-weight: $fw_bold;
       }
-      .soc-wrapp{
+      .soc-wrapp {
         flex-shrink: 0;
       }
-      .link{
+      .link {
         display: inline-block;
       }
 
-      .mat-icon, .copyright{
+      .mat-icon,
+      .copyright {
         color: $blue;
       }
     }
 
-    .body-footer{
+    .body-footer {
       color: $blue;
       font-size: $fz_small;
       text-align: justify;
-      .info-text{
+      .info-text {
         margin: $footer_m_h 0 0;
+        &.links {
+          .link {
+            display: block;
+            margin-bottom: 0.4rem;
+          }
+        }
       }
     }
   }
-
 }

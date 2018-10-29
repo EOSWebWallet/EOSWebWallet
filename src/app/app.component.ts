@@ -17,32 +17,27 @@ export class AppComponent {
   @LocalStorage()
   state: boolean
 
+  title = 'app'
+
   constructor (private router: Router) {
   }
 
-  displayOneContent() {
-    if ((this.isLoggedIn != null && this.isLoggedIn !== LoginState.out)
-      || (  this.router.url == "/login"))
-       return true;
-    else
-       return false;
+  displayOneContent () {
+    return (this.isLoggedIn != null && this.isLoggedIn !== LoginState.out) ||
+      (this.router.url === '/login')
   }
 
   hideLogin () {
-    if ((this.router.url === '/generateKeyPairs') || (this.router.url === '/findAccount')) {
-      return true
-    }
-    else {
-      return false
-    }
+    return (
+      (this.router.url === '/generateKeyPairs') ||
+      (this.router.url === '/findAccount') ||
+      (this.router.url === '/faq') ||
+      (this.router.url === '/ourFeatures')
+    )
   }
 
   displayInfoBar () {
-    if (this.isLoggedIn != null && this.isLoggedIn !== LoginState.out)
-      return true
-    else
-      return false
+    return (this.isLoggedIn != null && this.isLoggedIn !== LoginState.out)
   }
 
-  title = 'app'
 }

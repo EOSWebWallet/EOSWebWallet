@@ -5,5 +5,7 @@ export interface IAppConfig {
     port: number,
     protocol: string
   },
-  vector: string
+  vector: string,
+  telegramLink: string,
+  frameboxLink: string
 }
