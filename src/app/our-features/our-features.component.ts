@@ -16,7 +16,7 @@ import { LoginService, ConfigService } from '../services'
 export class OurFeaturesComponent {
 
   constructor (
-    private loginService: LoginService,
+    public loginService: LoginService,
     private translate: TranslateService) {
   }
 

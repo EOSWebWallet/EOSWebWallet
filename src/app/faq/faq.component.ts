@@ -19,7 +19,7 @@ export class FaqComponent {
   isLoggedIn: LoginState
 
   constructor (
-    private loginService: LoginService,
+    public loginService: LoginService,
     private translate: TranslateService) {
   }
 
