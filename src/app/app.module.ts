@@ -32,8 +32,9 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfi
 import { PapaParseModule } from 'ngx-papaparse'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
-import { DateCheckPipe } from './pipes/date-to-time-stamp'
-import { AuthGuardService, ScatterService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService } from './services'
+import { DateCheckPipe } from './pipes'
+import { GAnalyticsDirective } from './directive/g-analytics.directive'
+import { AuthGuardService, ScatterService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService, GAnalyticsService } from './services'
 
 import { SuccessDialogComponent,
   FailureDialogComponent,
@@ -463,7 +464,8 @@ const appRoutes: Routes = [
     GetPermissionComponent,
     BuyRamComponent,
     SellRamComponent,
-    DateCheckPipe
+    DateCheckPipe,
+    GAnalyticsDirective
   ],
   imports: [
     MaterialModule,
@@ -500,6 +502,7 @@ const appRoutes: Routes = [
     CryptoService,
     EosService,
     ConfigService,
+    GAnalyticsService,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ConfigService], multi: true },

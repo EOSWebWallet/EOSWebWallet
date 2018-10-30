@@ -5,7 +5,8 @@ export interface DialogData {
   content: string
   title: string
   html: string
-  message: string
+  message: string,
+  activeGAnalytic: boolean
 }
 
 @Component({
@@ -16,7 +17,7 @@ export interface DialogData {
 export class InfoDialogComponent {
 
   showMore: any
-  
+
   constructor (
     public dialogRef: MatDialogRef<InfoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
