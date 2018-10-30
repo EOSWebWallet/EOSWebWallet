@@ -38,7 +38,7 @@
     "wrong-password": "Password not match",
     "account-not-found": "Account with this key was not found",
     "scatter-locked": "Scatter locked",
-    "you-have":"Vous devez installer <a href='${scatterPluginLink}' target='_blank'> Scatter Plugin </a> .",
+    "you-have":"Vous devez installer <a href='{{link}}' target='_blank'> Scatter Plugin </a> .",
     "info": "Info",
     "open-info": "Show details",
     "failure": "échec",

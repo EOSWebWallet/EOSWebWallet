@@ -2,7 +2,9 @@
 	<h3 id="page-title" class="text-center">{{'login.connect-account' | translate}}</h3>
 
 	<div class="login-wrapp">
-		<div class="login-div-button shadow-container" (click)="login()" (mouseover)="hover_scatter=true" (mouseleave)="hover_scatter=false">
+		<div class="login-div-button shadow-container"
+			(click)="login();" gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'scatter'"
+			(mouseover)="hover_scatter=true" (mouseleave)="hover_scatter=false">			  
 			<div class="align-self-center mx-auto text-center">
 				<img [src]="hover_scatter ? '../../assets/images/scatter_ochre.png' : '../../assets/images/scatter_blue.png'" class="login-image" />
 				<p>{{'login.scatter-plugin' | translate}}</p>
@@ -10,7 +12,8 @@
 		</div>
 
 		<div class="login-div-button shadow-container" (click)="showKeyLogin = !showKeyLogin" (mouseover)="hover_key=true"
-		 (mouseleave)="hover_key=false">
+			gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'private_key'"
+		 	(mouseleave)="hover_key=false">
 			<div class="align-self-center mx-auto text-center">
 				<img [src]="hover_key ? '../../assets/images/key_ochre.png' : '../../assets/images/key_blue.png'" class="login-image" />
 				<p>{{'login.private-key'| translate}}</p>
