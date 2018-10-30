@@ -53,6 +53,9 @@
     "scatter-should-appear": "",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
+  "popup": {
+    "cookies": "To ensure your safety and to provide you with relevant information, we use cookies, and also collect data via Google Analytics."
+  },
   "dialog-add-network": {
     "header": "Добавить сеть",
     "header-edit": "Редактирова сеть",

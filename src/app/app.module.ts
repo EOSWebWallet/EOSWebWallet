@@ -46,6 +46,7 @@ import { SuccessDialogComponent,
 } from './dialogs'
 
 import { AppComponent } from './app.component'
+import { PopupNoteComponent } from './popup-note/popup-note.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { MainManageAccountComponent } from './manage-account/main-manage-account/main-manage-account.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
@@ -395,6 +396,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    PopupNoteComponent,
     NavbarComponent,
     PageNotFoundComponent,
     MainManageAccountComponent,

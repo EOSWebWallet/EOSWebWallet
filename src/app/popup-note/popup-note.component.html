@@ -1,0 +1,8 @@
+<div class= "note-container page-container shadow-block m-0" [@slideInOut]="helpMenuOpen">
+  <div class="note-wrapp">
+    <div class="message">
+      <p>{{'popup.cookies' | translate}}</p>
+    </div>
+    <button class="btn close" (click)="closePopup()"><mat-icon svgIcon="close-icon"></mat-icon></button>
+  </div>
+</div>

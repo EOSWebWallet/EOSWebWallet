@@ -52,6 +52,9 @@
     "scatter-should-appear": "SCATTER SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
+  "popup": {
+    "cookies": "To ensure your safety and to provide you with relevant information, we use cookies, and also collect data via Google Analytics."
+  },
   "dialog-add-network": {
     "header": "Neues Netzwerk hinzufügen",
     "header-edit": "Netzwerk bearbeiten",

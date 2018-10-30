@@ -1,0 +1,32 @@
+@import "../../variable.scss";
+
+.page-container.note-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: $light_blue_bg;
+  z-index: 10;
+}
+
+:host /deep/ .note-wrapp {
+  padding-top: 1rem;
+  .message {
+    font-size: $fz_small;
+  }
+  .btn.close {
+    position: absolute;
+    top: calc(50% - 17px);
+    right: 5px;
+    .mat-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 35px;
+      width: 35px;
+      svg {
+        width: 0.51em;
+      }
+    }
+  }
+}
