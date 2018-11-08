@@ -7,5 +7,7 @@ export interface IAppConfig {
   },
   vector: string,
   telegramLink: string,
-  frameboxLink: string
+  frameboxLink: string,
+  scatterLink: string,
+  gtag: string,
 }

@@ -32,19 +32,9 @@ import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfi
 import { PapaParseModule } from 'ngx-papaparse'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
-import { DateCheckPipe } from './pipes/date-to-time-stamp'
-import {
-  AuthGuardService,
-  FactoryPluginService,
-  ScatterService,
-  EosPluginService,
-  ConfigService,
-  AccountService,
-  CryptoService,
-  EosService,
-  InformationService,
-  InfoBarService
-} from './services'
+import { DateCheckPipe } from './pipes'
+import { GAnalyticsDirective } from './directive/g-analytics.directive'
+import { AuthGuardService, ScatterService, FactoryPluginService, EosPluginService, ConfigService, AccountService, CryptoService, EosService, InformationService, InfoBarService, GAnalyticsService } from './services'
 
 import { SuccessDialogComponent,
   FailureDialogComponent,
@@ -56,6 +46,7 @@ import { SuccessDialogComponent,
 } from './dialogs'
 
 import { AppComponent } from './app.component'
+import { PopupNoteComponent } from './popup-note/popup-note.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { MainManageAccountComponent } from './manage-account/main-manage-account/main-manage-account.component'
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
@@ -405,6 +396,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    PopupNoteComponent,
     NavbarComponent,
     PageNotFoundComponent,
     MainManageAccountComponent,
@@ -474,7 +466,8 @@ const appRoutes: Routes = [
     GetPermissionComponent,
     BuyRamComponent,
     SellRamComponent,
-    DateCheckPipe
+    DateCheckPipe,
+    GAnalyticsDirective
   ],
   imports: [
     MaterialModule,
@@ -513,6 +506,7 @@ const appRoutes: Routes = [
     CryptoService,
     EosService,
     ConfigService,
+    GAnalyticsService,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ConfigService], multi: true },

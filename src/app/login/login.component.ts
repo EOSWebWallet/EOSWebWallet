@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core'
 import * as CryptoJS from 'crypto-js'
 import * as Eos from 'eosjs'
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
-import { FactoryPluginService, LoginService, ConfigService, AccountService, CryptoService } from '../services'
+import { FactoryPluginService, ScatterService, LoginService, ConfigService, AccountService, CryptoService, GAnalyticsService } from '../services'
 import { LoginState } from '../models/login-state.model'
 import { LoginKeys } from '../models/login-keys.model'
 import { SelectAccountDialogComponent } from '../dialogs/select-account-dialog/select-account-dialog.component'
@@ -87,7 +87,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cryptoService: CryptoService,
     private storage: LocalStorageService,
     public loginService: LoginService,
-    private translations: TranslateService
+    private translations: TranslateService,
+    private gAnalyticsService: GAnalyticsService
   ) {
 
     this.storage.observe('currentnetwork').subscribe(() => {
@@ -171,8 +172,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       dialogConfig.closeOnNavigation = true
       dialogConfig.disableClose = true
       dialogConfig.data = {
-        content: await this.translations.get(`dialogs.you-have-${currentPlugin.name}`, { pluginLink: currentPlugin.downloadLink }).toPromise()
+        content: await this.translations.get('dialogs.you-have', { link: ConfigService.settings.scatterLink }).toPromise(),
+        activeGAnalytic: true
       }
+      this.gAnalyticsService.gtagEvent('02_modal_impr', 'connect_account', 'scatter')
       let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
     })
   }
@@ -286,6 +289,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.pass = this.passBase64
       this.hashedPass = hashedPass
     }
+
+    this.gAnalyticsService.gtagEvent('02_log_in', 'connect_account', 'private_key')
 
     this.isLoggedIn = LoginState.publicKey
     this.remember = this.model.remember

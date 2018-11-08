@@ -2,16 +2,23 @@
   <img src="../assets/images/sending.png" />
   <br />
   <h3 id="sending-title" (click)="showMore=!showMore">{{'dialogs.info' | translate}}</h3>
-  <p class="mb-0" id="text-title" (click)="showMore=!showMore">{{data.title != undefined  ? data.title : 'dialogs.open-info' | translate}}
-    <img src="../assets/images/more_green.png" class="ml-1 my-auto"  /> </p>
+  <p class="mb-0" id="text-title" (click)="showMore=!showMore">{{data.title != undefined ? data.title :
+    'dialogs.open-info' | translate}}
+    <img src="../assets/images/more_green.png" class="ml-1 my-auto" /> </p>
   <div *ngIf="showMore">
-    <p>{{data.message}}</p>
-    <div *ngIf="data.content" [innerHtml]="data.content"></div>
+    <p [innerHtml]="data.message"></p>
+    <div *ngIf="data.content && !data.activeGAnalytic" [innerHtml]="data.content"></div>
+    <div *ngIf="data.content && data.activeGAnalytic" [innerHtml]="data.content"
+        gAnalytics [event]="'02_modal_scatter_plugin'" [category]="'connect_account'" [label]="'scatter'" [listenTag]="'a'"></div>
   </div>
 </div>
 
 <div mat-dialog-actions class="dialog-actions mt-3">
-  <button mat-button mat-dialog-close color="primary" (click)="close()" class="go-back mx-auto">
+  <button mat-button mat-dialog-close color="primary" (click)="close()" class="go-back mx-auto" *ngIf="!data.activeGAnalytic">
+    {{'dialogs.go-back' | translate}}
+  </button>
+  <button mat-button mat-dialog-close color="primary" (click)="close()" class="go-back mx-auto" *ngIf="data.activeGAnalytic"
+    gAnalytics [event]="'02_modal_back'" [category]="'connect_account'" [label]="'scatter'">
     {{'dialogs.go-back' | translate}}
   </button>
 </div>

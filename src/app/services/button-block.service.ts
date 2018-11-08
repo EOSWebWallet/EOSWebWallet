@@ -9,10 +9,6 @@ export class ButtonBlockService {
   buttonUsed: boolean
 
   buttonBlocked () {
-    if (this.buttonUsed === true) {
-      return true
-    }
-    else
-      return false
+    return (this.buttonUsed === true)
   }
 }

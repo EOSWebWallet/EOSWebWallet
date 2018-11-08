@@ -41,6 +41,7 @@
     "eos-plugin-locked": "EOS plugin locked",
     "you-have-scatter":"You have to install <a href='{{pluginLink}}' target='_blank'> Scatter Plugin </a> .",
     "you-have-eos-plugin":"You have to install <a href='{{pluginLink}}' target='_blank'> EOS Plugin </a> .",
+    "you-have":"Sie müssen <a href='{{link}}' target='_blank'> Scatter Plugin </a> installieren.",
     "info": "Info",
     "failure": "Ausfall",
     "select-account": "SELECT ACCOUNT",
@@ -54,6 +55,9 @@
     "scatter-should-appear": "SCATTER SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
     "eos-plugin-should-appear": "EOS PLAGIN SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
+  },
+  "popup": {
+    "cookies": "To ensure your safety and to provide you with relevant information, we use cookies, and also collect data via Google Analytics."
   },
   "dialog-add-network": {
     "header": "Neues Netzwerk hinzufügen",

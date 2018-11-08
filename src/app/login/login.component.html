@@ -2,7 +2,9 @@
 	<h3 id="page-title" class="text-center">{{'login.connect-account' | translate}}</h3>
 
 	<div class="login-wrapp">
-		<div class="login-div-button shadow-container" (click)="loginEosPlugin()" (mouseover)="hoverEosPlugin=true" (mouseleave)="hoverEosPlugin=false">
+		<div class="login-div-button shadow-container"
+			(click)="login();" gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'scatter'"
+			(mouseover)="hover_scatter=true" (mouseleave)="hover_scatter=false">			  
 			<div class="align-self-center mx-auto text-center">
 				<img [src]="hoverEosPlugin ? '../../assets/images/eos_plugin_ochre.png' : '../../assets/images/eos_plugin_blue.png'" class="login-image" />
 				<p>{{'login.eos-plugin' | translate}}</p>
@@ -16,8 +18,9 @@
 			</div>
 		</div>
 
-		<div class="login-div-button shadow-container" (click)="showKeyLogin = !showKeyLogin" (mouseover)="hoverKey=true"
-		 (mouseleave)="hoverKey=false">
+		<div class="login-div-button shadow-container" (click)="showKeyLogin = !showKeyLogin" (mouseover)="hover_key=true"
+			gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'private_key'"
+		 	(mouseleave)="hover_key=false">
 			<div class="align-self-center mx-auto text-center">
 				<img [src]="hoverKey ? '../../assets/images/key_ochre.png' : '../../assets/images/key_blue.png'" class="login-image" />
 				<p>{{'login.private-key'| translate}}</p>
