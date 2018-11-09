@@ -3,11 +3,13 @@
     <h3 class="header">{{'our-features.title' | translate}}</h3>
     <h4 class="description">{{'our-features.description' | translate}}</h4>
 
-    <section class="section" *ngFor="let section of 'our-features.sections' | translate">
+    <section class="section" *ngFor="let section of 'our-features.sections' | translate ; let even = even; let odd = odd">
+      <div [ngClass]="{ odd: odd, even: even }">
       <h5 class="section-title">{{section.title}}</h5>
       <ul>
         <li *ngFor="let item of section.items">{{item}}</li>
       </ul>
+    </div>
     </section>
 
     <div class="bottom">

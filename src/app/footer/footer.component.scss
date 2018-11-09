@@ -35,7 +35,7 @@ $footer_m_h: 13px;
 
     .body-footer {
       color: $blue;
-      font-size: $fz_small;
+      font-size: $fz;
       text-align: justify;
       .info-text {
         margin: $footer_m_h 0 0;
@@ -43,9 +43,15 @@ $footer_m_h: 13px;
           .link {
             display: block;
             margin-bottom: 0.4rem;
+            margin-left: 3rem;
+            @media screen and (max-width: $sm) {
+              margin-left: 0rem;
+              }
           }
         }
       }
     }
   }
 }
+
+
