@@ -11,14 +11,21 @@ section .even, section .odd{
     float: left;
 }
 
+.sections {
+    display:flex;
+    justify-content: center;
+}
+
 .bottom{
     clear: both;
+    text-align: center;
 }
 
 .description{
     margin-bottom: $block_p_h / 2;
+    text-align: center;
 }
-.section{
+.section {
     margin-bottom: $block_p_h / 2;
     .section-title{
         margin-bottom: 15px;
