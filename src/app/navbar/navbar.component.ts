@@ -112,6 +112,10 @@ export class NavbarComponent {
       this.userNetworks = []
     }
 
+    if (!this.selectedNetwork) {
+      this.networkChanged(0)
+    }
+
     iconRegistry.addSvgIcon(
       'link-icon',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/link.svg'))
