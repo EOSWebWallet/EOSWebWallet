@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   eos: any
 
   login: any
-  hover_scatter: any
-  hoverEosPlugin: any
-  hover_key: any
-  showKeyLogin: any
+  hoverScatter: boolean
+  hoverEosPlugin: boolean
+  hoverKey: boolean
+  showKeyLogin: boolean
 
   @LocalStorage()
   isLoggedIn: LoginState
