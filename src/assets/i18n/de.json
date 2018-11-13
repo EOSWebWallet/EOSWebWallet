@@ -52,8 +52,8 @@
     "go-back": "GZurück",
     "sending": "Sending...",
     "success": "Success",
-    "scatter-should-appear": "SCATTER SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
-    "eos-plugin-should-appear": "EOS PLAGIN SHOULD APPEAR SHORTLY TO CONFIRM THIS ACTION",
+    "scatter-should-appear": "",
+    "eos-plugin-should-appear": "",
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
   "popup": {
