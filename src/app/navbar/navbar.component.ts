@@ -90,23 +90,9 @@ export class NavbarComponent {
 
     this.networks = []
     this.networks.push(new Network(
-      'eosapi.blockmatrix.network',
-      'Mainnet (BlockMatrix)',
-      NetworkChaindId.MainNet,
-      443,
-      NetworkProtocol.Https
-    ))
-    this.networks.push(new Network(
       'eos.greymass.com',
       'Mainnet (Greymass)',
       NetworkChaindId.MainNet,
-      443,
-      NetworkProtocol.Https
-    ))
-    this.networks.push(new Network(
-      'junglenodes.eosmetal.io',
-      'Jungle (Eosmetal)',
-      NetworkChaindId.Jungle,
       443,
       NetworkProtocol.Https
     ))
