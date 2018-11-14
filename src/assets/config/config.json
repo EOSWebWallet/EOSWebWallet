@@ -7,7 +7,10 @@
 	"protocol": "https://"
     },
     "vector":"KUyewuyf2uvlcvbasucqwyv23vjw",
-    "telegramLink": "https://t.me/joinchat/D8E_QEXSIScnu2rXw2EJ4w",
+    "twitterLink": "https://twitter.com/eoswebwallet",
+    "facebookLink": "https://www.facebook.com/groups/267446023977066/",
+    "telegramLink": "https://t.me/EOSWebWallet",
+    "githubLink": "https://github.com/EOSWebWallet",
     "scatterLink": "https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle/support?hl=en",
     "gtag": "UA-10016761-5"
 }
