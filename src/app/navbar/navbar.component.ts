@@ -54,7 +54,7 @@ export class NavbarComponent {
 
   toggleNav: boolean
 
-  get loginIcon () {
+  get loginIcon() {
     if (!this.isLoggedIn) {
       return 'logo'
     }
@@ -75,7 +75,7 @@ export class NavbarComponent {
 
   networks: Network[]
 
-  constructor (
+  constructor(
     public dialog: MatDialog,
     private factoryPluginService: FactoryPluginService,
     private router: Router,
@@ -152,7 +152,7 @@ export class NavbarComponent {
 
   }
 
-  displayLogOut () {
+  displayLogOut() {
     if (this.isLoggedIn != null && this.isLoggedIn !== LoginState.out) {
       return true
     } else {
@@ -160,7 +160,7 @@ export class NavbarComponent {
     }
   }
 
-  activeLink (currentRoute) {
+  activeLink(currentRoute) {
     if (this.router.url.indexOf('/' + currentRoute) === 0) {
       return true
     } else {
@@ -168,23 +168,23 @@ export class NavbarComponent {
     }
   }
 
-  async logout () {
+  async logout() {
     await this.loginService.logout()
   }
 
-  langChanged () {
+  langChanged() {
     this.currentLanguage = this.selectedLanguage
     this.translate.use(this.selectedLanguage)
   }
 
-  networkChanged (index: number) {
+  networkChanged(index: number) {
     this.selectedNetwork = this.networks[index].host
     if (this.selectedNetwork) {
       this.changeChainId(index)
     }
   }
 
-  async changeChainId (index: number = -1) {
+  async changeChainId(index: number = -1) {
     if (index === -1) {
       for (let i = 0; i < this.networks.length; i++) {
         let network = this.networks[i]
@@ -257,9 +257,15 @@ export class NavbarComponent {
     }
   }
 
-  async loginKey () {
+  async loginKey() {
     let pubKey = this.cryptoService.decrypt(this.loginService.publicKey, this.loginService.pass)
-    let data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+    let data
+    for (let i = 0; i < 10; i++) {
+      data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+      if (data && data.account_names.length) {
+        break
+      }
+    }
 
     if (!data || !data.account_names.length) {
       return false
@@ -279,7 +285,7 @@ export class NavbarComponent {
     return success
   }
 
-  async selectPermission (data, callback: (accountName, permission) => any) {
+  async selectPermission(data, callback: (accountName, permission) => any) {
     if (data == null) {
       callback('', '')
       return
@@ -290,7 +296,7 @@ export class NavbarComponent {
       let permissions = await self.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
       if (permissions) {
         for (const item of permissions.permissions) {
-          accounts.push([account.toString(),item.perm_name])
+          accounts.push([account.toString(), item.perm_name])
         }
       }
     }
@@ -308,7 +314,7 @@ export class NavbarComponent {
     callback(result.data.split(',')[0], result.data.split(',')[1])
   }
 
-  async loginPlugin (forgetIdentity = true) {
+  async loginPlugin(forgetIdentity = true) {
     const currentPlugin = this.factoryPluginService.currentPlugin
     await currentPlugin.ready
 
@@ -331,7 +337,7 @@ export class NavbarComponent {
     return isLoginned
   }
 
-  setNetwork (index) {
+  setNetwork(index) {
     this.currentNetwork = this.networks[index].host
     this.currentChainId = this.networks[index].currentChainId
     this.port = this.networks[index].port
@@ -339,7 +345,7 @@ export class NavbarComponent {
     this.selectedIdNetwork = index
   }
 
-  addNetwork () {
+  addNetwork() {
     const dialogConfig = new MatDialogConfig()
     dialogConfig.closeOnNavigation = false
     dialogConfig.disableClose = true
@@ -366,7 +372,7 @@ export class NavbarComponent {
     })
   }
 
-  editNetwork (index: number) {
+  editNetwork(index: number) {
     const dialogConfig = new MatDialogConfig()
     dialogConfig.closeOnNavigation = false
     dialogConfig.disableClose = true

@@ -76,10 +76,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   @LocalStorage()
   lastIdNetwork: number
 
-  model = new LoginKeys('','',false,'','','')
+  model = new LoginKeys('', '', false, '', '', '')
   loginInProcess = false
 
-  constructor (
+  constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
@@ -110,29 +110,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit () {
+  ngOnInit() {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'
   }
 
-  get passBase64 () {
+  get passBase64() {
     if (!this.model.remember) {
       this.model.pass = 'bhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUV'
     }
     return this.cryptoService.btoa(this.model.pass)
   }
 
-  async loginEosPlugin () {
+  async loginEosPlugin() {
     this.factoryPluginService.setCurrentPlugin('eos-plugin')
     await this.loginPlugin()
   }
 
-  async loginScatter () {
+  async loginScatter() {
     this.factoryPluginService.setCurrentPlugin('scatter')
     await this.loginPlugin()
   }
 
-  async loginPlugin () {
+  async loginPlugin() {
     if (this.loginInProcess) return
     this.loginInProcess = true
     const currentPlugin = this.factoryPluginService.currentPlugin
@@ -181,7 +181,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
-  async selectPermission (data, callback: () => any) {
+  async selectPermission(data, callback: () => any) {
 
     if (data == null) {
       callback()
@@ -193,7 +193,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       let permissions = await this.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
       if (permissions) {
         for (const item of permissions.permissions) {
-          accounts.push([account.toString(),item.perm_name])
+          accounts.push([account.toString(), item.perm_name])
         }
       }
     }
@@ -216,7 +216,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
   }
 
-  async onPrivatePass (event) {
+  async onPrivatePass(event) {
     try {
       let publicKey: string
       try {
@@ -231,7 +231,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (this.model.publicKey === publicKey) return
       this.model.publicKey = publicKey
 
-      let data = await this.accountService.findByKey('{"public_key":"' + publicKey + '"}').toPromise()
+      let data
+      for (let i = 0; i < 10; i++) {
+        data = await this.accountService.findByKey('{"public_key":"' + publicKey + '"}').toPromise()
+        if (data && data.account_names.length) {
+          break
+        }
+      }
+
       if (!data || !data.account_names.length) {
         const dialogConfig = new MatDialogConfig()
         dialogConfig.closeOnNavigation = true
@@ -266,7 +273,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  async loginPublicKey () {
+  async loginPublicKey() {
     if (this.model.accountName == null || this.model.accountName === '') return
     if (this.loginInProcess) return
     this.loginInProcess = true
@@ -300,7 +307,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.navigateAfterLogin()
   }
 
-  async loginPublicKeyPassword () {
+  async loginPublicKeyPassword() {
     if (this.loginInProcess) return
     this.loginInProcess = true
     this.model.remember = true
@@ -315,7 +322,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     let pubKey = this.cryptoService.decrypt(this.publicKey, this.passBase64)
-    let data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+    let data
+    for (let i = 0; i < 10; i++) {
+      data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+      if (data && data.account_names.length) {
+        break
+      }
+    }
 
     if (!data || !data.account_names.length) {
       const dialogConfig = new MatDialogConfig()
@@ -350,28 +363,28 @@ export class LoginComponent implements OnInit, OnDestroy {
     await this.selectPermission(data, callback)
   }
 
-  navigateAfterLogin () {
+  navigateAfterLogin() {
     if (this.returnUrl === '/') {
       this.returnUrl = this.router.url === '/login' ? '/transferTokens' : this.router.url
     }
     this.router.navigateByUrl(this.returnUrl)
   }
 
-  logout () {
+  logout() {
     this.factoryPluginService.currentPlugin.logout()
     this.isLoggedIn = LoginState.out
     this.storage.clear('pass')
   }
 
-  async onSubmit () {
+  async onSubmit() {
     await this.loginPublicKey()
   }
 
-  loggedIn () {
+  loggedIn() {
     return (this.isLoggedIn != null && this.isLoggedIn !== LoginState.out)
   }
 
-  showEnterPassword () {
+  showEnterPassword() {
     if (this.loggedIn() === false && this.privateKey && this.remember) {
       return true
     } else {
@@ -379,7 +392,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe()
     }
