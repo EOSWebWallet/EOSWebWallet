@@ -1,12 +1,29 @@
 @import "../../variable.scss";
 
 .page-container.note-container{
+  margin: 0 !important;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background: $light_blue_bg;
   z-index: 10;
+  &.note-center{
+    width: $md;
+    left: calc(50% - #{$md / 2});
+    padding: 0 40px 0 20px;
+  }
+  @media screen and (max-width: $lg) {
+    &.note-center{
+      padding: 0 40px 0 20px;
+    }
+  }
+  @media screen and (max-width: $md) {
+    &.note-center{
+      width: calc(100% - 40px);
+      left: 20px;
+    }
+  }
 }
 
 :host /deep/ .note-wrapp {

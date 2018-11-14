@@ -58,7 +58,8 @@
     "transaction-wil-be-sent": "YOUR TRANSACTION WILL BE SENT TO THE NETWORK AFTERWARDS"
   },
   "popup": {
-    "cookies": "To ensure your safety and to provide you with relevant information, we use cookies, and also collect data via Google Analytics."
+    "cookies": "To ensure your safety and to provide you with relevant information, we use cookies, and also collect data via Google Analytics.",
+    "oficial": "EOSWebWallet.io is an official site and does not cooperate with any other resources. Please always check out the correctness of the query in the browser search string."
   },
   "dialog-add-network": {
     "header": "Добавить сеть",
@@ -568,7 +569,6 @@
         "question": "Houston, we have a problem. Who can help me?",
         "answer": "In case you have problems in connection to our wallet, work with accounts, managing your EOS and others - just contact us via <a href='{{link}}'>telegram</a>, we would be happy to assist you."
       }
-    ],
-    "bottom": "Visualization of the required sections can be <a href='{{framebox}}' target='_blank'>found here</a>."
+    ]
   }
 }

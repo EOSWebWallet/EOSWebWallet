@@ -49,6 +49,9 @@ export class PopupNoteComponent implements OnInit, AfterContentInit {
     if (!this.cookieInfo) {
       this.cookieInfo = true
       this.helpMenuOpen = 'in'
+      setTimeout(() => {
+        this.closePopup()
+      }, 15000)
     }
   }
 

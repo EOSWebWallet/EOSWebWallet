@@ -27,10 +27,6 @@ export class FaqComponent {
     return ConfigService.settings.telegramLink
   }
 
-  get frameboxLink () {
-    return ConfigService.settings.frameboxLink
-  }
-
   telegramLinkReplase (str: string) {
     return str.replace('{{link}}', this.telegramLink)
   }
