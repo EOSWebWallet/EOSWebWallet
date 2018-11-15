@@ -9,8 +9,8 @@
   background: $light_blue_bg;
   z-index: 10;
   &.note-center{
-    width: $md;
-    left: calc(50% - #{$md / 2});
+    width: $xs;
+    left: calc(50% - #{$xs / 2});
     padding: 0 40px 0 20px;
   }
   @media screen and (max-width: $lg) {
