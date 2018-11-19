@@ -39,6 +39,15 @@ export class AccountService {
     )
   }
 
+  getTokensMainNet (accountName: string): Observable<any> {
+    return this.httpClient.post(
+      'https://eos.greymass.com:443/v1/chain/get_currency_balances' , '{"account":"' + accountName + '"}').pipe(
+      catchError(err => {
+        return of(false)
+      })
+    )
+  }
+
   getAllTokensInfo (tokens: string[], accountName) {
     if (_.isEmpty(tokens)) {
       return of([])

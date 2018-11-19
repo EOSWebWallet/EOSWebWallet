@@ -5,6 +5,7 @@ import { Currency } from '../models/tokens.model'
 import { interval, Subscription } from 'rxjs'
 import { LocalStorage } from 'ngx-webstorage'
 import { LoginState } from '../models/login-state.model'
+import { NetworkChaindId } from '../models/network.model';
 
 @Injectable()
 export class InfoBarService implements OnInit, OnDestroy {
@@ -17,6 +18,9 @@ export class InfoBarService implements OnInit, OnDestroy {
 
   @LocalStorage()
   currentNetwork: string
+
+  @LocalStorage()
+  currentchainid: string
 
   tokenString: string
   tokenStringTemp: string
@@ -34,6 +38,7 @@ export class InfoBarService implements OnInit, OnDestroy {
   exUsdTotal: number
 
   userSymbol: string[] = []
+  lastChainid: string
 
   constructor (private data: AccountService) {}
 
@@ -50,6 +55,14 @@ export class InfoBarService implements OnInit, OnDestroy {
   }
 
   getInfo (AccountName: string) {
+    if (!this.lastChainid) {
+      this.lastChainid = this.currentchainid
+    } else {
+      if (this.lastChainid !== this.currentchainid) {
+        this.lastChainid = this.currentchainid
+        this.clearUserSymbol()
+      }
+    }
     if (this.accountInfo) {
       this.exUsdTotal = this.accountInfo.usd_total
     }
@@ -88,16 +101,31 @@ export class InfoBarService implements OnInit, OnDestroy {
               this.accountInfo.core_liquid_balance = '0'
               this.unstacked = 0
             }
-            this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((result) => {
-              if (result && result.length) {
-                result.forEach(resultArr => {
-                  resultArr.forEach(element => {
-                    this.addUserSymbol(element.substring(element.lastIndexOf(' ') + 1))
+
+            if (this.currentchainid === NetworkChaindId.MainNet) {
+              this.data.getTokensMainNet(AccountName).subscribe((result) => {
+                if (result && result.length) {
+                  this.tokenStringTemp = ''
+                  result.forEach(rez => {
+                    this.tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
+                    this.addUserSymbol(rez.symbol)
                   })
-                })
-              }
-              this.tokenStringTemp = result.toString()
-            })
+                  this.tokenStringTemp = this.tokenStringTemp.substring(0, this.tokenStringTemp.length - 2)
+                }
+              })
+            } else {
+              this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((result) => {
+                if (result && result.length) {
+                  result.forEach(resultArr => {
+                    resultArr.forEach(element => {
+                      this.addUserSymbol(element.substring(element.lastIndexOf(' ') + 1))
+                    })
+                  })
+                }
+                this.tokenStringTemp = result.toString()
+              })
+            }
+
             this.stacked = +this.accountInfo.voter_info.staked / 10000
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
             this.data.getCurrentCourse().subscribe((result) => {
@@ -130,6 +158,10 @@ export class InfoBarService implements OnInit, OnDestroy {
     if (!findSymbol) {
       this.userSymbol.push(symbol)
     }
+  }
+
+  clearUserSymbol () {
+    this.userSymbol = []
   }
 
   ngOnDestroy () {
