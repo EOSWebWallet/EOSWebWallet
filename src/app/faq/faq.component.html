@@ -5,9 +5,6 @@
       <h4 class="question">{{ section.question }}</h4>
       <div class="answer"><p [innerHTML]="telegramLinkReplase(section.answer)"></p></div>
   </section>
-  <div class="bottom">
-    <p class="mb-0" [innerHTML]="'faq.bottom' | translate:{framebox: frameboxLink}"></p>
-  </div>
   </div>
   <div class="side-bar" [hidden]="!loginService.loggedIn()">
     <app-side-bar></app-side-bar>

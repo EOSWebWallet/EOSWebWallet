@@ -20,7 +20,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('out', style({
         opacity: '0',
         overflow: 'hidden',
-        height: '0px'
+        height: '0px',
+        position: 'relative',
+        zIndex: '-1'
       })),
       transition('in => out', animate('700ms ease-in-out')),
       transition('out => in', animate('700ms ease-in-out'))
@@ -49,6 +51,9 @@ export class PopupNoteComponent implements OnInit, AfterContentInit {
     if (!this.cookieInfo) {
       this.cookieInfo = true
       this.helpMenuOpen = 'in'
+      setTimeout(() => {
+        this.closePopup()
+      }, 15000)
     }
   }
 

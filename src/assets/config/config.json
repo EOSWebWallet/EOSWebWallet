@@ -1,14 +1,19 @@
 {
-    "eos":
-    {
-    "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-    "host": "eosapi.blockmatrix.network",
-	"port": "443",
-	"protocol": "https://"
+    "eos": {
+        "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+        "host": "eosapi.blockmatrix.network",
+        "port": "443",
+        "protocol": "https://"
     },
-    "vector":"KUyewuyf2uvlcvbasucqwyv23vjw",
-    "telegramLink": "https://t.me/joinchat/D8E_QEXSIScnu2rXw2EJ4w",
-    "frameboxLink": "http://framebox.org/AhasA-OthQcg",
+    "eosTokens": {
+        "greymass": "https://eos.greymass.com:443/v1/chain/get_currency_balances",
+        "eosflare": "https://api-pub.eosflare.io/v1/eosflare/get_account"
+    },
+    "vector": "KUyewuyf2uvlcvbasucqwyv23vjw",
+    "twitterLink": "https://twitter.com/eoswebwallet",
+    "facebookLink": "https://www.facebook.com/groups/267446023977066/",
+    "telegramLink": "https://t.me/EOSWebWallet",
+    "githubLink": "https://github.com/EOSWebWallet",
     "scatterLink": "https://chrome.google.com/webstore/detail/scatter/ammjpmhgckkpcamddpolhchgomcojkle/support?hl=en",
     "gtag": "UA-10016761-5"
 }

@@ -90,9 +90,37 @@ export class NavbarComponent {
 
     this.networks = []
     this.networks.push(new Network(
+      'api.eosnewyork.io',
+      'Mainnet (EOS New York)',
+      NetworkChaindId.MainNet,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
+      'api.eosn.io',
+      'Mainnet (EOS Nation)',
+      NetworkChaindId.MainNet,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
+      'api.franceos.fr',
+      'Mainnet (Franceos)',
+      NetworkChaindId.MainNet,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
       'eos.greymass.com',
       'Mainnet (Greymass)',
       NetworkChaindId.MainNet,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
+      'jungle.eosio.cr',
+      'Jungle (Costa Rica)',
+      NetworkChaindId.Jungle,
       443,
       NetworkProtocol.Https
     ))
@@ -259,7 +287,13 @@ export class NavbarComponent {
 
   async loginKey () {
     let pubKey = this.cryptoService.decrypt(this.loginService.publicKey, this.loginService.pass)
-    let data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+    let data
+    for (let i = 0; i < 10; i++) {
+      data = await this.accountService.findByKey('{"public_key":"' + pubKey + '"}').toPromise()
+      if (data && data.account_names.length) {
+        break
+      }
+    }
 
     if (!data || !data.account_names.length) {
       return false
@@ -290,7 +324,7 @@ export class NavbarComponent {
       let permissions = await self.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
       if (permissions) {
         for (const item of permissions.permissions) {
-          accounts.push([account.toString(),item.perm_name])
+          accounts.push([account.toString(), item.perm_name])
         }
       }
     }

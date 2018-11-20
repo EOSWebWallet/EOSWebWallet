@@ -5,9 +5,15 @@ export interface IAppConfig {
     port: number,
     protocol: string
   },
+  eosTokens: {
+    greymass: string,
+    eosflare: string
+  },
   vector: string,
+  twitterLink: string,
+  facebookLink: string,
   telegramLink: string,
-  frameboxLink: string,
+  githubLink: string,
   scatterLink: string,
   gtag: string,
 }

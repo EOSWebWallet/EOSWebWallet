@@ -19,5 +19,7 @@ export class Currency {
     'octtothemoon',
     'poormantoken',
     'wizznetwork1',
-    'ridlridlcoin' ]
+    'ridlridlcoin',
+    'zkstokensr4u',
+    'publytoken11' ]
 }
