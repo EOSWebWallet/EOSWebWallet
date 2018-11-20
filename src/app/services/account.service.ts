@@ -4,6 +4,7 @@ import { Observable, of, forkJoin } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { LocalStorage } from 'ngx-webstorage'
 import * as _ from 'lodash'
+import { ConfigService } from '.'
 
 @Injectable()
 
@@ -39,9 +40,23 @@ export class AccountService {
     )
   }
 
-  getTokensMainNet (accountName: string): Observable<any> {
+  getTokensGreymass (accountName: string): Observable<any> {
     return this.httpClient.post(
-      'https://eos.greymass.com:443/v1/chain/get_currency_balances' , '{"account":"' + accountName + '"}').pipe(
+      ConfigService.settings.eosTokens.greymass, '{"account":"' + accountName + '"}').pipe(
+      catchError(err => {
+        return of(false)
+      })
+    )
+  }
+
+  getTokensEosflare (accountName: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.httpClient.post(
+      ConfigService.settings.eosTokens.eosflare, '{"account":"' + accountName + '"}', httpOptions).pipe(
       catchError(err => {
         return of(false)
       })

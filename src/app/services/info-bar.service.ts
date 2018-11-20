@@ -1,11 +1,12 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core'
+import { interval, Subscription } from 'rxjs'
+
 import { AccountService } from '../services/account.service'
 import { AccountInfo } from '../models/account-info.model'
 import { Currency } from '../models/tokens.model'
-import { interval, Subscription } from 'rxjs'
 import { LocalStorage } from 'ngx-webstorage'
 import { LoginState } from '../models/login-state.model'
-import { NetworkChaindId } from '../models/network.model';
+import { NetworkChaindId } from '../models/network.model'
 
 @Injectable()
 export class InfoBarService implements OnInit, OnDestroy {
@@ -103,26 +104,24 @@ export class InfoBarService implements OnInit, OnDestroy {
             }
 
             if (this.currentchainid === NetworkChaindId.MainNet) {
-              this.data.getTokensMainNet(AccountName).subscribe((result) => {
-                if (result && result.length) {
-                  this.tokenStringTemp = ''
-                  result.forEach(rez => {
-                    this.tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
-                    this.addUserSymbol(rez.symbol)
+              this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
+                if (tokens && tokens.length) {
+                  this.tokenStringTemp = this.setTokensGreymassSymbol(tokens)
+                } else {
+                  this.data.getTokensEosflare(AccountName).subscribe((result) => {
+                    if (result && result.account) {
+                      this.tokenStringTemp = this.setTokensEosflareSymbol(result.account.tokens)
+                    } else {
+                      this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokens) => {
+                        this.tokenStringTemp = this.setTokensSymbol(tokens)
+                      })
+                    }
                   })
-                  this.tokenStringTemp = this.tokenStringTemp.substring(0, this.tokenStringTemp.length - 2)
                 }
               })
             } else {
-              this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((result) => {
-                if (result && result.length) {
-                  result.forEach(resultArr => {
-                    resultArr.forEach(element => {
-                      this.addUserSymbol(element.substring(element.lastIndexOf(' ') + 1))
-                    })
-                  })
-                }
-                this.tokenStringTemp = result.toString()
+              this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokens) => {
+                this.tokenStringTemp = this.setTokensSymbol(tokens)
               })
             }
 
@@ -147,7 +146,39 @@ export class InfoBarService implements OnInit, OnDestroy {
     }
   }
 
-  addUserSymbol (symbol: string) {
+  private setTokensGreymassSymbol (tokens): string {
+    let tokenStringTemp = ''
+    tokens.forEach(rez => {
+      tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
+      this.addUserSymbol(rez.symbol)
+    })
+    return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
+  }
+
+  private setTokensEosflareSymbol (tokens): string {
+    let tokenStringTemp = ''
+    tokens.forEach(rez => {
+      tokenStringTemp += rez.balance + ' ' + rez.symbol + ', '
+      this.addUserSymbol(rez.symbol)
+    })
+    return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
+  }
+
+  private setTokensSymbol (tokens): string {
+    if (tokens && tokens.length) {
+      let tokenStringTemp = ''
+      tokens.forEach(resultArr => {
+        resultArr.forEach(element => {
+          this.addUserSymbol(element.substring(element.lastIndexOf(' ') + 1))
+          tokenStringTemp += element + ', '
+        })
+      })
+      return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
+    }
+    return ''
+  }
+
+  private addUserSymbol (symbol: string) {
     let findSymbol = false
     this.userSymbol.forEach(element => {
       if (element.toLocaleLowerCase() === symbol.toLocaleLowerCase()) {
@@ -160,7 +191,7 @@ export class InfoBarService implements OnInit, OnDestroy {
     }
   }
 
-  clearUserSymbol () {
+  private clearUserSymbol () {
     this.userSymbol = []
   }
 
