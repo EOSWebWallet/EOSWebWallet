@@ -27,6 +27,9 @@ export class FooterComponent {
   get githubLink () {
     return ConfigService.settings.githubLink
   }
+  get mediumLink () {
+    return ConfigService.settings.mediumLink
+  }
 
   constructor (iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
@@ -41,6 +44,9 @@ export class FooterComponent {
     iconRegistry.addSvgIcon(
       'git-icon',
       sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/git-icon.svg'))
+      iconRegistry.addSvgIcon(
+        'medium-icon',
+        sanitizer.bypassSecurityTrustResourceUrl('../assets/svg/medium-icon.svg'))
   }
 
 }
