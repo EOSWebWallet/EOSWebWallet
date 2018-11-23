@@ -89,12 +89,12 @@ export class InfoBarService implements OnInit, OnDestroy {
           this.ramPercent = Math.round(Number(this.accountInfo.ram_usage) / Number(this.accountInfo.ram_quota) * 100)
 
           this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked.toString()
-          this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used) / 1000000
-          this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max) / 1000000)
-          this.accountInfo.net_used_kb = Number(this.accountInfo.net_limit.used) / 1000
-          this.accountInfo.net_max_kb = Number(this.accountInfo.net_limit.max) / 1000
-          this.accountInfo.ram_used_kb = Number(this.accountInfo.ram_usage) / 1000
-          this.accountInfo.ram_max_kb = Number(this.accountInfo.ram_quota) / 1000
+          this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used)
+          this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max))
+          this.accountInfo.net_used_kb = Number(this.accountInfo.net_limit.used) / 1024
+          this.accountInfo.net_max_kb = Number(this.accountInfo.net_limit.max) / 1024
+          this.accountInfo.ram_used_kb = Number(this.accountInfo.ram_usage) / 1024
+          this.accountInfo.ram_max_kb = Number(this.accountInfo.ram_quota) / 1024
           if (this.accountInfo.core_liquid_balance !== undefined) {
             if (this.accountInfo.core_liquid_balance) {
               this.unstacked = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) - this.stacked

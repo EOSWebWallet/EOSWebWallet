@@ -24,7 +24,7 @@
               {{'info-bar.cpu'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.cpu_used_sec || 0 | number}}</b> / {{info.accountInfo?.cpu_max_sec || 0 | number}} <b> {{'info-bar.sec'| translate}}</b>
+              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.cpu_used_sec || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.cpu_max_sec || 0 | number}}</span> <b> {{'info-bar.us'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -37,7 +37,7 @@
               {{'info-bar.net'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.net_used_kb || 0 | number}}</b> / {{info.accountInfo?.net_max_kb || 0 | number}} <b> {{'info-bar.kb'| translate}}</b>
+              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.net_used_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -50,7 +50,7 @@
               {{'info-bar.ram'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b>{{info.accountInfo?.ram_used_kb || 0 | number}}</b> / {{info.accountInfo?.ram_max_kb || 0 | number}} <b> {{'info-bar.kb'| translate}}</b>
+              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.ram_used_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.ram_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">

@@ -330,8 +330,10 @@
     "ram": "RAM",
     "privileged": "Privileged",
     "tokens": "Tokens",
-    "sec": "sec",
-    "kb": "kb"
+    "us": "us",
+    "kb": "KB",
+    "total":"всего",
+    "used":"используется"
   },
   "login": {
     "connect-account": "ПОДКЛЮЧИТЬ АККАУНТ",
