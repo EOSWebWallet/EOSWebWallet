@@ -4,7 +4,7 @@ import { Observable, of, forkJoin } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import { LocalStorage } from 'ngx-webstorage'
 import * as _ from 'lodash'
-import { ConfigService } from '.'
+import { ConfigService } from './config.service'
 
 @Injectable()
 
