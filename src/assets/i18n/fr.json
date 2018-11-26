@@ -444,6 +444,7 @@
     "link-unlink-permis": "Lier/ délier la permission",
     "delete-permis": "Supprimer l'autorisation",
     "advanced-permis": "Autorisation avancée",
+    "refund-stake": "Stake rembourser",
     "set-ram-rate": "établir RAM"
   },
   "other-navbar": {
@@ -452,8 +453,7 @@
     "set-global-limits": "Définir les limites globales",
     "set-account-limits": "Définir les limites de compte",
     "bid-on-name": "Enchérir sur le nom",
-      "claim-rewards": "Prétendre des récompenses",
-    "refund-stake": "Stake rembourser",
+    "claim-rewards": "Prétendre des récompenses",
     "cancel-delay": "Annuler les transactions en attente",
     "on-error": "Signaler um bogue"
   },
@@ -471,6 +471,7 @@
     "transferTokens": "Envoyer des EOS et des jetons à un ou plusieurs utilisateurs directement sans intermédiaires en utilisant EosWebWallet. Soyez prudent lorsque vous entrez l'adresse du destinataire, car la transaction ne peut pas être retirée en cas d'erreur. Vous pouvez également importer un fichier CSV contenant des données de destinataire pour transférer des ressources numériques.",
     "generateKeyPairs": "Vous pouvez générer une paire de vos clés pour accéder à votre compte. Ces clés ne sont pas stockées sur le serveur et sont affichées uniquement dans votre navigateur. Votre clé privée ne peut pas être restaurée si vous la perdez. Faites une sauvegarde et conservez toutes les copies dans des emplacements sécurisés distincts.",
     "manageAccount":{
+      "refundStake":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "delegate":"La section vous permet de gérer votre compte.Ne faites aucun changement si vous n'êtes pas sûr de l'exactitude de vos actions.Vous pouvez obtenir ou supprimer des autorisations sur un autre compte, ainsi que demander l'autorisation d'autres utilisateurs pour des opérations supplémentaires.Vous pouvez également définir des niveaux d'autorisation nommés, chacun pouvant être dérivé d'autorisations nommées de niveau supérieur en spécifiant un contrôle de signature multi-signature composé de clés et / ou de niveaux d'autorisation nommés d'autres comptes.",
       "undelegate":"La section vous permet de gérer votre compte.Ne faites aucun changement si vous n'êtes pas sûr de l'exactitude de vos actions.Vous pouvez obtenir ou supprimer des autorisations sur un autre compte, ainsi que demander l'autorisation d'autres utilisateurs pour des opérations supplémentaires.Vous pouvez également définir des niveaux d'autorisation nommés, chacun pouvant être dérivé d'autorisations nommées de niveau supérieur en spécifiant un contrôle de signature multi-signature composé de clés et / ou de niveaux d'autorisation nommés d'autres comptes.",
       "buy-sell-ram": "La section vous permet de gérer votre compte.Ne faites aucun changement si vous n'êtes pas sûr de l'exactitude de vos actions.Vous pouvez obtenir ou supprimer des autorisations sur un autre compte, ainsi que demander l'autorisation d'autres utilisateurs pour des opérations supplémentaires.Vous pouvez également définir des niveaux d'autorisation nommés, chacun pouvant être dérivé d'autorisations nommées de niveau supérieur en spécifiant un contrôle de signature multi-signature composé de clés et / ou de niveaux d'autorisation nommés d'autres comptes.",
@@ -504,7 +505,6 @@
       "setAccountLimits":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "premiumName":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "claimRewards":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
-      "refundStake":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "cancelDelay":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique.",
       "onError":"La section vous permet de gérer le CPU, le NET et la RAM, de conférer des privilèges au compte, de définir des limites de compte et globales, d'annuler les transactions avec délai obligatoire en cas d'erreur, de réclamer des récompenses et de miser sur un nom lisible unique."
     }

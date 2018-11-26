@@ -443,6 +443,7 @@
     "get-permis": "Get Permission",
     "link-unlink-permis": "Link / Unlink Permission",
     "delete-permis": "Delete Permission",
+    "refund-stake": "Refund Stake",
     "advanced-permis": "Advanced Permission",
     "set-ram-rate": "Set RAM"
   },
@@ -453,7 +454,6 @@
     "set-account-limits": "Set Account Limits",
     "bid-on-name": "Bid on Name",
     "claim-rewards": "Claim Rewards",
-    "refund-stake": "Refund Stake",
     "cancel-delay": "Cancel mandatory delay ",
     "on-error": "Report a bug"
   },
@@ -471,6 +471,7 @@
     "transferTokens": "Send EOS and tokens to one or more users directly without intermediaries using EosWebWallet. Be careful when entering the address of the recipient, as the transaction can not be withdrawn in case of an error. You can also import a CSV file with recipient data to transfer digital assets.",
     "generateKeyPairs": "You can generate a pair of Your keys to access Your account. These keys are not stored on the server and are displayed only in Your browser. Your private key can not be restored if You lose it. Make a back-up and keep all copies in separate secure locations.",
     "manageAccount":{
+      "refundStake":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
       "delegate":"The section allows you to manage your account. Do not make any changes if you are not sure of the correctness of your actions. You can get or delete permissions to another account, as well as request permission from other users for additional operations.You may as well define named permission levels each of which can be derived from higher level named permissions by specifying a threshold multi-signature check consisting of keys and/or named permission levels of other accounts.",
       "undelegate":"The section allows you to manage your account. Do not make any changes if you are not sure of the correctness of your actions. You can get or delete permissions to another account, as well as request permission from other users for additional operations.You may as well define named permission levels each of which can be derived from higher level named permissions by specifying a threshold multi-signature check consisting of keys and/or named permission levels of other accounts.",
       "buy-sell-ram": "The section allows you to manage your account. Do not make any changes if you are not sure of the correctness of your actions. You can get or delete permissions to another account, as well as request permission from other users for additional operations.You may as well define named permission levels each of which can be derived from higher level named permissions by specifying a threshold multi-signature check consisting of keys and/or named permission levels of other accounts.",
@@ -504,7 +505,6 @@
       "setAccountLimits":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
       "premiumName":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
       "claimRewards":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
-      "refundStake":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
       "cancelDelay":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name.",
       "onError":"The section allows You to manage CPU, NET and RAM, endow privileges to the account, set account & global limits, cancel transactions with mandatory delay in case of an error, claim rewards as well as bet on a unique readable name."
     },

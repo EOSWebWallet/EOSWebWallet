@@ -434,6 +434,7 @@
     "link-unlink-permis": "Berechtigung verlinken/trennen",
     "delete-permis": "Berechtigung löschen",
     "advanced-permis": "Erweiterte Berechtigung",
+    "refund-stake": "Stake erstatten",
     "set-ram-rate": "RAM setzen"
   },
   "other-navbar": {
@@ -443,7 +444,6 @@
     "set-account-limits": "Kontolimits festlegen",
     "bid-on-name": "Auf den Namen bieten",
     "claim-rewards": "Belohnung beanspruchen",
-    "refund-stake": "Stake erstatten",
     "cancel-delay": "Ausstehende Transaktionen stornieren",
     "on-error": "Problem melden"
   },
@@ -468,6 +468,7 @@
     "transferTokens": "Senden Sie EOS und Tokens direkt an einen oder mehrere Benutzer ohne Vermittler mit EosWebWallet. Seien Sie vorsichtig bei der Eingabe der Adresse des Empfängers, da die Transaktion im Falle eines Fehlers nicht zurückgenommen werden kann. Sie können auch eine CSV-Datei mit Empfängerdaten importieren, um digitale Assets zu übertragen.",
     "generateKeyPairs": "Sie können ein Paar Ihrer Schlüssel generieren, um auf Ihr Konto zuzugreifen. Diese Schlüssel werden nicht auf dem Server gespeichert und nur in Ihrem Browser angezeigt. Ihr privater Schlüssel kann nicht wiederhergestellt werden, wenn Sie ihn verlieren. Erstellen Sie eine Sicherungskopie und bewahren Sie alle Kopien an einem sicheren Ort auf.",
     "manageAccount":{
+      "refundStake":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
       "delegate":"In diesem Bereich können Sie Ihr Konto verwalten.Nehmen Sie keine Änderungen vor, wenn Sie sich der Richtigkeit Ihrer Aktionen nicht sicher sind.Sie können Berechtigungen für ein anderes Konto abrufen oder löschen sowie die Berechtigung anderer Benutzer für zusätzliche Vorgänge anfordern.Sie können auch benannte Berechtigungsebenen definieren, von denen jede aus höher benannten Berechtigungen abgeleitet werden kann, indem Sie eine Schwellenwert-Mehrfachsignaturprüfung angeben, die aus Schlüsseln und / oder benannten Berechtigungsebenen anderer Konten besteht.",
       "undelegate":"In diesem Bereich können Sie Ihr Konto verwalten.Nehmen Sie keine Änderungen vor, wenn Sie sich der Richtigkeit Ihrer Aktionen nicht sicher sind.Sie können Berechtigungen für ein anderes Konto abrufen oder löschen sowie die Berechtigung anderer Benutzer für zusätzliche Vorgänge anfordern.Sie können auch benannte Berechtigungsebenen definieren, von denen jede aus höher benannten Berechtigungen abgeleitet werden kann, indem Sie eine Schwellenwert-Mehrfachsignaturprüfung angeben, die aus Schlüsseln und / oder benannten Berechtigungsebenen anderer Konten besteht.",
       "buy-sell-ram": "In diesem Bereich können Sie Ihr Konto verwalten.Nehmen Sie keine Änderungen vor, wenn Sie sich der Richtigkeit Ihrer Aktionen nicht sicher sind.Sie können Berechtigungen für ein anderes Konto abrufen oder löschen sowie die Berechtigung anderer Benutzer für zusätzliche Vorgänge anfordern.Sie können auch benannte Berechtigungsebenen definieren, von denen jede aus höher benannten Berechtigungen abgeleitet werden kann, indem Sie eine Schwellenwert-Mehrfachsignaturprüfung angeben, die aus Schlüsseln und / oder benannten Berechtigungsebenen anderer Konten besteht.",
@@ -501,7 +502,6 @@
       "setAccountLimits":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
       "premiumName":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
       "claimRewards":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
-      "refundStake":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
       "cancelDelay":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten.",
       "onError":"In diesem Abschnitt können Sie CPU, NET und RAM verwalten, Privilegien für das Konto vergeben, Konto- und globale Limits festlegen, Transaktionen mit obligatorischer Verzögerung im Falle eines Fehlers abbrechen, Prämien beanspruchen sowie auf einen eindeutig lesbaren Namen wetten."
     },

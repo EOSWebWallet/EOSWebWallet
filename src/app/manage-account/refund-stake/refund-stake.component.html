@@ -1,3 +1,5 @@
+<div class="window-container shadow-container">
+
 <div class="title" *ngIf="!loginService.loggedIn()">
   <div>
     <h3 class="header">{{'other.refund-stake' | translate}}</h3>
@@ -22,3 +24,5 @@
     [ngClass]="{'grey-button': !loginService.loggedIn()}">{{'buttons.refund' | translate}}</button>
   </div>
 </form>
+
+</div>  

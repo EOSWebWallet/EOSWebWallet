@@ -93,7 +93,7 @@ import { SetRamFormComponent } from './manage-account/set-ram/set-ram-form/set-r
 import { SetRamComponent } from './manage-account/set-ram/set-ram.component'
 import { OtherComponent } from './other/other.component'
 import { OtherNavbarComponent } from './other/other-navbar/other-navbar.component'
-import { RefundStakeComponent } from './other/refund-stake/refund-stake.component'
+import { RefundStakeComponent } from './manage-account/refund-stake/refund-stake.component'
 import { CancelDelayComponent } from './other/cancel-delay/cancel-delay.component'
 import { OnErrorComponent } from './other/on-error/on-error.component'
 import { SetAccountLimitsComponent } from './other/set-account-limits/set-account-limits.component'
@@ -236,10 +236,6 @@ const appRoutes: Routes = [
         component: ClaimRewardsComponent
       },
       {
-        path: 'refundStake',
-        component: RefundStakeComponent
-      },
-      {
         path: 'cancelDelay',
         component: CancelDelayComponent
       },
@@ -301,6 +297,10 @@ const appRoutes: Routes = [
       {
         path: 'set-ram',
         component: SetRamComponent
+      },
+      {
+        path: 'refundStake',
+        component: RefundStakeComponent
       },
       {
         path: 'get-permission',
