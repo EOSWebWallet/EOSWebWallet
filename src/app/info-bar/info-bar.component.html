@@ -24,11 +24,17 @@
               {{'info-bar.cpu'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.cpu_used_sec || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.cpu_max_sec || 0 | number}}</span> <b> {{'info-bar.us'| translate}}</b>
+              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.cpu_available_sec || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.cpu_max_sec || 0 | number}}</span> <b> {{'info-bar.us'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
             <mat-progress-bar class="CPU" mode="determinate" value={{info.cpuPercent}}></mat-progress-bar>
+          </div>
+          <div class="row mb-2">
+              <div class="col-10 text-left">
+                  <span>Stacked: {{info.accountInfo?.cpu_stacked}}</span>
+                  <span> Self Stacked: {{info.accountInfo?.cpu_self_stacked}}</span>
+                </div>
           </div>
         </div>
         <div class="parametr-item">
@@ -37,11 +43,17 @@
               {{'info-bar.net'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.net_used_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
+              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.net_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
             <mat-progress-bar class="NET" mode="determinate" value={{info.netPercent}}></mat-progress-bar>
+          </div>
+          <div class="row mb-2">
+              <div class="col-10 text-left">
+                  <span>Stacked: {{info.accountInfo?.net_stacked}}</span>
+                  <span> Self Stacked: {{info.accountInfo?.net_self_stacked}}</span>
+                </div>
           </div>
         </div>
         <div class="parametr-item">
@@ -50,7 +62,7 @@
               {{'info-bar.ram'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.used'| translate}}">{{info.accountInfo?.ram_used_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.ram_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
+              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.ram_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.ram_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">

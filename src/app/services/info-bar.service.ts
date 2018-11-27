@@ -86,14 +86,17 @@ export class InfoBarService implements OnInit, OnDestroy {
           if (!Number.isNaN(Number.parseFloat(this.cpuData))) {
             this.cpuData = parseFloat(this.cpuData).toFixed(2).toString()
           }
-          this.ramPercent = Math.round(Number(this.accountInfo.ram_usage) / Number(this.accountInfo.ram_quota) * 100)
+          this.ramPercent = (Math.round(Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / Number(this.accountInfo.ram_quota) * 100)
 
           this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked.toString()
           this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used)
+          this.accountInfo.cpu_available_sec = Number(this.accountInfo.cpu_limit.available)
           this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max))
           this.accountInfo.net_used_kb = Number(this.accountInfo.net_limit.used) / 1024
+          this.accountInfo.net_available_kb = Number(this.accountInfo.net_limit.available) / 1024
           this.accountInfo.net_max_kb = Number(this.accountInfo.net_limit.max) / 1024
           this.accountInfo.ram_used_kb = Number(this.accountInfo.ram_usage) / 1024
+          this.accountInfo.ram_available_kb = (Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / 1024
           this.accountInfo.ram_max_kb = Number(this.accountInfo.ram_quota) / 1024
           if (this.accountInfo.core_liquid_balance !== undefined) {
             if (this.accountInfo.core_liquid_balance) {
@@ -126,6 +129,11 @@ export class InfoBarService implements OnInit, OnDestroy {
             }
 
             this.stacked = +this.accountInfo.voter_info.staked / 10000
+            this.accountInfo.cpu_stacked = this.accountInfo.total_resources.cpu_weight
+            this.accountInfo.net_stacked = this.accountInfo.total_resources.net_weight
+            this.accountInfo.net_self_stacked = this.accountInfo.self_delegated_bandwidth.net_weight
+            this.accountInfo.cpu_self_stacked = this.accountInfo.self_delegated_bandwidth.cpu_weight
+
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
             this.data.getCurrentCourse().subscribe((result) => {
               this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)

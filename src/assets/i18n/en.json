@@ -333,7 +333,8 @@
     "us": "us",
     "kb": "KB",
     "total":"total",
-    "used":"used"
+    "used":"used",
+    "remain":"remain"
   },
   "login": {
     "connect-account": "CONNECT ACCOUNT",
