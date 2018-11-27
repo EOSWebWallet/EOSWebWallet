@@ -190,7 +190,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     let accounts = []
     for (const account of data.account_names) {
-      let permissions = await this.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
+
+      let permissions
+      for (let i = 0; i < 10; i++) {
+        try {
+          permissions = await this.accountService.findByName('{"account_name":"' + account + '"}').toPromise()
+          }
+        catch{}
+      if (permissions) {
+        break
+      }
+    }
+
       if (permissions) {
         for (const item of permissions.permissions) {
           accounts.push([account.toString(), item.perm_name])
