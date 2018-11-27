@@ -334,7 +334,8 @@
     "kb": "KB",
     "total":"всего",
     "used":"используется",
-    "remain":"осталось"
+    "remain":"осталось",
+    "refund":"Refunding"
   },
   "login": {
     "connect-account": "ПОДКЛЮЧИТЬ АККАУНТ",

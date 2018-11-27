@@ -331,7 +331,8 @@
     "kb": "KB",
     "total":"total",
     "used":"used",
-    "remain":"remain"
+    "remain":"remain",
+    "refund":"Refunding"
   },
   "login": {
     "connect-account": "Konto verbinden",

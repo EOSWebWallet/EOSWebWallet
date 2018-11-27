@@ -16,6 +16,10 @@
           <span class="info-title">{{'info-bar.staked'| translate}}:</span>
           {{info.stacked || 0 | number}} {{'info-bar.eos'| translate}}
         </div>
+        <div class="info-item">
+            <span class="info-title">{{'info-bar.refund'| translate}}:</span>
+            {{info.accountInfo.refund || 0 | number}} {{'info-bar.eos'| translate}}
+          </div>
       </div>
       <div class="parametr-item-wrapp">
         <div class="parametr-item">

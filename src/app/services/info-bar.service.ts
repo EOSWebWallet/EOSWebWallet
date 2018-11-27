@@ -134,6 +134,13 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.accountInfo.net_self_stacked = this.accountInfo.self_delegated_bandwidth.net_weight
             this.accountInfo.cpu_self_stacked = this.accountInfo.self_delegated_bandwidth.cpu_weight
 
+            if (!isNaN(parseFloat(this.accountInfo.refund_request.cpu_amount))) {
+            this.accountInfo.refund = parseFloat(this.accountInfo.refund_request.cpu_amount)
+            }
+            if (!isNaN(parseFloat(this.accountInfo.refund_request.net_amount))) {
+              this.accountInfo.refund = this.accountInfo.refund + parseFloat(this.accountInfo.refund_request.net_amount)
+            }
+  
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
             this.data.getCurrentCourse().subscribe((result) => {
               this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
