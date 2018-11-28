@@ -184,8 +184,11 @@ export class InfoBarService implements OnInit, OnDestroy {
       let tokenStringTemp = ''
       tokens.forEach(resultArr => {
         resultArr.forEach(element => {
-          // TODO check what is in element
-          this.addUserSymbol(element[0].substring(element[0].lastIndexOf(' ') + 1), element[1])
+          let name = element.substring(element.lastIndexOf(' ') + 1)
+          let code = new Currency().tokens.filter(function(c) {
+            return c[1] == name;
+          });          
+          this.addUserSymbol(name, code[0][0])
           tokenStringTemp += element + ', '
         })
       })
