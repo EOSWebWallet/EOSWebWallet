@@ -90,6 +90,13 @@ export class NavbarComponent {
 
     this.networks = []
     this.networks.push(new Network(
+      'eos.greymass.com',
+      'Mainnet (Greymass)',
+      NetworkChaindId.MainNet,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
       'api.eosnewyork.io',
       'Mainnet (EOS New York)',
       NetworkChaindId.MainNet,
@@ -106,13 +113,6 @@ export class NavbarComponent {
     this.networks.push(new Network(
       'api.franceos.fr',
       'Mainnet (Franceos)',
-      NetworkChaindId.MainNet,
-      443,
-      NetworkProtocol.Https
-    ))
-    this.networks.push(new Network(
-      'eos.greymass.com',
-      'Mainnet (Greymass)',
       NetworkChaindId.MainNet,
       443,
       NetworkProtocol.Https

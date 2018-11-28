@@ -10,7 +10,7 @@ export interface AccountInfo { // Snake case naming because of mapping
   ram_available_kb: number
   ram_max_kb: number
   refund: number
-  refund_request: {net_amount: string, cpu_amount: string}
+  refund_request: {net_amount: string, cpu_amount: string, request_time: string}
   privileged: boolean
   total_balance: string
   total_balance_cut: string[]

@@ -16,10 +16,6 @@
           <span class="info-title">{{'info-bar.staked'| translate}}:</span>
           {{info.stacked || 0 | number}} {{'info-bar.eos'| translate}}
         </div>
-        <div class="info-item">
-            <span class="info-title">{{'info-bar.refund'| translate}}:</span>
-            {{info.accountInfo.refund || 0 | number}} {{'info-bar.eos'| translate}}
-          </div>
       </div>
       <div class="parametr-item-wrapp">
         <div class="parametr-item">
@@ -28,7 +24,7 @@
               {{'info-bar.cpu'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.cpu_available_sec || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.cpu_max_sec || 0 | number}}</span> <b> {{'info-bar.us'| translate}}</b>
+                {{'info-bar.remain'| translate}}: <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.cpu_available_sec || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.cpu_max_sec || 0 | number}}</span> <b> {{'info-bar.us'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -36,8 +32,7 @@
           </div>
           <div class="row mb-2">
               <div class="col-10 text-left">
-                  <span>Stacked: {{info.accountInfo?.cpu_stacked}}</span>
-                  <span> Self Stacked: {{info.accountInfo?.cpu_self_stacked}}</span>
+                  <span title="Self Stacked: {{info.accountInfo?.cpu_self_stacked}}">Stacked: {{info.accountInfo?.cpu_stacked}}</span>
                 </div>
           </div>
         </div>
@@ -47,7 +42,7 @@
               {{'info-bar.net'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.net_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
+                {{'info-bar.remain'| translate}}: <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.net_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -55,8 +50,7 @@
           </div>
           <div class="row mb-2">
               <div class="col-10 text-left">
-                  <span>Stacked: {{info.accountInfo?.net_stacked}}</span>
-                  <span> Self Stacked: {{info.accountInfo?.net_self_stacked}}</span>
+                  <span title="Self Stacked: {{info.accountInfo?.net_self_stacked}}">Stacked: {{info.accountInfo?.net_stacked}}</span>
                 </div>
           </div>
         </div>
@@ -66,7 +60,7 @@
               {{'info-bar.ram'| translate}}
             </div>
             <div class="col-10 text-right">
-              <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.ram_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.ram_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
+                {{'info-bar.remain'| translate}}: <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.ram_available_kb || 0 | number}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.ram_max_kb || 0 | number}}</span> <b> {{'info-bar.kb'| translate}}</b>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -77,6 +71,12 @@
 
 
     </div>
+    
+    <div class="row ml-0 mr-0 info-line tokens" *ngIf="info.accountInfo.refund>0">
+        <span class="info-title" title="{{info.accountInfo.request_time}}">{{'info-bar.refund'| translate}}:</span>
+        <span title="{{info.accountInfo.request_time}}"> {{info.accountInfo.refund || 0 | number}} {{'info-bar.eos'| translate}}</span>
+    </div>
+
     <div class="row ml-0 mr-0 info-line tokens">
       <span class="info-title">{{'info-bar.tokens'| translate}}: </span><span class="value">{{info.tokenString}}</span>
     </div>
