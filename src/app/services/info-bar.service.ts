@@ -165,7 +165,8 @@ export class InfoBarService implements OnInit, OnDestroy {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
-      this.addUserSymbol(rez.symbol, rez.code)
+      let precision = rez.amount.split(".")[1] ? rez.amount.split(".")[1].length : 0
+      this.addUserSymbol(rez.symbol, rez.code, precision)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
   }
@@ -174,7 +175,8 @@ export class InfoBarService implements OnInit, OnDestroy {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.balance + ' ' + rez.symbol + ', '
-      this.addUserSymbol(rez.symbol, rez.code)
+      let precision = rez.balance.split(".")[1] ? rez.balance.split(".")[1].length : 0
+      this.addUserSymbol(rez.symbol, rez.code, precision)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
   }
@@ -188,7 +190,7 @@ export class InfoBarService implements OnInit, OnDestroy {
           let code = new Currency().tokens.filter(function(c) {
             return c[1] == name;
           });          
-          this.addUserSymbol(name, code[0][0])
+          this.addUserSymbol(name, code[0][0], code[0][2])
           tokenStringTemp += element + ', '
         })
       })
@@ -197,7 +199,7 @@ export class InfoBarService implements OnInit, OnDestroy {
     return ''
   }
 
-  private addUserSymbol (symbol: string, code: string) {
+  private addUserSymbol (symbol: string, code: string, precision: string) {
     let findSymbol = false
     this.userSymbol.forEach(element => {
       if (element[0].toLocaleLowerCase() === symbol.toLocaleLowerCase()) {
@@ -206,7 +208,7 @@ export class InfoBarService implements OnInit, OnDestroy {
       }
     })
     if (!findSymbol) {
-      this.userSymbol.push([symbol, code])
+      this.userSymbol.push([symbol, code, precision])
     }
   }
 

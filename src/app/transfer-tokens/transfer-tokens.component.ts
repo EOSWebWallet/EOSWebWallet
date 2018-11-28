@@ -78,10 +78,11 @@ export class TransferTokensComponent {
       this.dialogsService.showSending(message, title)
       try {
         for (let item of model) {
-          let account = this.symbols.filter(p => p[0] == item.symbol)
-          console.log(account[0][1])
-        await this.eos.transaction(account[0][1], tr => {
-            tr.transfer(this.accountName, item.recipient.toLowerCase(), item.quantity.toFixed(4) + ' ' + item.symbol, item.memo, options)
+          let tokenItem = this.symbols.filter(p => p[0] == item.symbol)
+          let account = tokenItem[0][1]
+          let precision = Number(tokenItem[0][2])
+          await this.eos.transaction(account, tr => {
+            tr.transfer(this.accountName, item.recipient.toLowerCase(), item.quantity.toFixed(precision) + ' ' + item.symbol, item.memo, options)
         })
       }
         this.dialogsService.showSuccess(await this.translate.get('transfer-tokens.transfer-completed').toPromise())
