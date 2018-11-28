@@ -63,12 +63,11 @@ export class AccountService {
     )
   }
 
-  getAllTokensInfo (tokens: string[], accountName) {
+  getAllTokensInfo (tokens: string[][], accountName) {
     if (_.isEmpty(tokens)) {
       return of([])
     }
-
-    return forkJoin(tokens.map(token => this.getTokenInfo('{"code":"' + token + '","account":"' + accountName + '"}')))
+    return forkJoin(tokens.map(token => this.getTokenInfo('{"code":"' + token[0] + '","account":"' + accountName + '"}')))
       .pipe(map(result => {
         return result.filter(item => item !== false && item.length > 0)
       }))

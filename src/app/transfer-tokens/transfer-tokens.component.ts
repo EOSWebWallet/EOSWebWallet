@@ -41,7 +41,7 @@ export class TransferTokensComponent {
   @LocalStorage()
   currentPluginName: string
 
-  symbols: string[]
+  symbols: string[][]
 
   model: Transfer[]
   lastColorIsWhite = true
@@ -79,7 +79,8 @@ export class TransferTokensComponent {
       try {
         await this.eos.transaction(tr => {
           for (let item of model) {
-            console.log(item.recipient.toLowerCase())
+            let account = this.symbols.filter(p => p[0] == item.symbol)
+            console.log(account[0][0])
             tr.transfer(this.accountName, item.recipient.toLowerCase(), item.quantity.toFixed(4) + ' ' + item.symbol, item.memo, options)
           }
         })
@@ -129,7 +130,7 @@ export class TransferTokensComponent {
   }
 
   doFilterSymbols (value: string) {
-    return this.symbols.filter(symbol => symbol.toUpperCase().indexOf(value.toUpperCase()) !== -1)
+    return this.symbols.filter(symbol => symbol[0].toUpperCase().indexOf(value.toUpperCase()) !== -1)
   }
 
 }

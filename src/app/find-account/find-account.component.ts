@@ -108,13 +108,13 @@ export class FindAccountComponent implements OnInit {
           })
         for (let index in tokenList.tokens) {
           this.tokenInfo = ''
-          this.data.getTokenInfo('{"code":"' + tokenList.tokens[index] + '","account":"' + accountName + '"}').subscribe(
+          this.data.getTokenInfo('{"code":"' + tokenList.tokens[index][0] + '","account":"' + accountName + '"}').subscribe(
             data => {
               this.tokenInfo = data
               if (this.tokenInfo.length !== 0 && this.tokenInfo) {
                 for (let tokens of this.tokenInfo) {
                   this.tokenCut = tokens.split(' ', 2)
-                  this.tokenArray.push(({ token: tokenList.tokens[index], balance: this.tokenCut[0], international: this.tokenCut[1] }))
+                  this.tokenArray.push(({ token: tokenList.tokens[index][0], balance: this.tokenCut[0], international: this.tokenCut[1] }))
                 }
               }
             }
@@ -182,7 +182,7 @@ export class FindAccountComponent implements OnInit {
                     if (this.tokenInfo.length !== 0 && this.tokenInfo) {
                       for (let tokens of this.tokenInfo) {
                         this.tokenCut = tokens.split(' ', 2)
-                        this.tokenArray.push(({ token: tokenList.tokens[index], balance: this.tokenCut[0], international: this.tokenCut[1] }))
+                        this.tokenArray.push(({ token: tokenList.tokens[index][0], balance: this.tokenCut[0], international: this.tokenCut[1] }))
                       }
                       this.acoountsInf[iter].tokens = this.tokenArray
                     }

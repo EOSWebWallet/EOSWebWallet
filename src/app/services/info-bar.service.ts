@@ -38,7 +38,7 @@ export class InfoBarService implements OnInit, OnDestroy {
   unstacked: number
   exUsdTotal: number
 
-  userSymbol: string[] = []
+  userSymbol: string[][] = []
   lastChainid: string
 
   constructor (private data: AccountService) {}
@@ -115,8 +115,8 @@ export class InfoBarService implements OnInit, OnDestroy {
                     if (result && result.account) {
                       this.tokenStringTemp = this.setTokensEosflareSymbol(result.account.tokens)
                     } else {
-                      this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokens) => {
-                        this.tokenStringTemp = this.setTokensSymbol(tokens)
+                      this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokensResult) => {
+                        this.tokenStringTemp = this.setTokensSymbol(tokensResult)
                       })
                     }
                   })
@@ -165,7 +165,7 @@ export class InfoBarService implements OnInit, OnDestroy {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
-      this.addUserSymbol(rez.symbol)
+      this.addUserSymbol(rez.symbol, rez.code)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
   }
@@ -174,7 +174,7 @@ export class InfoBarService implements OnInit, OnDestroy {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.balance + ' ' + rez.symbol + ', '
-      this.addUserSymbol(rez.symbol)
+      this.addUserSymbol(rez.symbol, rez.code)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
   }
@@ -184,7 +184,8 @@ export class InfoBarService implements OnInit, OnDestroy {
       let tokenStringTemp = ''
       tokens.forEach(resultArr => {
         resultArr.forEach(element => {
-          this.addUserSymbol(element.substring(element.lastIndexOf(' ') + 1))
+          // TODO check what is in element
+          this.addUserSymbol(element[0].substring(element[0].lastIndexOf(' ') + 1), element[1])
           tokenStringTemp += element + ', '
         })
       })
@@ -193,16 +194,16 @@ export class InfoBarService implements OnInit, OnDestroy {
     return ''
   }
 
-  private addUserSymbol (symbol: string) {
+  private addUserSymbol (symbol: string, code: string) {
     let findSymbol = false
     this.userSymbol.forEach(element => {
-      if (element.toLocaleLowerCase() === symbol.toLocaleLowerCase()) {
+      if (element[0].toLocaleLowerCase() === symbol.toLocaleLowerCase()) {
         findSymbol = true
         return
       }
     })
     if (!findSymbol) {
-      this.userSymbol.push(symbol)
+      this.userSymbol.push([symbol, code])
     }
   }
 

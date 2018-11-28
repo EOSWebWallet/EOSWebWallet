@@ -36,8 +36,8 @@
                   [disabled]="!loginService.loggedIn()" #symbol="ngModel">
 
                 <mat-autocomplete #symbol="matAutocomplete">
-                  <mat-option *ngFor="let symbol of doFilterSymbols(item.symbol)" [value]="symbol">
-                    {{symbol}}
+                  <mat-option *ngFor="let symbol of doFilterSymbols(item.symbol)" [value]="symbol[0]">
+                    {{symbol[0]}}
                   </mat-option>
                 </mat-autocomplete>
                 <mat-error *ngIf="symbol.errors?.required">{{'transfer-tokens.symbol-required' | translate}}</mat-error>
