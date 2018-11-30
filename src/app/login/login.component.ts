@@ -139,7 +139,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.factoryPluginService.currentPlugin.ready.then(async () => {
       try {
-        await currentPlugin.login()
+      let message = await this.translations.get(`dialogs.eos-plugin-unlock-message`).toPromise()
+      await currentPlugin.login().catch(function(err) {
+        if (err == undefined) {
+          throw ({code:423, 
+            message:message
+        });
+      }
+        throw err
+      });
 
         this.loginInProcess = false
         this.isLoggedIn = LoginState.plugin
@@ -158,7 +166,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
         } else if (error.code === 402) {
           this.loginInProcess = false
-        } else {
+        }
+        else if (error.message === 'Plugin login error') {
+        this.loginInProcess = false
+        }
+          else {
           this.loginInProcess = false
           const dialogConfig = new MatDialogConfig()
           dialogConfig.closeOnNavigation = true
@@ -172,9 +184,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       const dialogConfig = new MatDialogConfig()
       dialogConfig.closeOnNavigation = true
       dialogConfig.disableClose = true
+      let link = (currentPlugin.name == "scatter") ? ConfigService.settings.scatterLink : ConfigService.settings.eosPluginLink
+      let name = (currentPlugin.name == "eos-plugin") ? "Eos Plugin" : "Scatter Plugin"
       dialogConfig.data = {
-        content: await this.translations.get('dialogs.you-have', { link: ConfigService.settings.scatterLink }).toPromise(),
-        activeGAnalytic: true
+        message: await this.translations.get('dialogs.you-have', { link: link, name: name }).toPromise(),
+        activeGAnalytic: true,
+        title: await this.translations.get('dialogs.open-info').toPromise()
       }
       this.gAnalyticsService.gtagEvent('02_modal_impr', 'connect_account', 'scatter')
       let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)

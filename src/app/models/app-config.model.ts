@@ -15,6 +15,7 @@ export interface IAppConfig {
   telegramLink: string,
   githubLink: string,
   scatterLink: string,
+  eosPluginLink: string;
   mediumLink: string,
   gtag: string,
 }
