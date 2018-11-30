@@ -5,16 +5,20 @@
       <div class="info-item-wrapp">
         <div class="info-item">
           <span class="info-title">{{'info-bar.total-balance'| translate}}:</span>
-          {{info.accountInfo?.total_balance || 0 | number}} {{'info-bar.eos'| translate}} / 
+          {{info.accountInfo?.total_balance || 0 | number}} {{'info-bar.eos'| translate}} /
           <span class="text-sepia"> {{info.exUsdTotal || 0 | number}} USD </span>
         </div>
         <div class="info-item">
           <span class="info-title">{{'info-bar.unstaked'| translate}}:</span>
           {{info.accountInfo?.core_liquid_balance}}
         </div>
-        <div class="info-item">
+        <div class="info-item row ml-0">
           <span class="info-title">{{'info-bar.staked'| translate}}:</span>
           {{info.stacked || 0 | number}} {{'info-bar.eos'| translate}}
+          <button #tooltip2="matTooltip" matTooltip="Example csv: Recipient;Memo;Quantity;Symbol"   type="button" class="mat-tooltip-btn ml-1" mat-raised-button (mouseover)="tooltip2.show()" (mouseenter)="tooltip2.show()"
+                  (click)="tooltip.show()" (tap)="tooltip.show()">
+            <fa-icon [icon]="faQuestionCircle"></fa-icon>
+          </button>
         </div>
       </div>
       <div class="parametr-item-wrapp">
@@ -71,10 +75,14 @@
 
 
     </div>
-    
-    <div class="row ml-0 mr-0 info-line tokens" *ngIf="info.accountInfo.refund>0">
-        <span class="info-title" title="{{info.accountInfo.request_time}}">{{'info-bar.refund'| translate}}:</span>
-        <span title="{{info.accountInfo.request_time}}"> {{info.accountInfo.refund || 0 | number}} {{'info-bar.eos'| translate}}</span>
+
+    <div class="row ml-0 mr-0 info-line tokens">
+        <span class="info-title" title="{{info.accountInfo?.request_time}}">{{'info-bar.refund'| translate}}:</span>
+        <span title="{{info.accountInfo?.request_time}}"> {{info.accountInfo?.refund || 0 | number}} {{'info-bar.eos'| translate}}</span>
+        <button #tooltip1="matTooltip" matTooltip="Example csv: Recipient;Memo;Quantity;Symbol" type="button" class="mat-tooltip-btn ml-1" mat-raised-button (mouseover)="tooltip1.show()" (mouseenter)="tooltip1.show()"
+              (click)="tooltip.show()" (tap)="tooltip.show()">
+        <fa-icon [icon]="faQuestionCircle"></fa-icon>
+        </button>
     </div>
 
     <div class="row ml-0 mr-0 info-line tokens">
