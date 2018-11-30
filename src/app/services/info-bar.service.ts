@@ -127,7 +127,6 @@ export class InfoBarService implements OnInit, OnDestroy {
                 this.tokenStringTemp = this.setTokensSymbol(tokens)
               })
             }
-
             this.stacked = +this.accountInfo.voter_info.staked / 10000
             this.accountInfo.cpu_stacked = this.accountInfo.total_resources.cpu_weight
             this.accountInfo.net_stacked = this.accountInfo.total_resources.net_weight
@@ -140,7 +139,7 @@ export class InfoBarService implements OnInit, OnDestroy {
             if (!isNaN(parseFloat(this.accountInfo.refund_request.net_amount))) {
               this.accountInfo.refund = this.accountInfo.refund + parseFloat(this.accountInfo.refund_request.net_amount)
             }
-  
+
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
             this.data.getCurrentCourse().subscribe((result) => {
               this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
@@ -189,8 +188,14 @@ export class InfoBarService implements OnInit, OnDestroy {
           let name = element.substring(element.lastIndexOf(' ') + 1)
           let code = new Currency().tokens.filter(function(c) {
             return c[1] == name;
-          });          
-          this.addUserSymbol(name, code[0][0], code[0][2])
+          });
+          let precision
+          if (element.indexOf('.') > -1){
+            precision = element.split('.', 2)[1].split(' ',1)[0].length
+          } else {
+            precision = 0
+          }
+          this.addUserSymbol(name, code[0][0], precision)
           tokenStringTemp += element + ', '
         })
       })

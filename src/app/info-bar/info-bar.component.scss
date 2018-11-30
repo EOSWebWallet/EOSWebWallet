@@ -21,7 +21,7 @@
       display: flex;
       justify-content: space-between;
       width: 45%;
-      padding-right: 15px;
+      padding-right: 40px;
       .info-item{
         margin-top: 16px;
         margin-right: 7px;
@@ -51,6 +51,7 @@
     }
   }
 }
+
 
 @media only screen and (max-width: $xl) {
   .info-bar{
