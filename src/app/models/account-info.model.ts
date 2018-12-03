@@ -3,12 +3,18 @@ export interface AccountInfo { // Snake case naming because of mapping
   cpu_used_sec: number
   cpu_available_sec: number
   cpu_max_sec: number
+  net_used_layout: string
+  net_available_layout: string
+  net_max_layout: string
   net_used_kb: number
   net_available_kb: number
   net_max_kb: number
   ram_used_kb: number
   ram_available_kb: number
   ram_max_kb: number
+  ram_used_layout: string
+  ram_available_layout: string
+  ram_max_layout: string
   refund: number
   refund_request: {net_amount: string, cpu_amount: string, request_time: string}
   privileged: boolean
@@ -44,4 +50,5 @@ export interface AccountInfo { // Snake case naming because of mapping
     balance: string
     international: string
   }[]
+  net_size_symbol: string
 }
