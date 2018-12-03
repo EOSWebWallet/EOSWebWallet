@@ -9,12 +9,14 @@ export interface AccountInfo { // Snake case naming because of mapping
   net_used_kb: number
   net_available_kb: number
   net_max_kb: number
+  net_sign_string: string
   ram_used_kb: number
   ram_available_kb: number
   ram_max_kb: number
   ram_used_layout: string
   ram_available_layout: string
   ram_max_layout: string
+  ram_sign_string: string
   refund: number
   refund_request: {net_amount: string, cpu_amount: string, request_time: string}
   privileged: boolean

@@ -133,8 +133,7 @@
               translate}}</mat-progress-bar>
             <div class="info-block">
               <span class="block-title">{{'find-account.net' | translate}}:</span>
-              <span class="parametrs"><b>{{elem?.net_used_kb}}</b> / {{elem?.net_max_kb}} <b>{{'info-bar.kb' |
-                  translate}}</b></span>
+              <span class="parametrs"><b>{{elem?.net_available_layout}}</b> / {{elem?.net_max_layout}} <b>{{elem?.net_sign_string}}</b></span>
             </div>
           </div>
         </div>
@@ -144,8 +143,7 @@
               translate}}</mat-progress-bar>
             <div class="info-block">
               <span class="block-title">{{'find-account.ram' | translate}}:</span>
-              <span class="parametrs"><b>{{elem?.ram_used_kb}}</b> / {{elem?.ram_max_kb}} <b>{{'info-bar.kb' |
-                  translate}}</b></span>
+              <span class="parametrs"><b>{{elem?.ram_available_layout}}</b> / {{elem?.ram_max_layout}} <b>{{elem?.ram_sign_string}}</b><</span>
             </div>
           </div>
         </div>

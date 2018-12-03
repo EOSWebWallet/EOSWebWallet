@@ -95,23 +95,23 @@ export class InfoBarService implements OnInit, OnDestroy {
           this.accountInfo.net_available_layout = (Number(this.accountInfo.net_limit.available) / 1024).toFixed(3).toString()
           this.accountInfo.net_max_layout = (Number(this.accountInfo.net_limit.max) / 1024).toFixed(3).toString()
           if (Number(this.accountInfo.net_available_layout) > 1024) {
-            this.accountInfo.net_used_layout = (Number(this.accountInfo.net_used_layout) / 1024).toFixed(3).toString() + ' MB'
-            this.accountInfo.net_max_layout = (Number(this.accountInfo.net_max_layout) / 1024).toFixed(3).toString() + ' MB'
+            this.accountInfo.net_used_layout = (Number(this.accountInfo.net_used_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_max_layout = (Number(this.accountInfo.net_max_layout) / 1024).toFixed(3).toString()
             this.accountInfo.net_available_layout = (Number(this.accountInfo.net_available_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_sign_string = 'MB'
           } else {
-            this.accountInfo.net_used_layout += ' KB'
-            this.accountInfo.net_max_layout += ' KB'
+            this.accountInfo.net_sign_string = 'KB'
           }
           this.accountInfo.ram_used_layout = (Number(this.accountInfo.ram_usage) / 1024).toFixed(3).toString()
           this.accountInfo.ram_available_layout = ((Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / 1024).toFixed(3).toString()
           this.accountInfo.ram_max_layout = (Number(this.accountInfo.ram_quota) / 1024).toFixed(3).toString()
           if (Number(this.accountInfo.ram_available_layout) > 1024) {
-            this.accountInfo.ram_used_layout = (Number(this.accountInfo.ram_used_layout) / 1024).toFixed(3).toString() + ' MB'
-            this.accountInfo.ram_max_layout = (Number(this.accountInfo.ram_max_layout) / 1024).toFixed(3).toString() + ' MB'
+            this.accountInfo.ram_used_layout = (Number(this.accountInfo.ram_used_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.ram_max_layout = (Number(this.accountInfo.ram_max_layout) / 1024).toFixed(3).toString()
             this.accountInfo.ram_available_layout = (Number(this.accountInfo.ram_available_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_sign_string = 'MB'
           } else {
-            this.accountInfo.ram_used_layout += ' KB'
-            this.accountInfo.ram_max_layout += ' KB'
+            this.accountInfo.ram_sign_string = 'KB'
           }
           if (this.accountInfo.core_liquid_balance !== undefined) {
             if (this.accountInfo.core_liquid_balance) {

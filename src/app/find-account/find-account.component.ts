@@ -98,10 +98,32 @@ export class FindAccountComponent implements OnInit {
         this.result.total_balance_cut = this.result.total_balance.split('.', 2)
         this.result.cpu_used_sec = Number(this.result.cpu_limit.used) / 1000000
         this.result.cpu_max_sec = Number(this.result.cpu_limit.max) / 1000000
-        this.result.net_used_kb = Number(this.result.net_limit.used) / 1000
+        this.result.net_used_layout = (Number(this.result.net_limit.used) / 1024).toFixed(3).toString()
+        this.result.net_available_layout = (Number(this.result.net_limit.available) / 1024).toFixed(3).toString()
+        this.result.net_max_layout = (Number(this.result.net_limit.max) / 1024).toFixed(3).toString()
+        if (Number(this.result.net_available_layout) > 1024) {
+          this.result.net_used_layout = (Number(this.result.net_used_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.net_max_layout = (Number(this.result.net_max_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.net_available_layout = (Number(this.result.net_available_layout) / 1024).toFixed(3).toString()
+          this.result.net_sign_string = 'MB'
+        } else {
+          this.result.net_sign_string = 'KB'
+        }
+        this.result.ram_used_layout = (Number(this.result.ram_usage) / 1024).toFixed(3).toString()
+        this.result.ram_available_layout = ((Number(this.result.ram_quota) - Number(this.result.ram_usage)) / 1024).toFixed(3).toString()
+        this.result.ram_max_layout = (Number(this.result.ram_quota) / 1024).toFixed(3).toString()
+        if (Number(this.result.ram_available_layout) > 1024) {
+          this.result.ram_used_layout = (Number(this.result.ram_used_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.ram_max_layout = (Number(this.result.ram_max_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.ram_available_layout = (Number(this.result.ram_available_layout) / 1024).toFixed(3).toString()
+          this.result.ram_sign_string = 'MB'
+        } else {
+          this.result.ram_sign_string = 'KB'
+        }
+        /*this.result.net_used_kb = Number(this.result.net_limit.used) / 1000
         this.result.net_max_kb = Number(this.result.net_limit.max) / 1000
         this.result.ram_used_kb = Number(this.result.ram_usage) / 1000
-        this.result.ram_max_kb = Number(this.result.ram_quota) / 1000
+        this.result.ram_max_kb = Number(this.result.ram_quota) / 1000*/
         this.data.getCurrentCourse().subscribe(
           dataUSD => {
             this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
