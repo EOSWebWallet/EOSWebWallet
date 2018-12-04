@@ -87,17 +87,32 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.cpuData = parseFloat(this.cpuData).toFixed(2).toString()
           }
           this.ramPercent = (Math.round(Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / Number(this.accountInfo.ram_quota) * 100)
-
           this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked.toString()
           this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used)
           this.accountInfo.cpu_available_sec = Number(this.accountInfo.cpu_limit.available)
           this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max))
-          this.accountInfo.net_used_kb = Number(this.accountInfo.net_limit.used) / 1024
-          this.accountInfo.net_available_kb = Number(this.accountInfo.net_limit.available) / 1024
-          this.accountInfo.net_max_kb = Number(this.accountInfo.net_limit.max) / 1024
-          this.accountInfo.ram_used_kb = Number(this.accountInfo.ram_usage) / 1024
-          this.accountInfo.ram_available_kb = (Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / 1024
-          this.accountInfo.ram_max_kb = Number(this.accountInfo.ram_quota) / 1024
+          this.accountInfo.net_used_layout = (Number(this.accountInfo.net_limit.used) / 1024).toFixed(3).toString()
+          this.accountInfo.net_available_layout = (Number(this.accountInfo.net_limit.available) / 1024).toFixed(3).toString()
+          this.accountInfo.net_max_layout = (Number(this.accountInfo.net_limit.max) / 1024).toFixed(3).toString()
+          if (Number(this.accountInfo.net_available_layout) > 1024) {
+            this.accountInfo.net_used_layout = (Number(this.accountInfo.net_used_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_max_layout = (Number(this.accountInfo.net_max_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_available_layout = (Number(this.accountInfo.net_available_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_sign_string = 'MB'
+          } else {
+            this.accountInfo.net_sign_string = 'KB'
+          }
+          this.accountInfo.ram_used_layout = (Number(this.accountInfo.ram_usage) / 1024).toFixed(3).toString()
+          this.accountInfo.ram_available_layout = ((Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / 1024).toFixed(3).toString()
+          this.accountInfo.ram_max_layout = (Number(this.accountInfo.ram_quota) / 1024).toFixed(3).toString()
+          if (Number(this.accountInfo.ram_available_layout) > 1024) {
+            this.accountInfo.ram_used_layout = (Number(this.accountInfo.ram_used_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.ram_max_layout = (Number(this.accountInfo.ram_max_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.ram_available_layout = (Number(this.accountInfo.ram_available_layout) / 1024).toFixed(3).toString()
+            this.accountInfo.net_sign_string = 'MB'
+          } else {
+            this.accountInfo.ram_sign_string = 'KB'
+          }
           if (this.accountInfo.core_liquid_balance !== undefined) {
             if (this.accountInfo.core_liquid_balance) {
               this.unstacked = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) - this.stacked
@@ -105,7 +120,6 @@ export class InfoBarService implements OnInit, OnDestroy {
               this.accountInfo.core_liquid_balance = '0'
               this.unstacked = 0
             }
-
             if (this.currentchainid === NetworkChaindId.MainNet) {
               this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
                 if (tokens && tokens.length) {
