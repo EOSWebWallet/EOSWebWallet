@@ -4,6 +4,7 @@ import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
 import { AccountService, LoginService } from '../services'
 import { TransactionBar } from '../models/transaction-bar.model'
 import { LoginState } from '../models/login-state.model'
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-transaction-bar',
@@ -66,6 +67,11 @@ export class TransactionBarComponent implements OnInit {
       if (data) {
         this.model = data
         this.model.actions.reverse()
+
+        this.model.actions = _.transform(_.uniqBy(this.model.actions, 'action_trace.trx_id'), function(result, value) {
+          result.push(value);
+        }, []);
+
         for (let action in this.model.actions) {
           console.log((this.model.actions[action]).action_trace.act.name)
           if ((this.model.actions[action]).action_trace.act.name === 'transfer' && this.resNumber < 5) {
