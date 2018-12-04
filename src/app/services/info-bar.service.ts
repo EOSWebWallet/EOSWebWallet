@@ -157,7 +157,7 @@ export class InfoBarService implements OnInit, OnDestroy {
             if (Date.parse(this.accountInfo.refund_request.request_time)){
             let newDate = new Date(this.accountInfo.refund_request.request_time)
             newDate.setDate(newDate.getDate() + 3)
-            this.accountInfo.refund_time = newDate.toString()
+            this.accountInfo.refund_time = newDate.toLocaleDateString() +" " + newDate.toLocaleTimeString()
             }
 
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
