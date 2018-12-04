@@ -154,6 +154,12 @@ export class InfoBarService implements OnInit, OnDestroy {
               this.accountInfo.refund = this.accountInfo.refund + parseFloat(this.accountInfo.refund_request.net_amount)
             }
 
+            if (Date.parse(this.accountInfo.refund_request.request_time)){
+            let newDate = new Date(this.accountInfo.refund_request.request_time)
+            newDate.setDate(newDate.getDate() + 3)
+            this.accountInfo.refund_time = newDate.toString()
+            }
+
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
             this.data.getCurrentCourse().subscribe((result) => {
               this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
