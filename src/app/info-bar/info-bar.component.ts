@@ -10,12 +10,12 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
     '../../button.styles.scss',
     './info-bar.component.scss',
     '../../page-container.styles.scss',
-    '../../progress-bar.styles.scss'
+    '../../progress-bar.styles.scss',
+    '../../tooltip.style.scss'
   ]
 })
-
 export class InfoBarComponent {
   faQuestionCircle = faQuestionCircle
 
-  constructor ( public info: InfoBarService) {}
+  constructor (public info: InfoBarService) {}
 }

@@ -33,8 +33,8 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.cpu_stacked}}</span>
-                  <button #tooltipCpu="matTooltip" matTooltip="Self Stacked: {{info.accountInfo?.cpu_self_stacked}}" type="button" class="mat-tooltip-btn ml-1" mat-raised-button (mouseover)="tooltipCpu.show()" (mouseenter)="tooltipCpu.show()"
-                  (click)="tooltipCpu.show()" (tap)="tooltipCpu.show()">
+                  <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{info.accountInfo?.cpu_self_stacked}}<br> Stacked by others: {{info.accountInfo?.cpu_other_stacked}} <br> Refunding: {{info.accountInfo?.refund || 0 | number}}</div></ng-template>
+                  <button [ngbTooltip]="cpuContent" placement="bottom" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
               </div>
@@ -55,8 +55,8 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.net_stacked}}</span>
-                  <button #tooltipNet="matTooltip" matTooltip="Self Stacked: {{info.accountInfo?.net_self_stacked}}" type="button" class="mat-tooltip-btn ml-1" mat-raised-button (mouseover)="tooltipNet.show()" (mouseenter)="tooltipNet.show()"
-                  (click)="tooltipNet.show()" (tap)="tooltipNet.show()">
+                <ng-template #netContent ><div class="custom-tooltip">Self Staked: {{info.accountInfo?.net_self_stacked}} <br> Stacked by others: {{info.accountInfo?.net_other_stacked}} <br> Refunding: {{info.accountInfo?.refund || 0 | number}}</div> </ng-template>
+                  <button [ngbTooltip]="netContent"  #t = ngbTooltip  placement="bottom" tooltipClass="my-custom-class" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
               </div>
@@ -76,10 +76,7 @@
           </div>
         </div>
       </div>
-
-
     </div>
-
     <div class="info-line" *ngIf="info.accountInfo.refund>0">
       <div class="info-item-wrapp">
         <div class="info-item">

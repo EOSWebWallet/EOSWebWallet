@@ -27,10 +27,12 @@ export interface AccountInfo { // Snake case naming because of mapping
   core_liquid_balance: string
   balance_cut: string[]
   procent_for_bar: number
-  cpu_stacked: string;
-  net_stacked: string;
-  cpu_self_stacked:string;
-  net_self_stacked:string;
+  cpu_stacked: string
+  net_stacked: string
+  cpu_self_stacked: string
+  net_self_stacked: string
+  cpu_other_stacked: string
+  net_other_stacked: string
   staked: number
   staked_cut: string[]
   unstaked: number
