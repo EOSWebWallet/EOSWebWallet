@@ -1,0 +1,61 @@
+@import 'variable.scss';
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  font-family: $ff_title !important;
+  color: $white !important;
+  text-transform: uppercase;
+  background-color: $btn_bg !important;
+
+}
+
+:host /deep/ .mat-button-toggle-checked {
+  outline: none !important;
+  background-color: $btn_bg !important;
+  color: $white !important;
+}
+
+.mat-raised-button, .mat-button {
+  border-radius: 0;
+  outline: none;
+}
+
+.mat-button-toggle-button {
+  color: $red;
+}
+
+
+mat-button-toggle-group {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+mat-button-toggle {
+  border: 1px solid $btn_bg;
+
+  &.mat-button-toggle-disabled {
+    cursor: default;
+    border: 1px solid $sepia !important;
+    color: $dark_input;
+
+    &.mat-button-toggle-checked  {
+      background-color: $sepia !important;
+      color: $white;
+    }
+  }
+}
+
+.grey-button {
+  background-color: $sepia !important;
+  color: $white;
+  text-transform: uppercase;
+}
+
+.custom-tooltip{
+  font-size: 80%;
+  min-width: 200px;
+}

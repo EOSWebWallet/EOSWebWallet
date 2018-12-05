@@ -7,6 +7,7 @@ import { Currency } from '../models/tokens.model'
 import { LocalStorage } from 'ngx-webstorage'
 import { LoginState } from '../models/login-state.model'
 import { NetworkChaindId } from '../models/network.model'
+import {split} from "ts-node";
 
 @Injectable()
 export class InfoBarService implements OnInit, OnDestroy {
@@ -146,6 +147,8 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.accountInfo.net_stacked = this.accountInfo.total_resources.net_weight
             this.accountInfo.net_self_stacked = this.accountInfo.self_delegated_bandwidth.net_weight
             this.accountInfo.cpu_self_stacked = this.accountInfo.self_delegated_bandwidth.cpu_weight
+            this.accountInfo.cpu_other_stacked = (Number(this.accountInfo.cpu_stacked.split(' ', 1)[0]) - Number(this.accountInfo.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+            this.accountInfo.net_other_stacked = (Number(this.accountInfo.net_stacked.split(' ', 1)[0]) - Number(this.accountInfo.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
 
             if (!isNaN(parseFloat(this.accountInfo.refund_request.cpu_amount))) {
             this.accountInfo.refund = parseFloat(this.accountInfo.refund_request.cpu_amount)
