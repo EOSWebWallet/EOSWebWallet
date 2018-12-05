@@ -33,7 +33,7 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.cpu_stacked}}</span>
-                  <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{info.accountInfo?.cpu_self_stacked}}<br> Stacked by others: {{info.accountInfo?.cpu_other_stacked}} <br> Refunding: {{info.accountInfo?.refund || 0 | number}}</div></ng-template>
+                  <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{info.accountInfo?.cpu_self_stacked}}<br> Stacked by others: {{info.accountInfo?.cpu_other_stacked}}</div></ng-template>
                   <button [ngbTooltip]="cpuContent" placement="bottom" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
@@ -55,7 +55,7 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.net_stacked}}</span>
-                <ng-template #netContent ><div class="custom-tooltip">Self Staked: {{info.accountInfo?.net_self_stacked}} <br> Stacked by others: {{info.accountInfo?.net_other_stacked}} <br> Refunding: {{info.accountInfo?.refund || 0 | number}}</div> </ng-template>
+                <ng-template #netContent ><div class="custom-tooltip">Self Staked: {{info.accountInfo?.net_self_stacked}} <br> Stacked by others: {{info.accountInfo?.net_other_stacked}}</div> </ng-template>
                   <button [ngbTooltip]="netContent"  #t = ngbTooltip  placement="bottom" tooltipClass="my-custom-class" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
