@@ -8,6 +8,7 @@ import { LocalStorage } from 'ngx-webstorage'
 import { LoginState } from '../models/login-state.model'
 import { NetworkChaindId } from '../models/network.model'
 import {split} from "ts-node";
+import {isNull} from "util";
 
 @Injectable()
 export class InfoBarService implements OnInit, OnDestroy {
@@ -122,13 +123,17 @@ export class InfoBarService implements OnInit, OnDestroy {
               this.unstacked = 0
             }
             if (this.currentchainid === NetworkChaindId.MainNet) {
-              this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
-                if (tokens && tokens.length) {
-                  this.tokenStringTemp = this.setTokensGreymassSymbol(tokens)
+              this.data.getTokensEosflare(AccountName).subscribe((result) => {
+                if (result && result.account) {
+                  this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + AccountName + '"}').subscribe((EOS) => {
+                    console.log(EOS)
+                    this.tokenStringTemp = this.setTokensEosflareSymbol(result.account.tokens, AccountName)
+                    this.tokenStringTemp += ' ' +  EOS[0].toString()
+                  })
                 } else {
-                  this.data.getTokensEosflare(AccountName).subscribe((result) => {
-                    if (result && result.account) {
-                      this.tokenStringTemp = this.setTokensEosflareSymbol(result.account.tokens)
+                  this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
+                    if (tokens && tokens.length) {
+                      this.tokenStringTemp = this.setTokensGreymassSymbol(tokens)
                     } else {
                       this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokensResult) => {
                         this.tokenStringTemp = this.setTokensSymbol(tokensResult)
@@ -150,17 +155,19 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.accountInfo.cpu_other_stacked = (Number(this.accountInfo.cpu_stacked.split(' ', 1)[0]) - Number(this.accountInfo.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
             this.accountInfo.net_other_stacked = (Number(this.accountInfo.net_stacked.split(' ', 1)[0]) - Number(this.accountInfo.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
 
-            if (!isNaN(parseFloat(this.accountInfo.refund_request.cpu_amount))) {
-            this.accountInfo.refund = parseFloat(this.accountInfo.refund_request.cpu_amount)
-            }
-            if (!isNaN(parseFloat(this.accountInfo.refund_request.net_amount))) {
-              this.accountInfo.refund = this.accountInfo.refund + parseFloat(this.accountInfo.refund_request.net_amount)
-            }
 
-            if (Date.parse(this.accountInfo.refund_request.request_time)){
-            let newDate = new Date(this.accountInfo.refund_request.request_time)
-            newDate.setDate(newDate.getDate() + 3)
-            this.accountInfo.refund_time = newDate.toLocaleDateString() +" " + newDate.toLocaleTimeString()
+            if (!isNull(this.accountInfo.refund_request)) {
+              if (!isNaN(parseFloat(this.accountInfo.refund_request.cpu_amount))) {
+                this.accountInfo.refund = parseFloat(this.accountInfo.refund_request.cpu_amount)
+              }
+              if (!isNaN(parseFloat(this.accountInfo.refund_request.net_amount))) {
+                this.accountInfo.refund = this.accountInfo.refund + parseFloat(this.accountInfo.refund_request.net_amount)
+              }
+              if (Date.parse(this.accountInfo.refund_request.request_time)) {
+                let newDate = new Date(this.accountInfo.refund_request.request_time)
+                newDate.setDate(newDate.getDate() + 3)
+                this.accountInfo.refund_time = newDate.toLocaleDateString() + ' ' + newDate.toLocaleTimeString()
+              }
             }
 
             this.accountInfo.total_balance = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) + this.stacked + ''
@@ -187,17 +194,17 @@ export class InfoBarService implements OnInit, OnDestroy {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.amount + ' ' + rez.symbol + ', '
-      let precision = rez.amount.split(".")[1] ? rez.amount.split(".")[1].length : 0
+      let precision = rez.amount.toString().split('.')[1] ? rez.amount.toString().split('.')[1].length : 0
       this.addUserSymbol(rez.symbol, rez.code, precision)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
   }
 
-  private setTokensEosflareSymbol (tokens): string {
+  private setTokensEosflareSymbol (tokens, accountName): string {
     let tokenStringTemp = ''
     tokens.forEach(rez => {
       tokenStringTemp += rez.balance + ' ' + rez.symbol + ', '
-      let precision = rez.balance.split(".")[1] ? rez.balance.split(".")[1].length : 0
+      let precision = rez.balance.toString().split('.')[1] ? rez.balance.toString().split('.')[1].length : 0
       this.addUserSymbol(rez.symbol, rez.code, precision)
     })
     return tokenStringTemp.substring(0, tokenStringTemp.length - 2)
@@ -210,8 +217,8 @@ export class InfoBarService implements OnInit, OnDestroy {
         resultArr.forEach(element => {
           let name = element.substring(element.lastIndexOf(' ') + 1)
           let code = new Currency().tokens.filter(function(c) {
-            return c[1] == name;
-          });
+            return c[1] === name
+          })
           let precision
           if (element.indexOf('.') > -1){
             precision = element.split('.', 2)[1].split(' ',1)[0].length

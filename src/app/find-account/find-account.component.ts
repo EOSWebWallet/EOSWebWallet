@@ -5,6 +5,7 @@ import { AccountService, LoginService, DialogsService } from '../services'
 import { AccountsByKeyModel } from '../models/accounts-by-key.model'
 import { LocalStorage } from 'ngx-webstorage'
 import { TranslateService } from '@ngx-translate/core'
+import {NetworkChaindId} from "../models/network.model";
 
 @Component({
   selector: 'app-find-account',
@@ -19,6 +20,13 @@ import { TranslateService } from '@ngx-translate/core'
 })
 export class FindAccountComponent implements OnInit {
 
+  @LocalStorage()
+  currentNetwork: string
+
+  @LocalStorage()
+  currentchainid: string
+
+  userSymbol: string[][] = []
   exUsdTotal: number
   accounts: AccountsByKeyModel
   acoountsInf: AccountInfo[] = []
@@ -40,6 +48,8 @@ export class FindAccountComponent implements OnInit {
   unstaked: number
   result: AccountInfo
   accountData: string
+  tokenStringTemp: string
+  tokenStringTemps: string[]
 
   constructor (
     private data: AccountService,
@@ -120,27 +130,33 @@ export class FindAccountComponent implements OnInit {
         } else {
           this.result.ram_sign_string = 'KB'
         }
-        /*this.result.net_used_kb = Number(this.result.net_limit.used) / 1000
-        this.result.net_max_kb = Number(this.result.net_limit.max) / 1000
-        this.result.ram_used_kb = Number(this.result.ram_usage) / 1000
-        this.result.ram_max_kb = Number(this.result.ram_quota) / 1000*/
         this.data.getCurrentCourse().subscribe(
           dataUSD => {
             this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
           })
-        for (let index in tokenList.tokens) {
-          this.tokenInfo = ''
-          this.data.getTokenInfo('{"code":"' + tokenList.tokens[index][0] + '","account":"' + accountName + '"}').subscribe(
-            data => {
-              this.tokenInfo = data
-              if (this.tokenInfo.length !== 0 && this.tokenInfo) {
-                for (let tokens of this.tokenInfo) {
-                  this.tokenCut = tokens.split(' ', 2)
-                  this.tokenArray.push(({ token: tokenList.tokens[index][0], balance: this.tokenCut[0], international: this.tokenCut[1] }))
+        if (this.currentchainid === NetworkChaindId.MainNet) {
+          this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+            if (response && response.account) {
+              this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
+                this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+              })
+            } else {
+              this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+                if (tokens && tokens.length) {
+                  this.result.tokens = this.setTokensGreymassSymbol(tokens)
+                } else {
+                  this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
+                    this.result.tokens = this.setTokensSymbol(tokensResult)
+                  })
                 }
-              }
+              })
             }
-          )
+          })
+        } else {
+          this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokens) => {
+            this.result.tokens = this.setTokensSymbol(tokens)
+          })
         }
         this.acoountsInf = [this.result]
       },
@@ -194,26 +210,32 @@ export class FindAccountComponent implements OnInit {
                 dataUSD => {
                   this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
                 })
+              if (this.currentchainid === NetworkChaindId.MainNet) {
+                this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+                  if (response && response.account) {
+                    this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                      this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
+                      this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+                    })
+                  } else {
+                    this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+                      if (tokens && tokens.length) {
+                        this.result.tokens = this.setTokensGreymassSymbol(tokens)
+                      } else {
+                        this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
+                          this.result.tokens = this.setTokensSymbol(tokensResult)
+                        })
+                      }
+                    })
+                  }
+                })
+              } else {
+                this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokens) => {
+                  this.result.tokens = this.setTokensSymbol(tokens)
+                })
+              }
               this.acoountsInf[iter] = this.result
               this.acoountsInf[iter].procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
-              for (let tokenIndex in tokenList.tokens) {
-                this.tokenInfo = ''
-                this.data.getTokenInfo('{"code":"' + tokenList.tokens[tokenIndex] + '","account":"' + this.accounts.account_names[iter] + '"}').subscribe(
-                  data => {
-                    this.tokenInfo = data
-                    if (this.tokenInfo.length !== 0 && this.tokenInfo) {
-                      for (let tokens of this.tokenInfo) {
-                        this.tokenCut = tokens.split(' ', 2)
-                        this.tokenArray.push(({ token: tokenList.tokens[index][0], balance: this.tokenCut[0], international: this.tokenCut[1] }))
-                      }
-                      this.acoountsInf[iter].tokens = this.tokenArray
-                    }
-                  },
-                  error => {
-                    console.log(error)
-                  }
-                )
-              }
             },
             errorNameInfo => {
               this.errorName = true
@@ -235,5 +257,64 @@ export class FindAccountComponent implements OnInit {
         }
       }
     )
+  }
+
+  private setTokensGreymassSymbol (tokens) {
+    let tokensArray = []
+    tokens.forEach(rez => {
+      let precision = rez.amount.toString().split('.')[1] ? rez.amount.toString().split('.')[1].length : 0
+      this.addUserSymbol(rez.symbol, rez.code, precision)
+      tokensArray.push({ token: rez.code, balance: rez.amount, international: rez.symbol })
+    })
+    return tokensArray
+  }
+
+  private setTokensEosflareSymbol (tokens, accountName) {
+    let tokensArray = []
+    tokens.forEach(rez => {
+      tokensArray.push({ token: rez.contract, balance: rez.balance, international: rez.symbol })
+    })
+    return tokensArray
+  }
+
+  private setTokensSymbol (tokens) {
+    let tokensArray = []
+    if (tokens && tokens.length) {
+      let tokenStringTemp = ''
+      tokens.forEach(resultArr => {
+        resultArr.forEach(element => {
+          let name = element.substring(element.lastIndexOf(' ') + 1)
+          let code = new Currency().tokens.filter(function(c) {
+            return c[1] === name
+          })
+          let precision
+          let amount
+          amount = element.split(' ')[0]
+          if (element.indexOf('.') > -1) {
+            precision = element.split('.', 2)[1].split(' ',1)[0].length
+          } else {
+            precision = 0
+          }
+          this.addUserSymbol(name, code[0][0], precision)
+          tokenStringTemp += element + ', '
+          tokensArray.push({ international: name, token: code[0][0], balance: amount })
+        })
+      })
+      return tokensArray
+    }
+    return tokensArray
+  }
+
+  private addUserSymbol (symbol: string, code: string, precision: string) {
+    let findSymbol = false
+    this.userSymbol.forEach(element => {
+      if (element[0].toLocaleLowerCase() === symbol.toLocaleLowerCase()) {
+        findSymbol = true
+        return
+      }
+    })
+    if (!findSymbol) {
+      this.userSymbol.push([symbol, code, precision])
+    }
   }
 }
