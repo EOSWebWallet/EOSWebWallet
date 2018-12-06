@@ -154,7 +154,7 @@
           <span class="info-title">{{'find-account.tokens' | translate}}:</span>
         </div>
         <div class="col-sm-10 col-xs-8">
-          <div class="info" *ngFor="let tokenOrd of tokenArray">
+          <div class="info" *ngFor="let tokenOrd of elem?.tokens">
             {{tokenOrd?.balance}} <span class="font-weight-bold">{{tokenOrd?.international}}</span> -
             {{tokenOrd?.token}}</div>
         </div>
