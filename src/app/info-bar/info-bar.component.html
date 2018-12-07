@@ -33,7 +33,7 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.cpu_stacked}}</span>
-                  <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{info.accountInfo?.cpu_self_stacked}}<br> Stacked by others: {{info.accountInfo?.cpu_other_stacked}}</div></ng-template>
+                  <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{info.accountInfo?.cpu_self_stacked}}<br> Stacked by others: {{info.accountInfo?.cpu_other_stacked}} <br><div *ngIf="info.accountInfo?.refund > 0"> Refunding: {{info.accountInfo?.refund_request.cpu_amount}} </div> </div></ng-template>
                   <button [ngbTooltip]="cpuContent" placement="bottom" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
@@ -46,7 +46,7 @@
               {{'info-bar.net'| translate}}
             </div>
             <div class="col-10 text-right">
-                {{'info-bar.remain'| translate}}: <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.net_available_layout || 0}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_layout || 0 }} <b>{{info.accountInfo?.net_sign_string}}</b> </span>
+                {{'info-bar.remain'| translate}}: <b title="{{'info-bar.remain'| translate}}">{{info.accountInfo?.net_available_layout || 0}}</b> / <span title="{{'info-bar.total'| translate}}">{{info.accountInfo?.net_max_layout || 0 }}<b>{{info.accountInfo?.net_sign_string}}</b> </span>
             </div>
           </div>
           <div class="row pl-3 pr-3">
@@ -55,7 +55,7 @@
           <div class="row mb-2">
               <div class="col-10 text-left">
                   <span>Stacked: {{info.accountInfo?.net_stacked}}</span>
-                <ng-template #netContent ><div class="custom-tooltip">Self Staked: {{info.accountInfo?.net_self_stacked}} <br> Stacked by others: {{info.accountInfo?.net_other_stacked}}</div> </ng-template>
+                <ng-template #netContent ><div class="custom-tooltip">Self Staked: {{info.accountInfo?.net_self_stacked}} <br> Stacked by others: {{info.accountInfo?.net_other_stacked}}<br><div *ngIf="info.accountInfo?.refund > 0">Refunding: {{info.accountInfo?.refund_request.net_amount}}</div>  </div> </ng-template>
                   <button [ngbTooltip]="netContent"  #t = ngbTooltip  placement="bottom" tooltipClass="my-custom-class" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
                   <fa-icon [icon]="faQuestionCircle"></fa-icon>
                   </button>
