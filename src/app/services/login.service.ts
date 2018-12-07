@@ -124,10 +124,6 @@ export class LoginService {
 
     let eos
 
-    const requiredFields = {
-      accounts: [ network ]
-    }
-
     if (this.isLoggedIn === LoginState.plugin) {
       await this.factoryPluginService.currentPlugin.ready
       if (!this.factoryPluginService.currentPlugin) {
@@ -138,7 +134,7 @@ export class LoginService {
       eos = this.factoryPluginService.currentPlugin.plugin.eos(network, Eos, {}, 'https')
       // const identity = await (window as any).eosPlugin.getIdentity(network)
 
-      const identity = await this.factoryPluginService.currentPlugin.plugin.getIdentity(requiredFields)
+      const identity = await this.factoryPluginService.currentPlugin.plugin.getIdentity(network)
       const eosAccount = identity.accounts.find(account => account.blockchain === 'eos')
       this.accountName = eosAccount.name
       this.permission = eosAccount.authority
