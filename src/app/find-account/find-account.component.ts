@@ -5,12 +5,16 @@ import { AccountService, LoginService, DialogsService } from '../services'
 import { AccountsByKeyModel } from '../models/accounts-by-key.model'
 import { LocalStorage } from 'ngx-webstorage'
 import { TranslateService } from '@ngx-translate/core'
-import {NetworkChaindId} from "../models/network.model";
+import { NetworkChaindId } from '../models/network.model'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import {isNull} from "util";
 
 @Component({
   selector: 'app-find-account',
   templateUrl: './find-account.component.html',
   styleUrls: [
+    '../../icon.styles.scss',
+    '../../tooltip.style.scss',
     './find-account.component.scss',
     '../../page-container.styles.scss',
     '../../input.style.scss',
@@ -19,7 +23,7 @@ import {NetworkChaindId} from "../models/network.model";
   ]
 })
 export class FindAccountComponent implements OnInit {
-
+  faQuestionCircle = faQuestionCircle
   @LocalStorage()
   currentNetwork: string
 
@@ -95,6 +99,12 @@ export class FindAccountComponent implements OnInit {
           return
         }
         this.result = data
+        this.result.cpu_stacked = this.result.total_resources.cpu_weight
+        this.result.net_stacked = this.result.total_resources.net_weight
+        this.result.net_self_stacked = this.result.self_delegated_bandwidth.net_weight
+        this.result.cpu_self_stacked = this.result.self_delegated_bandwidth.cpu_weight
+        this.result.cpu_other_stacked = (Number(this.result.cpu_stacked.split(' ', 1)[0]) - Number(this.result.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+        this.result.net_other_stacked = (Number(this.result.net_stacked.split(' ', 1)[0]) - Number(this.result.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
         this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
         this.result.netData = this.result.total_resources.net_weight.split(' ', 1)
         this.result.cpuData = this.result.total_resources.cpu_weight.split(' ', 1)
@@ -135,16 +145,16 @@ export class FindAccountComponent implements OnInit {
             this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
           })
         if (this.currentchainid === NetworkChaindId.MainNet) {
-          this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
-            if (response && response.account) {
-              this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
-                this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
-                this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
-              })
+          this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+            if (tokens && tokens.length) {
+              this.result.tokens = this.setTokensGreymassSymbol(tokens)
             } else {
-              this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
-                if (tokens && tokens.length) {
-                  this.result.tokens = this.setTokensGreymassSymbol(tokens)
+              this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+                if (response && response.account) {
+                  this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                    this.result.tokens = this.setTokensEosflareSymbol(tokens.account.tokens, this.result.account_name)
+                    this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+                  })
                 } else {
                   this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
                     this.result.tokens = this.setTokensSymbol(tokensResult)
@@ -157,6 +167,22 @@ export class FindAccountComponent implements OnInit {
           this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokens) => {
             this.result.tokens = this.setTokensSymbol(tokens)
           })
+        }
+        this.result.refund_request_number = { net_amount: 0 , cpu_amount: 0 }
+        if (!isNull(this.result.refund_request)) {
+          if (!isNaN(parseFloat(this.result.refund_request.cpu_amount))) {
+            this.result.refund = parseFloat(this.result.refund_request.cpu_amount)
+            this.result.refund_request_number.cpu_amount = parseFloat(this.result.refund_request.cpu_amount)
+          }
+          if (!isNaN(parseFloat(this.result.refund_request.net_amount))) {
+            this.result.refund = this.result.refund + parseFloat(this.result.refund_request.net_amount)
+            this.result.refund_request_number.net_amount = parseFloat(this.result.refund_request.net_amount)
+          }
+          if (Date.parse(this.result.refund_request.request_time)) {
+            let newDate = new Date(this.result.refund_request.request_time)
+            newDate.setDate(newDate.getDate() + 3)
+            this.result.refund_time = newDate.toLocaleDateString() + ' ' + newDate.toLocaleTimeString()
+          }
         }
         this.acoountsInf = [this.result]
       },
@@ -189,6 +215,8 @@ export class FindAccountComponent implements OnInit {
           this.data.findByName('{"account_name":"' + this.accounts.account_names[index] + '"}').subscribe(
             data => {
               this.result = data
+              this.result.cpu_stacked = this.result.total_resources.cpu_weight
+              this.result.net_stacked = this.result.total_resources.net_weight
               this.result.balance_cut = this.result.core_liquid_balance.split('.', 2)
               this.result.netData = this.result.total_resources.net_weight.split(' ', 1)
               this.result.cpuData = this.result.total_resources.cpu_weight.split(' ', 1)
@@ -211,16 +239,16 @@ export class FindAccountComponent implements OnInit {
                   this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
                 })
               if (this.currentchainid === NetworkChaindId.MainNet) {
-                this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
-                  if (response && response.account) {
-                    this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
-                      this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
-                      this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
-                    })
+                this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+                  if (tokens && tokens.length) {
+                    this.result.tokens = this.setTokensGreymassSymbol(tokens)
                   } else {
-                    this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
-                      if (tokens && tokens.length) {
-                        this.result.tokens = this.setTokensGreymassSymbol(tokens)
+                    this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+                      if (response && response.account) {
+                        this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                          this.result.tokens = this.setTokensEosflareSymbol(tokens.account.tokens, this.result.account_name)
+                          this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+                        })
                       } else {
                         this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
                           this.result.tokens = this.setTokensSymbol(tokensResult)
@@ -233,6 +261,22 @@ export class FindAccountComponent implements OnInit {
                 this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokens) => {
                   this.result.tokens = this.setTokensSymbol(tokens)
                 })
+              }
+              this.result.refund_request_number = { net_amount: 0 , cpu_amount: 0 }
+              if (!isNull(this.result.refund_request)) {
+                if (!isNaN(parseFloat(this.result.refund_request.cpu_amount))) {
+                  this.result.refund = parseFloat(this.result.refund_request.cpu_amount)
+                  this.result.refund_request_number.cpu_amount = parseFloat(this.result.refund_request.cpu_amount)
+                }
+                if (!isNaN(parseFloat(this.result.refund_request.net_amount))) {
+                  this.result.refund = this.result.refund + parseFloat(this.result.refund_request.net_amount)
+                  this.result.refund_request_number.net_amount = parseFloat(this.result.refund_request.net_amount)
+                }
+                if (Date.parse(this.result.refund_request.request_time)) {
+                  let newDate = new Date(this.result.refund_request.request_time)
+                  newDate.setDate(newDate.getDate() + 3)
+                  this.result.refund_time = newDate.toLocaleDateString() + ' ' + newDate.toLocaleTimeString()
+                }
               }
               this.acoountsInf[iter] = this.result
               this.acoountsInf[iter].procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))

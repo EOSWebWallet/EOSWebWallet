@@ -118,12 +118,19 @@
       <div class="row">
         <div class="col-lg-4 col-md-12 info-item">
           <div class="progress-bar-wrapp">
-            <mat-progress-bar class="CPU HUGE" mode="determinate" value={{elem?.cpu_percent}}>{{'find-account.cpu' |
-              translate}}</mat-progress-bar>
+            <mat-progress-bar class="CPU HUGE" mode="determinate" value={{elem?.cpu_percent}}>{{'find-account.cpu' | translate}}</mat-progress-bar>
             <div class="info-block">
               <span class="block-title">{{'find-account.cpu' | translate}}:</span>
-              <span class="parametrs"><b>{{elem?.cpu_used_sec}}</b> / {{elem?.cpu_max_sec}} <b>{{'find-account.sec'
-                  | translate}}</b></span>
+              <span class="parametrs"><b>{{elem?.cpu_used_sec}}</b> / {{elem?.cpu_max_sec}} <b>{{'find-account.sec' | translate}}</b></span>
+            </div>
+          </div>
+          <div class="mt-2">
+             <div class="col-10 text-left">
+              <span>Stacked: {{elem?.cpu_stacked}}</span>
+              <ng-template #cpuContent><div class="custom-tooltip"> Self stacked: {{elem.cpu_self_stacked}}<br> Stacked by others: {{elem?.cpu_other_stacked}} <br><div *ngIf="elem?.refund > 0"> Refunding: {{elem?.refund_request.cpu_amount}} </div> </div></ng-template>
+              <button [ngbTooltip]="cpuContent" placement="bottom" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
+                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+              </button>
             </div>
           </div>
         </div>
@@ -134,6 +141,15 @@
             <div class="info-block">
               <span class="block-title">{{'find-account.net' | translate}}:</span>
               <span class="parametrs"><b>{{elem?.net_available_layout}}</b> / {{elem?.net_max_layout}} <b>{{elem?.net_sign_string}}</b></span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div class="col-10 text-left">
+              <span>Stacked: {{elem?.net_stacked}}</span>
+              <ng-template #netContent><div class="custom-tooltip"> Self stacked: {{elem.net_self_stacked}}<br> Stacked by others: {{elem?.net_other_stacked}} <br><div *ngIf="elem?.refund > 0"> Refunding: {{elem?.refund_request.net_amount}}  </div></div></ng-template>
+              <button [ngbTooltip]="netContent" placement="bottom" type="button" class="mat-tooltip-btn ml-1" mat-raised-button>
+                <fa-icon [icon]="faQuestionCircle"></fa-icon>
+              </button>
             </div>
           </div>
         </div>

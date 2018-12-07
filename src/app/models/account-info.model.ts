@@ -19,6 +19,7 @@ export interface AccountInfo { // Snake case naming because of mapping
   ram_sign_string: string
   refund: number
   refund_request: {net_amount: string, cpu_amount: string, request_time: string}
+  refund_request_number: { net_amount: number, cpu_amount: number }
   refund_time: string
   privileged: boolean
   total_balance: string
