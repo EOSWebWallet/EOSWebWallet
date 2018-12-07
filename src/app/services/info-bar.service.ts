@@ -123,17 +123,16 @@ export class InfoBarService implements OnInit, OnDestroy {
               this.unstacked = 0
             }
             if (this.currentchainid === NetworkChaindId.MainNet) {
-              this.data.getTokensEosflare(AccountName).subscribe((result) => {
-                if (result && result.account) {
-                  this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + AccountName + '"}').subscribe((EOS) => {
-                    console.log(EOS)
-                    this.tokenStringTemp = this.setTokensEosflareSymbol(result.account.tokens, AccountName)
-                    this.tokenStringTemp += ' ' +  EOS[0].toString()
-                  })
+              this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
+                if (tokens && tokens.length) {
+                  this.tokenStringTemp = this.setTokensGreymassSymbol(tokens)
                 } else {
-                  this.data.getTokensGreymass(AccountName).subscribe((tokens) => {
-                    if (tokens && tokens.length) {
-                      this.tokenStringTemp = this.setTokensGreymassSymbol(tokens)
+                  this.data.getTokensGreymass(AccountName).subscribe((response) => {
+                    if (response && response.account) {
+                      this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + AccountName + '"}').subscribe((EOS) => {
+                        this.tokenStringTemp = this.setTokensEosflareSymbol(response.account.tokens, AccountName)
+                        this.tokenStringTemp += ' ' + EOS[0].toString()
+                      })
                     } else {
                       this.data.getAllTokensInfo(tokenList.tokens, AccountName).subscribe((tokensResult) => {
                         this.tokenStringTemp = this.setTokensSymbol(tokensResult)

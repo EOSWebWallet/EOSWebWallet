@@ -135,16 +135,16 @@ export class FindAccountComponent implements OnInit {
             this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
           })
         if (this.currentchainid === NetworkChaindId.MainNet) {
-          this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
-            if (response && response.account) {
-              this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
-                this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
-                this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
-              })
+          this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+            if (tokens && tokens.length) {
+              this.result.tokens = this.setTokensGreymassSymbol(tokens)
             } else {
-              this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
-                if (tokens && tokens.length) {
-                  this.result.tokens = this.setTokensGreymassSymbol(tokens)
+              this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+                if (response && response.account) {
+                  this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                    this.result.tokens = this.setTokensEosflareSymbol(tokens.account.tokens, this.result.account_name)
+                    this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+                  })
                 } else {
                   this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
                     this.result.tokens = this.setTokensSymbol(tokensResult)
@@ -211,16 +211,16 @@ export class FindAccountComponent implements OnInit {
                   this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
                 })
               if (this.currentchainid === NetworkChaindId.MainNet) {
-                this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
-                  if (response && response.account) {
-                    this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
-                      this.result.tokens = this.setTokensEosflareSymbol(response.account.tokens, this.result.account_name)
-                      this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
-                    })
+                this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
+                  if (tokens && tokens.length) {
+                    this.result.tokens = this.setTokensGreymassSymbol(tokens)
                   } else {
-                    this.data.getTokensGreymass(this.result.account_name).subscribe((tokens) => {
-                      if (tokens && tokens.length) {
-                        this.result.tokens = this.setTokensGreymassSymbol(tokens)
+                    this.data.getTokensEosflare(this.result.account_name).subscribe((response) => {
+                      if (response && response.account) {
+                        this.data.getTokenInfo('{"code":"' + 'eosio.token' + '","account":"' + this.result.account_name + '"}').subscribe((EOS) => {
+                          this.result.tokens = this.setTokensEosflareSymbol(tokens.account.tokens, this.result.account_name)
+                          this.result.tokens.push({ international: 'EOS', token: 'eosio.token', balance: EOS.toString().split(' ')[0] })
+                        })
                       } else {
                         this.data.getAllTokensInfo(tokenList.tokens, this.result.account_name).subscribe((tokensResult) => {
                           this.result.tokens = this.setTokensSymbol(tokensResult)
