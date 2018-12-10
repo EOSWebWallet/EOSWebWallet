@@ -121,7 +121,7 @@
             <mat-progress-bar class="CPU HUGE" mode="determinate" value={{elem?.cpu_percent}}>{{'find-account.cpu' | translate}}</mat-progress-bar>
             <div class="info-block">
               <span class="block-title">{{'find-account.cpu' | translate}}:</span>
-              <span class="parametrs"><b>{{elem?.cpu_used_sec}}</b> / {{elem?.cpu_max_sec}} <b>{{'find-account.sec' | translate}}</b></span>
+              <span class="parametrs"><b>{{elem?.cpu_limit.available}}</b> / {{elem?.cpu_limit.max}} <b>{{'info-bar.us' | translate}}</b></span>
             </div>
           </div>
           <div class="mt-2">
