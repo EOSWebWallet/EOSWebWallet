@@ -89,7 +89,7 @@ export class InfoBarService implements OnInit, OnDestroy {
             this.cpuData = parseFloat(this.cpuData).toFixed(2).toString()
           }
           this.ramPercent = (Math.round(Number(this.accountInfo.ram_quota) - Number(this.accountInfo.ram_usage)) / Number(this.accountInfo.ram_quota) * 100)
-          this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked.toString()
+          this.accountInfo.voter_info.staked = this.accountInfo.voter_info.staked
           this.accountInfo.cpu_used_sec = Number(this.accountInfo.cpu_limit.used)
           this.accountInfo.cpu_available_sec = Number(this.accountInfo.cpu_limit.available)
           this.accountInfo.cpu_max_sec = (Number(this.accountInfo.cpu_limit.max))
