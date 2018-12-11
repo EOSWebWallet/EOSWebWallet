@@ -54,12 +54,8 @@
       <div class="row info-item">
         <div class="col-sm-2 col-xs-4"><span class="info-title">{{'find-account.stacked' | translate}}:</span></div>
         <div class="col-sm-10 col-xs-8">
-          <div *ngIf="!elem?.staked_cut[1];else double"><span class="font-weight-bold">{{elem?.staked_cut[0]}}</span>
-            {{'info-bar.eos' | translate}}</div>
-          <ng-template #double>
-            <div class="info"><span class="font-weight-bold">{{elem?.staked_cut[0]}}</span>.{{elem?.staked_cut[1]}}
+            <div class="info"><span class="font-weight-bold">{{elem?.staked}}</span>
               {{'info-bar.eos' | translate}}</div>
-          </ng-template>
         </div>
       </div>
 

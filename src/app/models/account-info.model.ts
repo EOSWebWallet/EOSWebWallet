@@ -35,7 +35,6 @@ export interface AccountInfo { // Snake case naming because of mapping
   cpu_other_stacked: string
   net_other_stacked: string
   staked: number
-  staked_cut: string[]
   unstaked: number
   unstaked_cut: string
   netData: string[]
@@ -47,7 +46,7 @@ export interface AccountInfo { // Snake case naming because of mapping
   cpu_percent: number
   ram_percent: number
   self_delegated_bandwidth: {from: string, to: string, cpu_weight: string, net_weight: string}
-  voter_info: {staked: string}
+  voter_info: {staked: number}
   total_resources: {cpu_weight: string, net_weight: string, owner: string}
   net_limit: {used: string, available: string, max: string}
   cpu_limit: {used: string, available: string, max: string}
