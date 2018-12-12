@@ -146,7 +146,7 @@ export class InfoBarService implements OnInit, OnDestroy {
                 this.tokenStringTemp = this.setTokensSymbol(tokens)
               })
             }
-            this.stacked = +this.accountInfo.voter_info.staked / 10000
+            this.stacked = this.accountInfo.voter_info.staked / 10000
             this.accountInfo.cpu_stacked = this.accountInfo.total_resources.cpu_weight
             this.accountInfo.net_stacked = this.accountInfo.total_resources.net_weight
             this.accountInfo.net_self_stacked = this.accountInfo.self_delegated_bandwidth.net_weight
