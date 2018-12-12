@@ -111,7 +111,7 @@ export class FindAccountComponent implements OnInit {
         this.result.voter_info.staked = this.result.voter_info.staked / 10000
         this.result.net_percent = Math.round(Number(this.result.net_limit.used) / Number(this.result.net_limit.max) * 100)
         this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
-        this.result.ram_percent = Math.round(Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100)
+        this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
         this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
         this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
         this.result.total_balance_cut = this.result.total_balance.split('.', 2)
@@ -227,7 +227,7 @@ export class FindAccountComponent implements OnInit {
               this.result.voter_info.staked = this.result.voter_info.staked / 10000
               this.result.net_percent = Math.round(Number(this.result.net_limit.used) / Number(this.result.net_limit.max) * 100)
               this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
-              this.result.ram_percent = Math.round(Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100)
+              this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
               this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
               this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
               this.result.total_balance_cut = this.result.total_balance.split('.', 2)
