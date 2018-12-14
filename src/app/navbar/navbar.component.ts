@@ -126,7 +126,14 @@ export class NavbarComponent {
     ))
     this.networks.push(new Network(
       'jungle.eos.smartz.io',
-      'Jungle (Smartz)',
+      'Jungle 1.0 (Smartz)',
+      NetworkChaindId.Jungle,
+      443,
+      NetworkProtocol.Https
+    ))
+    this.networks.push(new Network(
+      'jungle2.cryptolions.io',
+      'Jungle 2.0 (Cryptolines)',
       NetworkChaindId.Jungle,
       443,
       NetworkProtocol.Https

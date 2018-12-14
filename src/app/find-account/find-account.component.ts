@@ -103,6 +103,7 @@ export class FindAccountComponent implements OnInit {
         this.result.net_stacked = this.result.total_resources.net_weight
         this.result.net_self_stacked = this.result.self_delegated_bandwidth.net_weight
         this.result.cpu_self_stacked = this.result.self_delegated_bandwidth.cpu_weight
+        this.result.staked = this.result.voter_info.staked / 10000
         this.result.cpu_other_stacked = (Number(this.result.cpu_stacked.split(' ', 1)[0]) - Number(this.result.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
         this.result.net_other_stacked = (Number(this.result.net_stacked.split(' ', 1)[0]) - Number(this.result.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
         this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
@@ -113,7 +114,12 @@ export class FindAccountComponent implements OnInit {
         this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
         this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
         this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
-        this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+        if (typeof this.result.core_liquid_balance !== 'undefined') {
+          this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+        } else {
+          this.result.unstaked = 0
+          this.result.total_balance = (Number(this.result.staked) + Number(this.result.unstaked)).toString()
+        }
         this.result.total_balance_cut = this.result.total_balance.split('.', 2)
         this.result.cpu_used_sec = Number(this.result.cpu_limit.used) / 1000000
         this.result.cpu_max_sec = Number(this.result.cpu_limit.max) / 1000000
@@ -219,9 +225,10 @@ export class FindAccountComponent implements OnInit {
               this.result.net_stacked = this.result.total_resources.net_weight
               this.result.net_self_stacked = this.result.self_delegated_bandwidth.net_weight
               this.result.cpu_self_stacked = this.result.self_delegated_bandwidth.cpu_weight
+              this.result.staked = this.result.voter_info.staked / 10000
               this.result.cpu_other_stacked = (Number(this.result.cpu_stacked.split(' ', 1)[0]) - Number(this.result.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
               this.result.net_other_stacked = (Number(this.result.net_stacked.split(' ', 1)[0]) - Number(this.result.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
-              this.result.balance_cut = this.result.core_liquid_balance.split('.', 2)
+              this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
               this.result.netData = this.result.total_resources.net_weight.split(' ', 1)
               this.result.cpuData = this.result.total_resources.cpu_weight.split(' ', 1)
               this.result.voter_info.staked = this.result.voter_info.staked / 10000
@@ -229,7 +236,12 @@ export class FindAccountComponent implements OnInit {
               this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
               this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
               this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
-              this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+              if (typeof this.result.core_liquid_balance !== 'undefined') {
+                this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+              } else {
+                this.result.unstaked = 0
+                this.result.total_balance = (Number(this.result.staked) + Number(this.result.unstaked)).toString()
+              }
               this.result.total_balance_cut = this.result.total_balance.split('.', 2)
               this.result.cpu_used_sec = Number(this.result.cpu_limit.used) / 1000000
               this.result.cpu_available_sec = Number(this.result.cpu_limit.available) / 1000000

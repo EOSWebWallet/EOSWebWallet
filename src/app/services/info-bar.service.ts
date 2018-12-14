@@ -115,7 +115,7 @@ export class InfoBarService implements OnInit, OnDestroy {
           } else {
             this.accountInfo.ram_sign_string = 'KB'
           }
-          if (this.accountInfo.core_liquid_balance !== undefined) {
+          if (typeof this.accountInfo.core_liquid_balance !== 'undefined') {
             if (this.accountInfo.core_liquid_balance) {
               this.unstacked = Number(this.accountInfo.core_liquid_balance.split(' ', 1)[0]) - this.stacked
             } else {
@@ -176,7 +176,17 @@ export class InfoBarService implements OnInit, OnDestroy {
           } else {
             this.accountInfo.core_liquid_balance = '0'
             this.unstacked = 0
-            this.accountInfo.total_balance = Number(this.accountInfo.voter_info.staked).toString()
+            this.stacked = this.accountInfo.voter_info.staked / 10000
+            this.accountInfo.cpu_stacked = this.accountInfo.total_resources.cpu_weight
+            this.accountInfo.net_stacked = this.accountInfo.total_resources.net_weight
+            this.accountInfo.net_self_stacked = this.accountInfo.self_delegated_bandwidth.net_weight
+            this.accountInfo.cpu_self_stacked = this.accountInfo.self_delegated_bandwidth.cpu_weight
+            this.accountInfo.cpu_other_stacked = (Number(this.accountInfo.cpu_stacked.split(' ', 1)[0]) - Number(this.accountInfo.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+            this.accountInfo.net_other_stacked = (Number(this.accountInfo.net_stacked.split(' ', 1)[0]) - Number(this.accountInfo.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+            this.accountInfo.total_balance = (Number(this.stacked) + Number(this.unstacked)).toString()
+            this.data.getCurrentCourse().subscribe((result) => {
+              this.accountInfo.usd_total = Number(this.accountInfo.total_balance) * Number(result.market_data.current_price.usd)
+            })
           }
         }
       },
