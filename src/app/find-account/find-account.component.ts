@@ -103,6 +103,7 @@ export class FindAccountComponent implements OnInit {
         this.result.net_stacked = this.result.total_resources.net_weight
         this.result.net_self_stacked = this.result.self_delegated_bandwidth.net_weight
         this.result.cpu_self_stacked = this.result.self_delegated_bandwidth.cpu_weight
+        this.result.staked = this.result.voter_info.staked / 10000
         this.result.cpu_other_stacked = (Number(this.result.cpu_stacked.split(' ', 1)[0]) - Number(this.result.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
         this.result.net_other_stacked = (Number(this.result.net_stacked.split(' ', 1)[0]) - Number(this.result.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
         this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
@@ -111,9 +112,14 @@ export class FindAccountComponent implements OnInit {
         this.result.voter_info.staked = this.result.voter_info.staked / 10000
         this.result.net_percent = Math.round(Number(this.result.net_limit.used) / Number(this.result.net_limit.max) * 100)
         this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
-        this.result.ram_percent = Math.round(Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100)
+        this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
         this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
-        this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+        if (typeof this.result.core_liquid_balance !== 'undefined') {
+          this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+        } else {
+          this.result.unstaked = 0
+          this.result.total_balance = (Number(this.result.staked) + Number(this.result.unstaked)).toString()
+        }
         this.result.total_balance_cut = this.result.total_balance.split('.', 2)
         this.result.cpu_used_sec = Number(this.result.cpu_limit.used) / 1000000
         this.result.cpu_max_sec = Number(this.result.cpu_limit.max) / 1000000
@@ -122,8 +128,8 @@ export class FindAccountComponent implements OnInit {
         this.result.net_available_layout = (Number(this.result.net_limit.available) / 1024).toFixed(3).toString()
         this.result.net_max_layout = (Number(this.result.net_limit.max) / 1024).toFixed(3).toString()
         if (Number(this.result.net_available_layout) > 1024) {
-          this.result.net_used_layout = (Number(this.result.net_used_layout) / 1024).toFixed(3).toString() + ' MB'
-          this.result.net_max_layout = (Number(this.result.net_max_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.net_used_layout = (Number(this.result.net_used_layout) / 1024).toFixed(3).toString()
+          this.result.net_max_layout = (Number(this.result.net_max_layout) / 1024).toFixed(3).toString()
           this.result.net_available_layout = (Number(this.result.net_available_layout) / 1024).toFixed(3).toString()
           this.result.net_sign_string = 'MB'
         } else {
@@ -133,8 +139,8 @@ export class FindAccountComponent implements OnInit {
         this.result.ram_available_layout = ((Number(this.result.ram_quota) - Number(this.result.ram_usage)) / 1024).toFixed(3).toString()
         this.result.ram_max_layout = (Number(this.result.ram_quota) / 1024).toFixed(3).toString()
         if (Number(this.result.ram_available_layout) > 1024) {
-          this.result.ram_used_layout = (Number(this.result.ram_used_layout) / 1024).toFixed(3).toString() + ' MB'
-          this.result.ram_max_layout = (Number(this.result.ram_max_layout) / 1024).toFixed(3).toString() + ' MB'
+          this.result.ram_used_layout = (Number(this.result.ram_used_layout) / 1024).toFixed(3).toString()
+          this.result.ram_max_layout = (Number(this.result.ram_max_layout) / 1024).toFixed(3).toString()
           this.result.ram_available_layout = (Number(this.result.ram_available_layout) / 1024).toFixed(3).toString()
           this.result.ram_sign_string = 'MB'
         } else {
@@ -217,23 +223,53 @@ export class FindAccountComponent implements OnInit {
               this.result = data
               this.result.cpu_stacked = this.result.total_resources.cpu_weight
               this.result.net_stacked = this.result.total_resources.net_weight
-              this.result.balance_cut = this.result.core_liquid_balance.split('.', 2)
+              this.result.net_self_stacked = this.result.self_delegated_bandwidth.net_weight
+              this.result.cpu_self_stacked = this.result.self_delegated_bandwidth.cpu_weight
+              this.result.staked = this.result.voter_info.staked / 10000
+              this.result.cpu_other_stacked = (Number(this.result.cpu_stacked.split(' ', 1)[0]) - Number(this.result.cpu_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+              this.result.net_other_stacked = (Number(this.result.net_stacked.split(' ', 1)[0]) - Number(this.result.net_self_stacked.split(' ', 1)[0])).toFixed(4).toString() + ' EOS'
+              this.result.balance_cut = this.result.core_liquid_balance ? this.result.core_liquid_balance.split('.', 2) : []
               this.result.netData = this.result.total_resources.net_weight.split(' ', 1)
               this.result.cpuData = this.result.total_resources.cpu_weight.split(' ', 1)
               this.result.voter_info.staked = this.result.voter_info.staked / 10000
               this.result.net_percent = Math.round(Number(this.result.net_limit.used) / Number(this.result.net_limit.max) * 100)
               this.result.cpu_percent = Math.round(Number(this.result.cpu_limit.used) / Number(this.result.cpu_limit.max) * 100)
-              this.result.ram_percent = Math.round(Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100)
+              this.result.ram_percent = Math.round(Number(this.result.ram_quota) - Number(this.result.ram_usage)) / Number(this.result.ram_quota) * 100
               this.result.procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
-              this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+              if (typeof this.result.core_liquid_balance !== 'undefined') {
+                this.result.total_balance = (Number(this.result.core_liquid_balance.split(' ', 1)[0]) + Number(this.result.voter_info.staked)).toString()
+              } else {
+                this.result.unstaked = 0
+                this.result.total_balance = (Number(this.result.staked) + Number(this.result.unstaked)).toString()
+              }
               this.result.total_balance_cut = this.result.total_balance.split('.', 2)
               this.result.cpu_used_sec = Number(this.result.cpu_limit.used) / 1000000
               this.result.cpu_available_sec = Number(this.result.cpu_limit.available) / 1000000
               this.result.cpu_max_sec = Number(this.result.cpu_limit.max) / 1000000
               this.result.net_used_kb = Number(this.result.net_limit.used) / 1000
               this.result.net_max_kb = Number(this.result.net_limit.max) / 1000
-              this.result.ram_used_kb = Number(this.result.ram_usage) / 1000
-              this.result.ram_max_kb = Number(this.result.ram_quota) / 1000
+              this.result.ram_used_layout = (Number(this.result.ram_usage) / 1024).toFixed(3).toString()
+              this.result.ram_available_layout = ((Number(this.result.ram_quota) - Number(this.result.ram_usage)) / 1024).toFixed(3).toString()
+              this.result.ram_max_layout = (Number(this.result.ram_quota) / 1024).toFixed(3).toString()
+              this.result.net_used_layout = (Number(this.result.net_limit.used) / 1024).toFixed(3).toString()
+              this.result.net_available_layout = (Number(this.result.net_limit.available) / 1024).toFixed(3).toString()
+              this.result.net_max_layout = (Number(this.result.net_limit.max) / 1024).toFixed(3).toString()
+              if (Number(this.result.ram_available_layout) > 1024) {
+                this.result.ram_used_layout = (Number(this.result.ram_used_layout) / 1024).toFixed(3).toString()
+                this.result.ram_max_layout = (Number(this.result.ram_max_layout) / 1024).toFixed(3).toString()
+                this.result.ram_available_layout = (Number(this.result.ram_available_layout) / 1024).toFixed(3).toString()
+                this.result.ram_sign_string = 'MB'
+              } else {
+                this.result.ram_sign_string = 'KB'
+              }
+              if (Number(this.result.net_available_layout) > 1024) {
+                this.result.net_used_layout = (Number(this.result.net_used_layout) / 1024).toFixed(3).toString()
+                this.result.net_max_layout = (Number(this.result.net_max_layout) / 1024).toFixed(3).toString()
+                this.result.net_available_layout = (Number(this.result.net_available_layout) / 1024).toFixed(3).toString()
+                this.result.net_sign_string = 'MB'
+              } else {
+                this.result.net_sign_string = 'KB'
+              }
               this.data.getCurrentCourse().subscribe(
                 dataUSD => {
                   this.result.usd_total = Number(this.result.total_balance) * Number(dataUSD.market_data.current_price.usd)
@@ -280,6 +316,7 @@ export class FindAccountComponent implements OnInit {
               }
               this.acoountsInf[iter] = this.result
               this.acoountsInf[iter].procent_for_bar = Math.round((Number(this.result.ram_usage) / Number(this.result.ram_quota) * 100))
+              iter++
             },
             errorNameInfo => {
               this.errorName = true
