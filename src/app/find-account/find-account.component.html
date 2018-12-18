@@ -107,6 +107,15 @@
         </div>
       </div>
 
+      <div class="row" *ngIf="elem.refund > 0">
+        <div class="col-xl-2 col-md-3 info-item">
+          <span class="info-title">{{'info-bar.refund' | translate}}:    </span><span class="info">{{elem?.refund | number}} {{'info-bar.eos'| translate}}</span>
+        </div>
+        <div class="col-xl-4 col-md-4 info-item">
+          <span class="info-title">{{'info-bar.refund-time' | translate}}: </span><span class="info">{{elem?.refund_time}}</span>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-lg-4 col-md-12 info-item">
           <div class="progress-bar-wrapp">
