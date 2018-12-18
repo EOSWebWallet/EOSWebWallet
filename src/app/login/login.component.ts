@@ -13,6 +13,7 @@ import { LoginKeys } from '../models/login-keys.model'
 import { SelectAccountDialogComponent } from '../dialogs/select-account-dialog/select-account-dialog.component'
 import { FailureDialogComponent } from '../dialogs/failure-dialog/failure-dialog.component'
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog.component'
+import * as LedgerActions from '../../ledger'
 
 declare var Eos: any
 const { ecc } = Eos.modules
@@ -131,6 +132,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.factoryPluginService.setCurrentPlugin('scatter')
     await this.loginPlugin()
   }
+
+  async loginLedger() {
+  LedgerActions.startListen()
+}
 
   async loginPlugin() {
     if (this.loginInProcess) return
