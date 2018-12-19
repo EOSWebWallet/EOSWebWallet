@@ -133,8 +133,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     await this.loginPlugin()
   }
 
-  async loginLedger() {
-  LedgerActions.startListen()
+  async loginLedger () {
+    LedgerActions.startListen()
 }
 
   async loginPlugin() {
