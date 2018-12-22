@@ -12,13 +12,14 @@ import * as Eos from 'eosjs'
 const CLA = 0xD4;
 const INS_GET_APP_CONFIGURATION = 0x06;
 
-export async function startListen() {
+export async function startListen () {
 
-let ledgerIndex = "44'/194'/0'/0/0";
+  let ledgerIndex = "44'/194'/0'/0/0"
 
-Transport.create().then(transport => {
+  Transport.create().then(transport => {
+    console.log(transport)
 
-  console.log(transport);
+    const eos = new Eos(transport)
 
   const api = new Api(transport);
 
@@ -28,8 +29,12 @@ Transport.create().then(transport => {
     console.log(error);
   });
 
-  });
+    }).catch(function (error) {
 
+      console.log(error)
+
+    })
+  })
 }
 
 
