@@ -34,8 +34,7 @@ export async function startListen () {
       console.log(error)
 
     })
-  })
-}
+  }
 
 
 export async function signTransaction() {

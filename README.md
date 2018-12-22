@@ -7,5 +7,13 @@
 
 ## Use of transport.js and transportU2F.js
 
-For using ledger add " var Buffer = global.Buffer || require('buffer').Buffer" and "var regeneratorRuntime = require("@babel/runtime/regenerator ");" lines at the beginning of 
-transport.js and transportU2F.js files. 
+For using ledger add into 
+node_modules\@ledgerhq\hw-transport-u2f\lib\TransportU2F.js
+ and 
+node_modules\@ledgerhq\hw-transport\lib\Transport.js
+lines:
+
+var regeneratorRuntime = require("@babel/runtime/regenerator");
+var Buffer = global.Buffer || require('buffer').Buffer;
+
+at the beginning of the files
