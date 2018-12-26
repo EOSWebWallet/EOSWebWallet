@@ -81,3 +81,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 // (window as any).global = window;
 const global = window as any;
+
+global.regeneratorRuntime = require("@babel/runtime/regenerator");
+global.Buffer = global.Buffer || require('buffer').Buffer;
