@@ -116,25 +116,25 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'
   }
 
-  get passBase64() {
+  get passBase64 () {
     if (!this.model.remember) {
       this.model.pass = 'bhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUVbhfeuYVITYUV'
     }
     return this.cryptoService.btoa(this.model.pass)
   }
 
-  async loginEosPlugin() {
+  async loginEosPlugin () {
     this.factoryPluginService.setCurrentPlugin('eos-plugin')
     await this.loginPlugin()
   }
 
-  async loginScatter() {
+  async loginScatter () {
     this.factoryPluginService.setCurrentPlugin('scatter')
     await this.loginPlugin()
   }
 
   async loginLedger () {
-    LedgerActions.startListen()
+    LedgerActions.signTransaction('object')
 }
 
   async loginPlugin() {

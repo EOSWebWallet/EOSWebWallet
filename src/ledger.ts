@@ -1,6 +1,6 @@
-import { sign, isSupported } from "u2f-api";
-import Transport from "@ledgerhq/hw-transport-u2f"; // for browser
-import Api from './hw-app-eos';
+import { sign, isSupported } from 'u2f-api'
+import Transport from '@ledgerhq/hw-transport-u2f' // for browser
+import Api from './hw-app-eos'
 
 import * as fcbuffer from 'fcbuffer'
 import * as assert from 'assert'
@@ -9,8 +9,8 @@ import * as asn1 from 'asn1-ber'
 declare var Eos: any
 import * as Eos from 'eosjs'
 
-const CLA = 0xD4;
-const INS_GET_APP_CONFIGURATION = 0x06;
+const CLA = 0xD4
+const INS_GET_APP_CONFIGURATION = 0x06
 
 export async function startListen () {
 
@@ -18,50 +18,47 @@ export async function startListen () {
 
   Transport.create().then(transport => {
     console.log(transport)
-
     const eos = new Eos(transport)
 
-  const api = new Api(transport);
+    const api = new Api(transport)
 
-  api.getPublicKey(ledgerIndex, true).then(function(result) {
-    console.log(result);
-  }).catch(function(error) {
-    console.log(error);
-  });
-
-    }).catch(function (error) {
-
+    api.getPublicKey(ledgerIndex, true).then(function(result) {
+      console.log(result)
+    }).catch(function(error) {
       console.log(error)
-
     })
-  }
-
-
-export async function signTransaction() {
-
-  Transport.create().then(transport => {
-
-    const signProvider = async ({ transaction }) => { // get transaction from somewhere (?)
-
-    const { fc } = new Eos(transport);
-
-    const buffer = this.serialize(fc.types.config.chainId, transaction, fc.types);
-    
-    const api = new Api(transport);
-    const result = await api.signTransaction(
-    "44'/194'/0'/0/0",
-    buffer.toString('hex')
-    );
-    const rawSig = result.v + result.r + result.s;
-    
-    return rawSig;
-    };
-  });
-  
+  }).catch(function (error) {
+    console.log(error)
+  })
 }
 
 
-export function serialize(chainId, transaction, types) {
+export async function signTransaction (transaction) {
+
+  let ledgerIndex = "44'/194'/0'/0/0"
+
+  Transport.create(transaction).then(transport => {
+
+    const signProvider = async ({ transaction }) => { // get transaction from somewhere (?)
+      const { fc } = new Eos(transport)
+      const buffer = this.serialize(fc.types.config.chainId, transaction, fc.types)
+      const api = new Api(transport)
+      const result = await api.signTransaction("44'/194'/0'/0/0", buffer.toString('hex'))
+      const rawSig = result.v + result.r + result.s
+      return rawSig
+      // const  xs = 10;
+    }
+    const eos = Eos({ signProvider: signProvider, authorization: 'eoswebwa11et@active', chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', httpEndpoint: 'https://eos.greymass.com', expireInSeconds: 60 })
+    const options = { authorization: ['eoswebwa11et@active'] }
+    eos.transaction('eosio.token', tr => {
+      tr.transfer('eoswebwa11et', 'test1geydemz', '0.0001 EOS', 'transfer', options)
+    })
+
+  })
+}
+
+
+export function serialize (chainId, transaction, types) {
   const writter = new asn1.BerWriter();
 
   this.encode(writter, fcbuffer.toBuffer(types.checksum256(), chainId));
@@ -111,7 +108,7 @@ export function serialize(chainId, transaction, types) {
       fcbuffer.toBuffer(types.permission_name(), authorization.permission)
     );
   }
-
+  const Buffer = global.Buffer || require('buffer').Buffer;
   const data = Buffer.from(action.data, 'hex');
   this.encode(writter, fcbuffer.toBuffer(types.unsigned_int(), data.length));
   this.encode(writter, data);
