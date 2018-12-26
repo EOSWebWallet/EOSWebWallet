@@ -7,6 +7,7 @@ import { ConfigService } from './config.service'
 import { CryptoService } from './crypto.service'
 import { LocalStorage, LocalStorageService } from 'ngx-webstorage'
 import { TranslateService } from '@ngx-translate/core'
+import * as LedgerActions from '../../ledger'
 
 declare var Eos: any
 import * as Eos from 'eosjs'
@@ -138,7 +139,8 @@ export class LoginService {
       const eosAccount = identity.accounts.find(account => account.blockchain === 'eos')
       this.accountName = eosAccount.name
       this.permission = eosAccount.authority
-    } else if (this.isLoggedIn === LoginState.publicKey) {
+    } 
+    else if (this.isLoggedIn === LoginState.publicKey) {
 
       let decodedPrivateKey = this.cryptoService.decrypt(this.privateKey)
 
@@ -149,6 +151,10 @@ export class LoginService {
       })
 
     }
+    else if (this.isLoggedIn === LoginState.ledger) {
+      eos = await LedgerActions.setupEos(this.protocol + this.currentNetwork + ':' + this.port, this.currentChainId)
+    }
+
     return {
       network: network,
       eos: eos,

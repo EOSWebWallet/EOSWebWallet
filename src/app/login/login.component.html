@@ -26,6 +26,13 @@
 				<p>{{'login.private-key'| translate}}</p>
 			</div>
 		</div>
+
+		<div class="login-div-button shadow-container" (click)="loginLedger()" (mouseover)="hoverLedger=true" (mouseleave)="hoverLedger=false">
+			<div class="align-self-center mx-auto text-center">
+				<img [src]="hoverLedger ? '../../assets/images/ledger_ochre.png' : '../../assets/images/ledger_blue.png'" class="login-image" />
+				<p>{{'login.ledger' | translate}}</p>
+			</div>
+		</div>
 	</div>
 
 	<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="!showEnterPassword()">

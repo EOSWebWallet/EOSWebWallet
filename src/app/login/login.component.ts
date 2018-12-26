@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   eos: any
 
   login: any
+  hoverLedger: boolean
   hoverScatter: boolean
   hoverEosPlugin: boolean
   hoverKey: boolean
@@ -134,8 +135,89 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   async loginLedger () {
-    await LedgerActions.signTransaction()
+    if (this.loginInProcess) return
+    this.loginInProcess = true
+
+    if (this.currentNetwork == null) {
+      this.currentNetwork = ConfigService.settings.eos.host
+    }
+
+    let cipherKey
+    let hashedPass
+
+    this.model.publicKey = await LedgerActions.getPublicKey()
+    await this.SelectNameAndPermission(this.model.publicKey)
+
+    if (this.passBase64) {
+      ({ cipherKey, hashedPass } = this.cryptoService.encrypt(this.model.publicKey, this.passBase64))
+      this.publicKey = cipherKey;
+
+      this.pass = this.passBase64
+      this.hashedPass = hashedPass
+    }
+
 }
+
+
+async SelectNameAndPermission(publicKey: string){
+
+  try {
+
+    let data
+    for (let i = 0; i < 10; i++) {
+      data = await this.accountService.findByKey('{"public_key":"' + publicKey + '"}').toPromise()
+      if (data && data.account_names.length) {
+        break
+      }
+    }
+
+    if (!data || !data.account_names.length) {
+      const dialogConfig = new MatDialogConfig()
+      dialogConfig.closeOnNavigation = true
+      dialogConfig.data = { message: await this.translations.get('dialogs.account-not-found').toPromise() }
+      let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
+      this.loginInProcess = false
+      return
+    }
+
+    let accountNotFoundMesage = await this.translations.get('dialogs.account-not-found').toPromise()
+
+    let callback = (): void => {
+      if (this.model.permission == null) {
+        const dialogConfig = new MatDialogConfig()
+        dialogConfig.closeOnNavigation = true
+        dialogConfig.data = { message: accountNotFoundMesage }
+        let dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig)
+        this.loginInProcess = false
+        return
+      }
+
+      this.gAnalyticsService.gtagEvent('02_log_in', 'connect_account', 'Ledger')
+
+      this.accountName = this.model.accountName
+      this.permission = this.model.permission
+      this.isLoggedIn = LoginState.ledger
+  
+      this.loginInProcess = false
+      this.lastIdNetwork = this.selectedIdNetwork
+      this.navigateAfterLogin()
+
+      this.lastIdNetwork = this.selectedIdNetwork
+    }
+
+    await this.selectPermission(data, callback)
+
+  } catch (err) {
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.closeOnNavigation = true
+    dialogConfig.data = { message: err }
+    let dialogRef = this.dialog.open(FailureDialogComponent, dialogConfig)
+    this.loginInProcess = false
+  }
+
+
+}
+
 
   async loginPlugin() {
     if (this.loginInProcess) return

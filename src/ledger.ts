@@ -12,38 +12,29 @@ import * as Eos from 'eosjs'
 const CLA = 0xD4
 const INS_GET_APP_CONFIGURATION = 0x06
 
-export async function startListen () {
-
+export async function getPublicKey () 
+ {
   let ledgerIndex = "44'/194'/0'/0/0"
 
-  Transport.create().then(transport => {
-    console.log(transport)
-    const eos = new Eos(transport)
+  var transport = await Transport.create()
 
-    const api = new Api(transport)
+  const api = new Api(transport)
+  var result = await api.getPublicKey(ledgerIndex, true)
+  return result.wif;
 
-    api.getPublicKey(ledgerIndex, true).then(function(result) {
-      console.log(result)
-    }).catch(function(error) {
-      console.log(error)
-    })
-  }).catch(function (error) {
-    console.log(error)
-  })
 }
 
 
-export async function signTransaction () {
+export async function setupEos (endpoint:string, chainId: string) {
 
   let ledgerIndex = "44'/194'/0'/0/0"
 
-  Transport.create().then(transport => {
+  var transport = await Transport.create()
 
     const signProvider = async ({ transaction }) => { 
-      transport.httpEndpoint = 'https://eos.greymass.com'
+      transport.httpEndpoint = endpoint
       const { fc } = new Eos(transport)
-      // fc.types.config.chainId
-      const buffer = this.serialize('aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', transaction, fc.types)
+      const buffer = this.serialize(chainId, transaction, fc.types)  // chainId instead of fc.types.config.chainId
       const api = new Api(transport)
       const result = await api.signTransaction("44'/194'/0'/0/0", buffer.toString('hex'))
       const rawSig = result.v + result.r + result.s
@@ -52,13 +43,9 @@ export async function signTransaction () {
 
     const promiseSigner = args => Promise.resolve(signProvider(args));
 
-    const eos = Eos({ signProvider: promiseSigner, authorization: 'eoswebwa11et@active', chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', httpEndpoint: 'https://eos.greymass.com', expireInSeconds: 60 })
-    const options = { authorization: ['eoswebwa11et@active'] }
-    eos.transaction('eosio.token', tr => {
-      tr.transfer('eoswebwa11et', 'test1geydemz', '0.0001 EOS', 'transfer', options)
-    })
-
-  })
+    const eos = Eos({ signProvider: promiseSigner, authorization: 'eoswebwa11et@active', chainId: chainId, httpEndpoint: endpoint, expireInSeconds: 60 })
+    
+    return eos
 }
 
 

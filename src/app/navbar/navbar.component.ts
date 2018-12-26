@@ -60,7 +60,11 @@ export class NavbarComponent {
     }
     if (this.isLoggedIn === LoginState.plugin) {
       return this.currentPluginName
-    } else if (this.isLoggedIn === LoginState.publicKey) {
+    }
+    if (this.isLoggedIn === LoginState.ledger) {
+      return 'ledger'
+    }
+    else if (this.isLoggedIn === LoginState.publicKey) {
       return 'publicKey'
     }
     return 'logo'
