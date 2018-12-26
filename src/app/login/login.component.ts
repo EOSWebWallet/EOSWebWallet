@@ -134,7 +134,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   async loginLedger () {
-    LedgerActions.signTransaction('object')
+    await LedgerActions.signTransaction()
 }
 
   async loginPlugin() {

@@ -33,22 +33,26 @@ export async function startListen () {
 }
 
 
-export async function signTransaction (transaction) {
+export async function signTransaction () {
 
   let ledgerIndex = "44'/194'/0'/0/0"
 
-  Transport.create(transaction).then(transport => {
+  Transport.create().then(transport => {
 
-    const signProvider = async ({ transaction }) => { // get transaction from somewhere (?)
+    const signProvider = async ({ transaction }) => { 
+      transport.httpEndpoint = 'https://eos.greymass.com'
       const { fc } = new Eos(transport)
-      const buffer = this.serialize(fc.types.config.chainId, transaction, fc.types)
+      // fc.types.config.chainId
+      const buffer = this.serialize('aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', transaction, fc.types)
       const api = new Api(transport)
       const result = await api.signTransaction("44'/194'/0'/0/0", buffer.toString('hex'))
       const rawSig = result.v + result.r + result.s
       return rawSig
-      // const  xs = 10;
     }
-    const eos = Eos({ signProvider: signProvider, authorization: 'eoswebwa11et@active', chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', httpEndpoint: 'https://eos.greymass.com', expireInSeconds: 60 })
+
+    const promiseSigner = args => Promise.resolve(signProvider(args));
+
+    const eos = Eos({ signProvider: promiseSigner, authorization: 'eoswebwa11et@active', chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', httpEndpoint: 'https://eos.greymass.com', expireInSeconds: 60 })
     const options = { authorization: ['eoswebwa11et@active'] }
     eos.transaction('eosio.token', tr => {
       tr.transfer('eoswebwa11et', 'test1geydemz', '0.0001 EOS', 'transfer', options)
