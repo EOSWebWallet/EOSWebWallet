@@ -145,6 +145,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     let cipherKey
     let hashedPass
 
+    try {
     this.model.publicKey = await LedgerActions.getPublicKey()
     await this.SelectNameAndPermission(this.model.publicKey)
 
@@ -155,6 +156,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.pass = this.passBase64
       this.hashedPass = hashedPass
     }
+  } catch {
+    this.loginInProcess = false
+  }
 
 }
 
