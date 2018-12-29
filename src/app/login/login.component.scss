@@ -28,7 +28,11 @@
         background-color: $white;
         cursor: pointer;
     }
-
+  .login-button-container{
+    display: inherit;
+    justify-content: space-around;
+    margin: 0 20px;
+  }
     @media screen and (max-width: 640px){
         .login-div-button {
             width: calc(37vw);
@@ -121,7 +125,9 @@
     #page-title {
         margin-bottom: $block_p_h_lg;
     }
-    
+    .login-button-container{
+      margin: 0px;
+    }
     .login-wrapp{
         .login-div-button {
             margin: 0 3% ($block_p_h_lg / 2);
@@ -165,6 +171,9 @@
     }
     
     .login-wrapp{
+      .login-button-container{
+        margin: 0px;
+      }
         .login-div-button {
             margin: 0 3% ($block_p_h_md / 2);
             min-width: 140px;

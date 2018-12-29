@@ -2,6 +2,7 @@
 	<h3 id="page-title" class="text-center">{{'login.connect-account' | translate}}</h3>
 
 	<div class="login-wrapp">
+    <div class="login-button-container">
 	    <div class="login-div-button shadow-container"
 			(click)="loginEosPlugin();" gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'scatter'"
 			(mouseover)="hoverEosPlugin=true" (mouseleave)="hoverEosPlugin=false">			  
@@ -9,7 +10,7 @@
 				<img [src]="hoverEosPlugin ? '../../assets/images/eos_plugin_ochre.png' : '../../assets/images/eos_plugin_blue.png'" class="login-image" />
 				<p>{{'login.eos-plugin' | translate}}</p>
 			</div>
-		</div> 
+		  </div>
 
 		<div class="login-div-button shadow-container" (click)="loginScatter()" (mouseover)="hoverScatter=true" (mouseleave)="hoverScatter=false">
 			<div class="align-self-center mx-auto text-center">
@@ -17,7 +18,9 @@
 				<p>{{'login.scatter-plugin' | translate}}</p>
 			</div>
 		</div>
+    </div>
 
+    <div class="login-button-container">
 		<div class="login-div-button shadow-container" (click)="showKeyLogin = !showKeyLogin" (mouseover)="hoverKey=true"
 			gAnalytics [event]="'01_icon_click'" [category]="'connect_account'" [label]="'private_key'"
 		 	(mouseleave)="hoverKey=false">
@@ -33,7 +36,8 @@
 				<p>{{'login.ledger' | translate}}</p>
 			</div>
 		</div>
-	</div>
+    </div>
+
 
 	<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="!showEnterPassword()">
 		<div class="row form-items">
