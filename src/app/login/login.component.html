@@ -39,7 +39,7 @@
     </div>
 
 
-	<form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="!showEnterPassword()">
+	<form class="col-12" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" [ngClass]="{'hide-form': !showKeyLogin}" *ngIf="!showEnterPassword()">
 		<div class="row form-items">
 			<div class="item d-flex">
 				<mat-form-field class="full-width" #tooltip="matTooltip" matTooltip="{{'login.data' | translate}}">

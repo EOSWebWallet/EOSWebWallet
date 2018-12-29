@@ -156,11 +156,10 @@
 
 }
 
-@media screen and (min-width: $sm + 1){
-    .hide-form{
-        display: none;
-    }
+.hide-form{
+  display: none;
 }
+
 @media screen and (max-width: $lg){
     .login-page-wrapp{
         padding: 0 .6rem 0 0;
