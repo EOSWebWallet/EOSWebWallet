@@ -18,7 +18,7 @@
     justify-content: center;
     .login-div-button {
         display: flex;
-        margin: 0 3% ($block_p_h / 2);
+        margin: 0 3% 6%;
         width: 165.7px;
         min-width: 165.7px;
         height: 165.7px;
@@ -130,7 +130,7 @@
     }
     .login-wrapp{
         .login-div-button {
-            margin: 0 3% ($block_p_h_lg / 2);
+            margin: 0 3% 6%;
             width: 160px;
             min-width: 160px;
             height: 160px;
@@ -174,7 +174,7 @@
         margin: 0px;
       }
         .login-div-button {
-            margin: 0 3% ($block_p_h_md / 2);
+            margin: 0 3% 6%;
             min-width: 140px;
         }
     }
@@ -213,7 +213,7 @@
         flex-direction: column;
         align-items: center;
         .login-div-button {
-            margin: 0 0 10px 0;
+            margin: 0 10px 20px 10px;
             height: 160px;
         }
     }
