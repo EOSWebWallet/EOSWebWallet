@@ -344,6 +344,7 @@
     "scatter-plugin": "Scatter plugin",
     "eos-plugin": "EOS plugin",
     "private-key": "Clé privée",
+    "ledger": "Ledger",
     "data": "EosWebWallet ne stocke pas vos données. Nous ne pouvons pas accéder aux comptes, récupérer les clés, réinitialiser les mots de passe ou les transactions inversées. Les informations de clé privée sont stockées localement par Vous.",
     "public-key": "Clé publique",
     "account-name": "Compte",
